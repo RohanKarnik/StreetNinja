@@ -1,0 +1,22 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattleGui\BattleGui.cs">
+    <Files>
+      <File FileName="Assets\BattleGui\BattleGui.cs" Line="198" Column="32" />
+      <File FileName="Assets\BattleScript.cs" Line="217" Column="19" />
+      <File FileName="Assets\Assets\Player\Player.cs" Line="344" Column="9" />
+      <File FileName="Assets\Assets\Player\Abilities.cs" Line="242" Column="26" />
+      <File FileName="Assets\Assets\Enemy\Enemy.cs" Line="30" Column="3" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A1.cs" Line="25" Column="30" />
+      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C1.cs" Line="41" Column="7" />
+      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C2.cs" Line="41" Column="7" />
+      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C3.cs" Line="54" Column="37" />
+      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C4.cs" Line="36" Column="48" />
+      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C5.cs" Line="56" Column="37" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
