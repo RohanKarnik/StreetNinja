@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 	
 		hP = 1000;
-		previousAttack = -1;
+		previousAttack = 0;
 		
 		isClicked = false;
 		

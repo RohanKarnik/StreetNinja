@@ -136,7 +136,7 @@ public class BattleScript : MonoBehaviour {
 					//OverTime effects
 					if(player.playerStatus.hPBuffCounter > 0){
 		
-						player.hP += (player.hP * player.playerStatus.hPoT);
+						player.hP += (int)(player.hP * player.playerStatus.hPoT);
 						player.playerStatus.hPBuffCounter--;
 					}
 				
@@ -211,11 +211,14 @@ public class BattleScript : MonoBehaviour {
 				if(Time.time >= player.gameTimer){
 					int tempAttack = Random.Range(1,3);
 					
-					if(tempAttack == 1)
+					if(tempAttack == 1){
+						enemy.previousAttack = 0;
 						player.hP -= 25;
-					else
+					}
+					else{
+						enemy.previousAttack = 1;
 						player.hP -= 50;
-				
+					}
 					//start over again
 					resetTurns();
 					
@@ -232,9 +235,12 @@ public class BattleScript : MonoBehaviour {
 		
 		
 		//Ammend and Reset Turn variables
-		player.aAbilityChosen = 0;
-		player.bAbilityChosen = 0;
-		player.cAbilityChosen = 0;
+		if(player.aAbilityChosen > -1)
+			player.aAbilityChosen = 0;
+		if(player.bAbilityChosen > -1)
+			player.bAbilityChosen = 0;
+		if(player.cAbilityChosen > -1)
+			player.cAbilityChosen = 0;
 		
 		player.lastAbilityChosen = 0;
 		
@@ -521,7 +527,7 @@ public class BattleScript : MonoBehaviour {
 				
 				enemy.hP -= (int)(player.playerAbilities.abilitiesB.b1Damage * tempBuff);
 				
-				player.hP += (player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL1);
+				player.hP += (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL1);
 			}
 			
 			if(player.playerAbilities.abilitiesB.b1level == 2){
@@ -529,7 +535,7 @@ public class BattleScript : MonoBehaviour {
 				
 				enemy.hP -= (int)(player.playerAbilities.abilitiesB.b1Damage * tempBuff);
 				
-				player.hP += (player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL2);
+				player.hP += (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL2);
 			}
 			
 			if(player.playerAbilities.abilitiesB.b1level == 3){
@@ -537,7 +543,7 @@ public class BattleScript : MonoBehaviour {
 				
 				enemy.hP -= (int)(player.playerAbilities.abilitiesB.b1Damage * tempBuff);
 				
-				player.hP += (player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL2);
+				player.hP += (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL2);
 			}			
 		}
 		
@@ -694,7 +700,7 @@ public class BattleScript : MonoBehaviour {
 				
 				enemy.hP -= (int)(player.playerAbilities.abilitiesB.b4Damage * tempBuff);
 				
-				player.hP += (player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL1);
+				player.hP += (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL1);
 			}
 			
 			if(player.playerAbilities.abilitiesB.b4level == 1){
@@ -702,7 +708,7 @@ public class BattleScript : MonoBehaviour {
 				
 				enemy.hP -= (int)(player.playerAbilities.abilitiesB.b4Damage * tempBuff);
 				
-				player.hP += (player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL2);
+				player.hP += (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL2);
 			}
 			
 			if(player.playerAbilities.abilitiesB.b4level == 1){
@@ -710,7 +716,7 @@ public class BattleScript : MonoBehaviour {
 				
 				enemy.hP -= (int)(player.playerAbilities.abilitiesB.b4Damage * tempBuff);
 				
-				player.hP += (player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL3);
+				player.hP += (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL3);
 			}
 		}
 		

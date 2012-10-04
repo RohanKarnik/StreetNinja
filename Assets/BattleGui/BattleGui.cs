@@ -78,9 +78,26 @@ public class BattleGui : MonoBehaviour {
 	public UILabel playerApGenLabel;
 	
 	
+	public UILabel enemyHpDamageLabel;
+	public UILabel enemyHpPlusLabel;
+	
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(player.TurnPhases == 0){
+			if(playerHpHealLabel != false)
+				playerHpHealLabel.enabled = false;
+			if(playerHpDamageLabel != false)
+				playerHpDamageLabel.enabled = false;
+			if(playerApGenLabel != false)
+				playerApGenLabel.enabled = false;
+			
+			if(enemyHpDamageLabel != null)
+				enemyHpDamageLabel.enabled = false;
+			if(enemyHpPlusLabel != null)
+				enemyHpPlusLabel.enabled = false;
+		}
 		
 		#region Update Buttons
 		if(A1Button != null)
@@ -494,25 +511,138 @@ public class BattleGui : MonoBehaviour {
 		//Execute B Abilities
 		else if(player.TurnPhases == 4){
 			
+			string tempPlayerHealLabel = "";
+			
+			string tempEnemyDamLabel = "";
+			
 			if(player.bAbilityChosen == -1)
 				headingText = "Battle Update: No Ability B Chosen";
 				
-			else
+			//DamageShown
+			else{
 				headingText = "Battle Update: Executing Ability B" + player.bAbilityChosen + "\n";
+			
+				if(player.bAbilityChosen == 1){
+					tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b1Damage + "HP";
+					
+					if(player.playerAbilities.abilitiesB.b1level == 1)
+						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL1) + "HP";
+					else if(player.playerAbilities.abilitiesB.b1level == 2)
+						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL2) + "HP";
+					else if(player.playerAbilities.abilitiesB.b1level == 3)
+						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL3) + "HP";
+				}
+				else if(player.bAbilityChosen == 2){
+					
+					if(player.playerAbilities.abilitiesB.b2level == 1)
+						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b2DamageLvL1 + "HP";
+					else if(player.playerAbilities.abilitiesB.b2level == 2)
+						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b2DamageLvL2 + "HP";
+					else if(player.playerAbilities.abilitiesB.b2level == 3)
+						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b2DamageLvL3 + "HP";
+					
+				}
+				else if(player.bAbilityChosen == 3){
+					
+					if(player.playerAbilities.abilitiesB.b3level == 1)
+						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b3DamageLvL1 + "HP";
+					else if(player.playerAbilities.abilitiesB.b3level == 2)
+						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b3DamageLvL2 + "HP";
+					else if(player.playerAbilities.abilitiesB.b3level == 3)
+						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b3DamageLvL3 + "HP";
+				}
+				else if(player.bAbilityChosen == 4){
+					tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b4Damage + "HP";
+					
+					if(player.playerAbilities.abilitiesB.b4level == 1)
+						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL1) + "HP";
+					else if(player.playerAbilities.abilitiesB.b4level == 2)
+						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL2) + "HP";
+					else if(player.playerAbilities.abilitiesB.b4level == 3)
+						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL3) + "HP";
+					
+					
+				}
+				else if(player.bAbilityChosen == 5){
+					tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b5Damage + "HP";
+				}
+				
+				
+				if(playerHpHealLabel != null){
+					playerHpHealLabel.text = tempPlayerHealLabel;
+					playerHpHealLabel.enabled = true;	
+				}
+				
+				if(enemyHpDamageLabel != null){
+					enemyHpDamageLabel.text = tempEnemyDamLabel;
+					enemyHpDamageLabel.enabled = true;
+				}
+				
+			}
 		}
 		
 		//Execute A Abilities
 		else if(player.TurnPhases == 5){
+			//Reset ShownIcons
+			if(playerHpHealLabel != null)
+				playerHpHealLabel.enabled = false;
+			if(enemyHpDamageLabel != null)
+				enemyHpDamageLabel.enabled = false;
+			
+			
+			string tempEnemyDamLabel = "";
+			
+			string tempPlayerApBoost = "";
+			
 			
 			if(player.aAbilityChosen == -1)
 				headingText = "Battle Update: No Ability A Chosen";
-			else
+			else{
 				headingText = "Battle Update: Executing Ability A" + player.aAbilityChosen + "\n";
+				
+				if(player.aAbilityChosen == 1){
+					tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a1ApBoost + "AP";
+				}
+				//Rework for new ability
+				else if(player.aAbilityChosen == 2){
+					tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a2aPBoostA + "AP";
+				}
+				else if(player.aAbilityChosen == 3){
+					tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a3ApBoost + "AP";
+				}
+				else if(player.aAbilityChosen == 4){
+					tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a4ApBoost + "AP";
+				}
+				else if(player.aAbilityChosen == 5){
+					
+					if(player.playerAbilities.abilitiesC.c5level == 1)
+						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";
+					else if(player.playerAbilities.abilitiesC.c5level == 2)
+						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";	
+					else if(player.playerAbilities.abilitiesC.c5level == 3)
+						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";
+				}
+				
+				if(playerApGenLabel != null){
+					playerApGenLabel.text = tempPlayerApBoost;
+					playerApGenLabel.enabled = true;
+				}
+				
+				
+			}
 			
 		}
 		
 		//Execute C Abilities
 		else if(player.TurnPhases == 6){
+			//Reset ShownIcons
+			if(playerHpHealLabel != null)
+				playerHpHealLabel.enabled = false;
+			if(playerApGenLabel != null)
+				playerApGenLabel.enabled = false;
+			if(enemyHpDamageLabel != null)
+				enemyHpDamageLabel.enabled = false;
+			
 			
 			if(player.cAbilityChosen == -1)
 				headingText = "Battle Update: No Ability C Chosen";
@@ -522,17 +652,78 @@ public class BattleGui : MonoBehaviour {
 		
 		//Apply OverTime Effects
 		else if(player.TurnPhases == 7){
+			//Reset ShownIcons
+			//if(playerHpHealLabel != null)
+				//playerHpHealLabel.enabled = false;
+			//if(playerApGenLabel != null)
+				//playerApGenLabel.enabled = false;
+			//if(enemyHpDamageLabel != null)
+				//enemyHpDamageLabel.enabled = false;
 			
-				headingText = "Battle Update: Applying OvertimeEffects" + player.aAbilityChosen + "\n";
+			string tempPlayerHpBoost = "";
+			string tempPlayerApBoost = "";
+			
+			string tempEnemyDamLabel = "";
+			
+			
+			if(player.playerStatus.hPBuffCounter > 0)
+				tempPlayerHpBoost = "+" + (int)(player.hP * player.playerStatus.hPoT) + "HP";
+			if(player.playerStatus.aPBuffCounter > 0)
+				tempPlayerApBoost = "+" + player.playerStatus.aPoT + "AP";
+			
+			if(enemy.doTCounter > 0)
+				tempEnemyDamLabel = "-" + (int)(enemy.hP * enemy.doT) + "HP";
+			
+			
+			headingText = "Battle Update: Applying OvertimeEffects";
+			
+			
+			//Show effects
+			if(playerHpHealLabel != null){
+				playerHpHealLabel.text = tempPlayerHpBoost;
+				playerHpHealLabel.enabled = true;
+			}
+			if(playerApGenLabel != null){
+				playerApGenLabel.text = tempPlayerApBoost;
+				playerApGenLabel.enabled = true;
+			}
+			if(enemyHpDamageLabel !=null){
+				enemyHpDamageLabel.text = tempEnemyDamLabel;
+				enemyHpDamageLabel.enabled = true;
+			}
 			
 		}
 		
 		//Enemy's turn
 		else if(player.TurnPhases == 8){
+			//Reset ShownIcons
+			if(playerHpHealLabel != null)
+				playerHpHealLabel.enabled = false;
+			if(playerApGenLabel != null)
+				playerApGenLabel.enabled = false;
+			if(enemyHpDamageLabel != null)
+				enemyHpDamageLabel.enabled = false;
+			
+			
 			
 			if(battleInfoBox != null)
 				headingText = "Battle Update: Enemy's Turn\n" +
 					"Enemy Attacking Player";
+			
+			
+			
+			if(enemy.previousAttack == 0){
+				if(playerHpDamageLabel != null)
+					playerHpDamageLabel.text = "-25HP";	
+			}
+			
+			else if(enemy.previousAttack == 1){
+				if(playerHpDamageLabel != null)
+					playerHpDamageLabel.text = "-50HP";	
+			}
+			
+			if(playerHpDamageLabel != null)
+				playerHpDamageLabel.enabled = true;
 			
 		}
 		

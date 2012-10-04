@@ -10,9 +10,9 @@ desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Input initialized.
 Initialize engine version: 3.5.5f3
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\John\Desktop\Deliverable2\Task1_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\John\Desktop\Deliverable2\Task1_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\John\Desktop\Deliverable2\Task1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\John\Desktop\Deliverable2\Task1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.173 seconds
-Platform assembly: C:\Users\John\Desktop\Deliverable2\Task1_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.165 seconds
+Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\System.dll (this message is harmless)
