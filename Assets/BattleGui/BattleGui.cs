@@ -71,6 +71,12 @@ public class BattleGui : MonoBehaviour {
 	public UIFilledSprite enemyCanCastIcon;
 	public UILabel enemyCanCastLabel;
 	
+	//Shown Damage Icons
+	public UILabel playerHpHealLabel;
+	public UILabel playerHpDamageLabel;
+	
+	public UILabel playerApGenLabel;
+	
 	
 	
 	// Update is called once per frame
@@ -212,9 +218,9 @@ public class BattleGui : MonoBehaviour {
 		
 		//Turns
 		if(turnsLabel != null){
-			if(player.TurnPhases == 0)
+			if(player.TurnPhases < 8)
 				turnsLabel.text = "Player's Turn";
-			if(player.TurnPhases == 8)
+			else
 				turnsLabel.text = "Enemy's Turn";
 				
 		}
@@ -378,21 +384,21 @@ public class BattleGui : MonoBehaviour {
 				if(player.playerAbilities.abilitiesC.c1level == 1){
 					abilityText = "Ability C1 LvL1 Costs: 0AP\n" +
 						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL1 + "% less effective" +
+						"But " + (100 * player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL1) + "% less effective" +
 						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
 				}
 				
 				else if(player.playerAbilities.abilitiesC.c1level == 2){
 					abilityText = "Ability C1 LvL2 Costs: 0AP\n" +
 						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL2 + "% less effective" +
+						"But " + (100 * player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL2) + "% less effective" +
 						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
 				}
 				
 				else if(player.playerAbilities.abilitiesC.c1level == 3){
 					abilityText = "Ability C1 LvL2 Costs: 0AP\n" +
 						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL3 + "% less effective" +
+						"But " + (100 * player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL3) + "% less effective" +
 						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
 				}
 			}
@@ -400,21 +406,21 @@ public class BattleGui : MonoBehaviour {
 				if(player.playerAbilities.abilitiesC.c2level == 1){
 					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
 						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c2AbilityBuffLvL1 + "% more effective" +
+						"But " + (100 * (player.playerAbilities.abilitiesC.c2AbilityBuffLvL1 - 1.0f)) + "% more effective" +
 						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
 				}
 				
 				else if(player.playerAbilities.abilitiesC.c2level == 2){
 					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
 						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c2AbilityBuffLvL2 + "% more effective" +
+						"But " + (100 * (player.playerAbilities.abilitiesC.c2AbilityBuffLvL2 - 1.0f)) + "% more effective" +
 						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
 				}
 				
 				else if(player.playerAbilities.abilitiesC.c2level == 3){
 					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
 						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c2AbilityBuffLvL3 + "% more effective" +
+						"But " + (100 * (player.playerAbilities.abilitiesC.c2AbilityBuffLvL3 - 1.0f)) + "% more effective" +
 						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
 				}
 			}
@@ -438,21 +444,21 @@ public class BattleGui : MonoBehaviour {
 				}
 			}
 			else if(player.lastAbilityChosen == 14){
-				if(player.playerAbilities.abilitiesC.c3level == 1){
+				if(player.playerAbilities.abilitiesC.c4level == 1){
 					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
 						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL1) + "%" +
 						" of total health\n" +
 						"Fades away in 2 turns";
 				}
 				
-				else if(player.playerAbilities.abilitiesC.c3level == 2){
+				else if(player.playerAbilities.abilitiesC.c4level == 2){
 					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
 						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL2) + "%" +
 						" of total health\n" +
 						"Fades away in 2 turns";
 				}
 				
-				else if(player.playerAbilities.abilitiesC.c3level == 3){
+				else if(player.playerAbilities.abilitiesC.c4level == 3){
 					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
 						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL3) + "%" +
 						" of total health\n" +
@@ -460,21 +466,21 @@ public class BattleGui : MonoBehaviour {
 				}
 			}
 			else if(player.lastAbilityChosen == 15){
-				if(player.playerAbilities.abilitiesC.c3level == 1){
+				if(player.playerAbilities.abilitiesC.c5level == 1){
 					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL1 + "turns\n" +
+						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL1 + " turns\n" +
 						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl1 + " turns";
 				}
 				
-				else if(player.playerAbilities.abilitiesC.c3level == 2){
+				else if(player.playerAbilities.abilitiesC.c5level == 2){
 					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL2 + "turns\n" +
+						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL2 + " turns\n" +
 						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl2 + " turns";
 				}
 				
-				else if(player.playerAbilities.abilitiesC.c3level == 3){
+				else if(player.playerAbilities.abilitiesC.c5level == 3){
 					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL3 + "turns\n" +
+						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL3 + " turns\n" +
 						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl3 + " turns";
 				}
 			}
@@ -483,271 +489,34 @@ public class BattleGui : MonoBehaviour {
 			headingText = "Battle Update: Time to choose abilities\n" + abilityText;
 		}
 		
-		#region OldCode
-		/*
-		//TODO:Amend for C Ability Buffs
-		//Player chooses B Abilities
-		else if(player.TurnPhases == 1){
-			
-			//BattleInfo
-			#region B Abilities
-			if(player.bAbilityChosen == 1){
-				
-				if(player.playerAbilities.abilitiesB.b1level == 1){
-					abilityText = "Ability B1 LvL1: Costs " + player.playerAbilities.abilitiesB.b1aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL1 * 100) +
-							"%HP";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b1level == 2){
-					abilityText = "Ability B1 LvL2: Costs " + player.playerAbilities.abilitiesB.b1aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL2 * 100) +
-							"%HP";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b1level == 3){
-					abilityText = "Ability B1 LvL2: Costs " + player.playerAbilities.abilitiesB.b1aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL3 * 100) +
-							"%HP";
-				}
-				
-			}
-			
-			else if(player.bAbilityChosen == 2){
-				
-				if(player.playerAbilities.abilitiesB.b2level == 1){
-					abilityText = "Ability B2 LvL1: Costs " + player.playerAbilities.abilitiesB.b2aPCost +
-						" AP\nDoes Mid-Dam (25hP) and DoT to ememy for " + player.playerAbilities.abilitiesB.b2doTTurnsLvL1 +
-							" turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b2level == 2){
-					abilityText = "Ability B2 LvL2: Costs " + player.playerAbilities.abilitiesB.b2aPCost +
-						" AP\nDoes High-Dam (50hP) and DoT to ememy for " + player.playerAbilities.abilitiesB.b2doTTurnsLvL2 +
-							" turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b2level == 2){
-					abilityText = "Ability B2 LvL3: Costs " + player.playerAbilities.abilitiesB.b2aPCost +
-						" AP\nDoes High-Dam (50hP) and DoT to ememy for  " + player.playerAbilities.abilitiesB.b2doTTurnsLvL3 +
-							" turns";
-				}
-				
-			}
-			
-			else if(player.bAbilityChosen == 3){
-				
-				if(player.playerAbilities.abilitiesB.b3level == 1){
-					abilityText = "Ability B3 LvL1: Costs " + player.playerAbilities.abilitiesB.b3aPCost +
-						" AP\nDoes High-Dam (50hP) and dispells enemy's buffs";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b3level == 2){
-					abilityText = "Ability B3 LvL2: Costs " + player.playerAbilities.abilitiesB.b3aPCost +
-						" AP\nDoes Higher-Dam (75hP) and dispells enemy's buffs";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b3level == 3){
-					abilityText = "Ability B3 LvL3: Costs " + player.playerAbilities.abilitiesB.b3aPCost +
-						" AP\nDoes Higher-Dam (75hP) and prevents enemy from casting buffs";
-				}
-				
-				
-			}
-			
-			else if(player.bAbilityChosen == 4){
-				
-				if(player.playerAbilities.abilitiesB.b4level == 1){
-					abilityText = "Ability B4 LvL1: Costs " + player.playerAbilities.abilitiesB.b4aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL1 * 100) +
-							"%HP";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b4level == 2){
-					abilityText = "Ability B4 LvL2: Costs " + player.playerAbilities.abilitiesB.b4aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL2 * 100) +
-							"%HP";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b4level == 3){
-					abilityText = "Ability B4 LvL3: Costs " + player.playerAbilities.abilitiesB.b4aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL3 * 100) +
-							"%HP";
-				}
-				
-			}
-			
-			else if(player.bAbilityChosen == 5){
-			
-				if(player.playerAbilities.abilitiesB.b5level == 1){
-					abilityText = "Ability B5 LvL1: Costs " + player.playerAbilities.abilitiesB.b5aPCost +
-						" AP\nDoes Mega-Dam (100HP) and ups Crit Area";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b5level == 2){
-					abilityText = "Ability B5 LvL2: Costs " + player.playerAbilities.abilitiesB.b5aPCost +
-						" AP\nDoes Mega-Dam (100HP) and is a guaranteed Crit";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b5level == 3){
-					abilityText = "Ability B5 LvL3: Costs " + player.playerAbilities.abilitiesB.b5aPCost +
-						" AP\nDoes Mega-Dam (100HP) and casts Big DoT for 3 turns";
-				}
-				
-			}
-			
-			else{
-				abilityText = "No ability chosen";
-			}
-			
-			#endregion
-			
-			if(battleInfoBox != null)
-				battleInfoBox.text = "Battle Update: Time to choose a B ability\n" + abilityText;
-		}
 		
-		//Player chooses C Abilities
-		else if(player.TurnPhases == 2){
-			//BattleInfo
-			#region C Abilities
-			if(player.cAbilityChosen == 1){
-				if(player.playerAbilities.abilitiesC.c1level == 1){
-					abilityText = "Ability C1 LvL1 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL1 + "% less effective" +
-						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c1level == 2){
-					abilityText = "Ability C1 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL2 + "% less effective" +
-						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c1level == 3){
-					abilityText = "Ability C1 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL3 + "% less effective" +
-						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
-				}
-			}
-			
-			if(player.cAbilityChosen == 2){
-				if(player.playerAbilities.abilitiesC.c2level == 1){
-					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c2AbilityBuffLvL1 + "% more effective" +
-						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c2level == 2){
-					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c2AbilityBuffLvL2 + "% more effective" +
-						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c2level == 3){
-					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + player.playerAbilities.abilitiesC.c2AbilityBuffLvL3 + "% more effective" +
-						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
-				}
-			}
-			
-			if(player.cAbilityChosen == 3){
-				if(player.playerAbilities.abilitiesC.c3level == 1){
-					abilityText = "Ability C3 LvL1 Costs: " + player.playerAbilities.abilitiesC.c3ApCost + "AP" +
-						"\nA Abilities base generation in increased by " + player.playerAbilities.abilitiesC.c3ApGenBuffLvL1 +
-						"AP\nFor the next " + player.playerAbilities.abilitiesC.c3ApGenBuffTurnsLvL1 +  " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 2){
-					abilityText = "Ability C3 LvL1 Costs: " + player.playerAbilities.abilitiesC.c3ApCost + "AP" +
-						"\nA Abilities base generation in increased by " + player.playerAbilities.abilitiesC.c3ApGenBuffLvL2 +
-						"AP\nFor the next " + player.playerAbilities.abilitiesC.c3ApGenBuffTurnsLvL2 +  " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 3){
-					abilityText = "Ability C3 LvL1 Costs: " + player.playerAbilities.abilitiesC.c3ApCost + "AP" +
-						"\nA Abilities base generation in increased by " + player.playerAbilities.abilitiesC.c3ApGenBuffLvL3 +
-						"AP\nFor the next " + player.playerAbilities.abilitiesC.c3ApGenBuffTurnsLvL3 +  " turns";
-				}
-			}
-			
-			if(player.cAbilityChosen == 4){
-				if(player.playerAbilities.abilitiesC.c3level == 1){
-					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
-						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL1) + "%" +
-						" of total health\n" +
-						"Fades away in 2 turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 2){
-					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
-						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL2) + "%" +
-						" of total health\n" +
-						"Fades away in 2 turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 3){
-					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
-						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL3) + "%" +
-						" of total health\n" +
-						"Fades away in 2 turns";
-				}
-			}
-			
-			if(player.cAbilityChosen == 5){
-				if(player.playerAbilities.abilitiesC.c3level == 1){
-					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL1 + "turns\n" +
-						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl1 + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 2){
-					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL2 + "turns\n" +
-						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl2 + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 3){
-					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL3 + "turns\n" +
-						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl3 + " turns";
-				}
-			}
-			
-			#endregion
-			
-			if(battleInfoBox != null)
-				battleInfoBox.text = "Battle Update: Time to choose a C ability\n" + abilityText;
-		}
-		
-		//Choose to execute or redo
-		else if(player.TurnPhases == 3){
-			
-		}
-		*/
-		#endregion
-		
-		//Execute A Abilities
-		else if(player.TurnPhases == 4){
-			
-				headingText = "Battle Update: Executing Ability A" + player.aAbilityChosen + "\n";
-			
-		}
 		
 		//Execute B Abilities
+		else if(player.TurnPhases == 4){
+			
+			if(player.bAbilityChosen == -1)
+				headingText = "Battle Update: No Ability B Chosen";
+				
+			else
+				headingText = "Battle Update: Executing Ability B" + player.bAbilityChosen + "\n";
+		}
+		
+		//Execute A Abilities
 		else if(player.TurnPhases == 5){
 			
-				headingText = "Battle Update: Executing Ability B" + player.bAbilityChosen + "\n";
+			if(player.aAbilityChosen == -1)
+				headingText = "Battle Update: No Ability A Chosen";
+			else
+				headingText = "Battle Update: Executing Ability A" + player.aAbilityChosen + "\n";
+			
 		}
 		
 		//Execute C Abilities
 		else if(player.TurnPhases == 6){
 			
+			if(player.cAbilityChosen == -1)
+				headingText = "Battle Update: No Ability C Chosen";
+			else
 				headingText = "Battle Update: Executing Ability C" + player.cAbilityChosen + "\n";
 		}
 		

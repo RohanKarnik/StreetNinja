@@ -76,26 +76,12 @@ public class BattleScript : MonoBehaviour {
 				
 				
 			}	
+			//Switched B for A Ability
+			//Battle Sequence B : A : C
 			
-			//Execute A ability
+			//Execute B ability
 			else if(player.TurnPhases == 4){
 				
-				
-				if(Time.time >= player.gameTimer){
-					
-					if(player.aAbilityChosen != 0)
-						executeAAbilities(player.aAbilityChosen);
-					
-					//Wait
-					player.gameTimer = Time.time + 3;
-					
-					player.TurnPhases = 5;
-				}
-				
-			}
-			
-			//Execute B Ability
-			else if(player.TurnPhases == 5){
 				
 				if(Time.time >= player.gameTimer){
 					
@@ -105,8 +91,25 @@ public class BattleScript : MonoBehaviour {
 					//Wait
 					player.gameTimer = Time.time + 3;
 					
+					player.TurnPhases = 5;
+				}
+				
+			}
+			
+			//Execute A Ability
+			else if(player.TurnPhases == 5){
+				
+				if(Time.time >= player.gameTimer){
+					
+					if(player.aAbilityChosen != 0)
+						executeAAbilities(player.aAbilityChosen);
+					
+					//Wait
+					player.gameTimer = Time.time + 3;
+					
 					player.TurnPhases = 6;
 				}
+				
 			}
 			
 			//Execute C Ability
