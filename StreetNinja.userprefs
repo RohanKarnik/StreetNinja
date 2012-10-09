@@ -1,12 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattleGui\BattleGui.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattleScript.cs">
     <Files>
-      <File FileName="Assets\BattleGui\BattleGui.cs" Line="678" Column="59" />
-      <File FileName="Assets\Assets\Player\Player.cs" Line="28" Column="22" />
-      <File FileName="Assets\Assets\Enemy\Enemy.cs" Line="43" Column="21" />
-      <File FileName="Assets\BattleScript.cs" Line="219" Column="31" />
+      <File FileName="Assets\BattleGui\BattleGui.cs" Line="1" Column="1" />
+      <File FileName="Assets\Assets\Enemy\Enemy.cs" Line="31" Column="20" />
+      <File FileName="Assets\BattleScript.cs" Line="845" Column="5" />
+      <File FileName="Assets\Assets\Player\Player.cs" Line="91" Column="56" />
       <File FileName="Assets\Assets\Player\Abilities.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A1.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C1.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\B Abilities\B1.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\B Abilities\B2.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\B Abilities\B3.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\B Abilities\B4.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\B Abilities\B5.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

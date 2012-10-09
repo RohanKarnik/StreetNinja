@@ -10,14 +10,14 @@ public class A5 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		//if(player.TurnPhases == 0){
-			player.aAbilityChosen = 5;
+		if(player.TurnPhases == 0){
+			player.gunAbilityChosen = 5;
 		
 			//player.TurnPhases = 1;
 			
 			//Test
 			//player.gameTimer = Time.time + 3;
-		//}
+		}
 		
 	}
 	
@@ -30,7 +30,7 @@ public class A5 : MonoBehaviour {
 	
 		//if(player.TurnPhases > 0){
 		
-			if(player.aAbilityChosen == 5)
+			if(player.gunAbilityChosen == 5)
 				button.defaultColor = Color.red;
 		//}
 		

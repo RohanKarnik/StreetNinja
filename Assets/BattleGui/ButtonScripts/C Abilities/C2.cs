@@ -10,16 +10,17 @@ public class C2 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		//if(player.TurnPhases == 2){
+		if(player.TurnPhases == 0){
 				
-				player.cAbilityChosen = 2;
+			player.stanceChosen  = 2;
 		
+			player.stanceChanged = true;
 				//player.TurnPhases = 4;
 			
 				//Delay
 				//player.gameTimer = Time.time + 3;
 			
-		//}
+		}
 		
 	}
 	
@@ -32,7 +33,7 @@ public class C2 : MonoBehaviour {
 	
 		//if(player.TurnPhases > 0){
 		
-			if(player.cAbilityChosen == 2)
+		if(player.stanceChosen  == 2)
 				button.defaultColor = Color.red;
 		//}
 		

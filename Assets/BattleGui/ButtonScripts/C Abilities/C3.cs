@@ -10,19 +10,17 @@ public class C3 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		//if(player.TurnPhases == 0){
-				
-			if(player.aP >= player.playerAbilities.abilitiesC.c3ApCost){
+		if(player.TurnPhases == 0){
 			
-				player.cAbilityChosen = 3;
-		
+			player.stanceChosen = 3;
+			
+			player.stanceChanged = true;
 				//player.TurnPhases = 4;
 			
 				//Delay
 				//player.gameTimer = Time.time + 3;
-			}
 			
-		//}
+		}
 		
 	}
 	
@@ -33,13 +31,10 @@ public class C3 : MonoBehaviour {
 	
 	void Update(){
 	
-		//Do not player select what they can't afford
-		if(player.aP < player.playerAbilities.abilitiesC.c3ApCost)
-			button.defaultColor = Color.grey;
 		
 		//if(player.TurnPhases > 0){
 		
-			if(player.cAbilityChosen == 3)
+		if(player.stanceChosen  == 3)
 				button.defaultColor = Color.red;
 		//}
 		
@@ -48,9 +43,6 @@ public class C3 : MonoBehaviour {
 		else
 				button.defaultColor = Color.blue;
 		//}
-		
-			//Do not player select what they can't afford
-		if(player.aP < player.playerAbilities.abilitiesC.c3ApCost)
-			button.defaultColor = Color.grey;	
+
 	}
 }

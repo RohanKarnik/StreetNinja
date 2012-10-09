@@ -10,17 +10,17 @@ public class B3 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		//if(player.TurnPhases == 1){
+		if(player.TurnPhases == 0){
 			
-			if(player.aP >= player.playerAbilities.abilitiesB.b3aPCost){
-			player.bAbilityChosen = 3;
+			if(player.aP >= (-1 * player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost)){
+				player.swordAbilityChosen = 3;
 		
 			//player.TurnPhases = 3;
 						
 			//Delay
 			//player.gameTimer = Time.time + 3;
 			}
-		//}
+		}
 		
 	}
 	
@@ -30,14 +30,10 @@ public class B3 : MonoBehaviour {
 	}
 	
 	void Update(){
-	
-		//Do not player select what they can't afford
-		if(player.aP < player.playerAbilities.abilitiesB.b3aPCost)
-			button.defaultColor = Color.grey;
 		
 		//if(player.TurnPhases > 0){
 		
-			if(player.bAbilityChosen == 3)
+			if(player.swordAbilityChosen == 3)
 				button.defaultColor = Color.red;
 		//}
 		
@@ -48,7 +44,7 @@ public class B3 : MonoBehaviour {
 		//}
 		
 		//Do not player select what they can't afford
-		if(player.aP < player.playerAbilities.abilitiesB.b3aPCost)
+		if(player.aP < (-1 * player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost))
 			button.defaultColor = Color.grey;
 		
 	}

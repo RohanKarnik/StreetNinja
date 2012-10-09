@@ -7,7 +7,15 @@ public class Player : MonoBehaviour {
 		public float hP;
 		public float aP;
 	
+		public float xP;
+	
+		public float str = 5;
+	
+		public float def;
+	
 		public int battleTurn;
+	
+		public float turnDamage;
 	
 		//0 = Player chooses A Abilities
 		//1 = Player chooses B Abilities
@@ -22,47 +30,54 @@ public class Player : MonoBehaviour {
 		//Player = 0, Enemy = 1
 		public int lastTurn;
 	
-		public struct PlayerStatus{
+		[System.Serializable]
+		public class PlayerStatus{
 		
-		//Over Time Buff
+		//Over Time Buffs
+		[System.Serializable]
+		public class OverTimeBuffs{
 			public float hPoT;
 			public int hPBuffCounter;
 		
 			public float aPoT;
 			public int aPBuffCounter;
 		
-			public int aAbilitiesBuff;
-			public int aAbilitiesBuffCounter;
-		
-			public int bAbilitiesApDiscount;
-			public int bAbilitiesApDiscountCounter;
-		
-			public int bAbilitiesApTax;
-			public int bAbilitiesApTaxCounter;
-		
-			public float bAbilitiesBuff;
-			public int bAbilitiesBuffCounter;
-		
-			public float bAbilitiesDeBuff;
-			public int bAbilitiesDeBuffCounter;
+			public float StrDefUpBuff;
+			public int StrDefUpBuffCounter;
 		
 			public float shieldBuff;
 			public int shieldBuffCounter;
+		}
 		
 		
-		//Over Time Dam
+		//Over Time DeBuff
+		[System.Serializable]
+		public class OverTimeDeBuffs{
 			public float doTDamage;
-			public float doTCounter;
+			public int doTCounter;
 		
+			public int aPTax;
+			public int aPTaxCounter;
+			
+			public int aPGenDegrade;
+			public int aPGenDegradeCounter;
+		
+			public float StrDefDownDeBuff;
+			public int StrDefDownDeBuffCounter;
+		}
+		
+		public OverTimeBuffs overTimeBuffs;
+		public OverTimeDeBuffs overTimeDeBuffs;
 	}
 	
 		public PlayerStatus playerStatus;
 		
 		public Abilities playerAbilities;
 	
-		public int aAbilityChosen;
-		public int bAbilityChosen;
-		public int cAbilityChosen;
+		public int gunAbilityChosen;
+		public int swordAbilityChosen;
+		public int stanceChosen;
+		public bool stanceChanged;
 	
 		//0-14, A1 = 1, A2 = 2..etc
 		public int lastAbilityChosen;
@@ -71,6 +86,103 @@ public class Player : MonoBehaviour {
 	
 	
 		public void populateAbilities(Abilities abilities){
+		
+		//Random tempRandom;
+		
+		#region GunAbilities
+		//ScarletShot
+		abilities.gunAbilities.ScarletShot.cost = -5;
+		
+		abilities.gunAbilities.ScarletShot.rangeMin =(int) str * 2;
+		abilities.gunAbilities.ScarletShot.rangeMax =(int) str * 2.2f;
+		//abilities.gunAbilities.ScarletShot.lastRangedDam = 0;
+		
+		abilities.gunAbilities.ScarletShot.multiplier = 1.0f;
+		//DarkBullet
+		abilities.gunAbilities.DarkBullet.cost = -3;
+		
+		abilities.gunAbilities.DarkBullet.rangeMin =(int) str * 2.5f;
+		abilities.gunAbilities.DarkBullet.rangeMax =(int) str * 2.7f;
+		//abilities.gunAbilities.DarkBullet.lastRangedDam = 0;
+		
+		abilities.gunAbilities.DarkBullet.multiplier = 1.3f;
+		
+		//PlagueBlast
+		abilities.gunAbilities.PlagueBlast.cost = -4;
+		
+		abilities.gunAbilities.PlagueBlast.rangeMin =(int) str * 2.5f;
+		abilities.gunAbilities.PlagueBlast.rangeMax =(int) str * 2.7f;
+		//abilities.gunAbilities.PlagueBlast.lastRangedDam = 0;
+		
+		abilities.gunAbilities.PlagueBlast.multiplier = 1.0f;
+		
+		//BlitzBarrage
+		abilities.gunAbilities.BlitzBarrage.cost = -2;
+		
+		abilities.gunAbilities.BlitzBarrage.rangeMin =(int) str * 2.7f;
+		abilities.gunAbilities.BlitzBarrage.rangeMax =(int) str * 2.9f;
+		//abilities.gunAbilities.BlitzBarrage.lastRangedDam = 0;
+		
+		abilities.gunAbilities.BlitzBarrage.multiplier = 1.5f;
+		
+		//ShadowflameShot
+		abilities.gunAbilities.ShadowflameShot.cost = -1;
+		
+		abilities.gunAbilities.ShadowflameShot.rangeMin =(int) str * 3f;
+		abilities.gunAbilities.ShadowflameShot.rangeMax =(int) str * 3.2f;
+		//abilities.gunAbilities.ShadowflameShot.lastRangedDam = 0;
+		
+		abilities.gunAbilities.ShadowflameShot.multiplier = 1.8f;
+		#endregion
+		
+		#region SwordAbilities
+		//BloodBlade
+		abilities.sworddAbilities.BloodBlade.cost = -10;
+		
+		abilities.sworddAbilities.BloodBlade.damage =(int) (str*4);
+		abilities.sworddAbilities.BloodBlade.multiplier = 1.0f;
+		
+		//DeathStrike
+		abilities.sworddAbilities.DeathStrike.cost = -20;
+		
+		abilities.sworddAbilities.DeathStrike.damage = (int) (str*4.6f);
+		abilities.sworddAbilities.DeathStrike.multiplier = 1.8f;
+		
+		//ShadowFlameSlash
+		abilities.sworddAbilities.ShadowFlameSlash.cost = -40;
+		
+		abilities.sworddAbilities.ShadowFlameSlash.damage = (int) (str*4.6f);
+		abilities.sworddAbilities.ShadowFlameSlash.multiplier = 1.8f;
+		
+		//CrimsonCut
+		abilities.sworddAbilities.CrimsonCut.cost = -40;
+		
+		abilities.sworddAbilities.CrimsonCut.damage =(int) (str*5);
+		abilities.sworddAbilities.CrimsonCut.multiplier = 1.6f;
+		
+		//Shadowfury
+		abilities.sworddAbilities.ShadowFury.cost = -80;
+		
+		abilities.sworddAbilities.ShadowFury.damage =(int) (str*5);
+		abilities.sworddAbilities.ShadowFury.multiplier = 3.0f;
+		
+		#endregion
+		
+		#region Stances
+		abilities.stances.StanceOfBloodlust = false;
+		
+		abilities.stances.StanceOfMurder = false;
+		
+		abilities.stances.StanceOfShadowsVengence = false;
+		
+		abilities.stances.StanceOfDeath = false;
+		
+		abilities.stances.StanceOfDarkProtection = false;
+		#endregion
+		
+		
+		#region OldCode
+		/*
 		#region A Abilities
 		
 		#region A1
@@ -307,33 +419,39 @@ public class Player : MonoBehaviour {
 		#endregion
 		
 		#endregion
+		*/
+		#endregion
 	}
 	
 		public void populatePlayerStatus(PlayerStatus tempPlayerStatus){
 		
-		tempPlayerStatus.hPoT = 0;
-		tempPlayerStatus.hPBuffCounter = 0;
+		//Overtime Buffs
 		
-		tempPlayerStatus.aPoT = 0;
-		tempPlayerStatus.aPBuffCounter = 0;
+			tempPlayerStatus.overTimeBuffs.hPoT = 0;
+			tempPlayerStatus.overTimeBuffs.hPBuffCounter = 0;
 		
-		tempPlayerStatus.aAbilitiesBuff = 0;
-		tempPlayerStatus.aAbilitiesBuffCounter = 0;
+			tempPlayerStatus.overTimeBuffs.aPoT = 0;
+			tempPlayerStatus.overTimeBuffs.aPBuffCounter = 0;
 		
-		tempPlayerStatus.bAbilitiesApDiscount = 0;
-		tempPlayerStatus.bAbilitiesApTax = 0;
+			tempPlayerStatus.overTimeBuffs.StrDefUpBuff = 1.0f;
+			tempPlayerStatus.overTimeBuffs.StrDefUpBuffCounter = 0;
 		
-		tempPlayerStatus.bAbilitiesBuff = 1.0f;
-		tempPlayerStatus.bAbilitiesBuffCounter = 0;
+			tempPlayerStatus.overTimeBuffs.shieldBuff = 1.0f;
+			tempPlayerStatus.overTimeBuffs.shieldBuffCounter = 0;
 		
-		tempPlayerStatus.bAbilitiesDeBuff = 1.0f;
-		tempPlayerStatus.bAbilitiesDeBuffCounter = 0;
+		//Overtime Debuffs
+			tempPlayerStatus.overTimeDeBuffs.doTDamage = 0;
+			tempPlayerStatus.overTimeDeBuffs.doTCounter = 0;
 		
-		tempPlayerStatus.doTDamage = 0;
-		tempPlayerStatus.doTCounter = 0;
+			tempPlayerStatus.overTimeDeBuffs.aPTax = 0;
+			tempPlayerStatus.overTimeDeBuffs.aPTaxCounter = 0;
+			
+			tempPlayerStatus.overTimeDeBuffs.aPGenDegrade = 0;
+			tempPlayerStatus.overTimeDeBuffs.aPGenDegradeCounter = 0;
 		
-		tempPlayerStatus.shieldBuff = 0.0f;
-		tempPlayerStatus.shieldBuffCounter = 0;
+			tempPlayerStatus.overTimeDeBuffs.StrDefDownDeBuff = 1.0f;
+			tempPlayerStatus.overTimeDeBuffs.StrDefDownDeBuffCounter = 0;
+		
 	}
 	
 	// Use this for initialization
@@ -343,15 +461,21 @@ public class Player : MonoBehaviour {
 		hP = 1000;
 		aP = 0;
 		
+		xP = 0;
+		def = 0;
+		
 		populateAbilities(playerAbilities);
 		populatePlayerStatus(playerStatus);
 		
-		aAbilityChosen = -1;
-		bAbilityChosen = -1;
-		cAbilityChosen = -1;
+		gunAbilityChosen = -1;
+		swordAbilityChosen = -1;
+		stanceChosen = -1;
+		
+		stanceChanged = false;
 		
 		lastAbilityChosen = -1;
 		
+		turnDamage = 0;
 		
 		battleTurn = 0;
 		TurnPhases = 0;

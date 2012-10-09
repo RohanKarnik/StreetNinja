@@ -10,14 +10,14 @@ public class A3 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		//if(player.TurnPhases == 0){
-			player.aAbilityChosen = 3;
+		if(player.TurnPhases == 0){
+			player.gunAbilityChosen = 3;
 		
 			//player.TurnPhases = 1;
 			
 			//Delay
 			//player.gameTimer = Time.time + 3;
-		//}
+		}
 		
 	}
 	
@@ -30,7 +30,7 @@ public class A3 : MonoBehaviour {
 	
 		//if(player.TurnPhases > 0){
 		
-			if(player.aAbilityChosen == 3)
+			if(player.gunAbilityChosen == 3)
 				button.defaultColor = Color.red;
 		//}
 		

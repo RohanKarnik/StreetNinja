@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
-		public int hP;
+		public float hP;
 		
 		//Attack Notes
 		//Dam   10 hp        20 mp

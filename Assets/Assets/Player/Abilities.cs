@@ -1,26 +1,124 @@
 using UnityEngine;
 using System.Collections;
 
-public class Abilities : MonoBehaviour {
+
+public class Abilities : MonoBehaviour{
+	
+	public class Clip{};
+	public class Glyph{};
+	
+	public class Icon{};
+	
+	public class InteractionType{};
+	
+	[System.Serializable]
+	public class Ability{
+		
+		public int damage;
+		
+		public float rangeMin;
+		public float rangeMax;
+		public int lastRangedDam;
+		
+		public int cost;
+		
+		public float multiplier;
+		
+	}
+	
+	[System.Serializable]
+	public class GunAbilities{
+		
+		/*DMG: STR*2 - STR*2.2
+				AP: +5
+				Multiplier: 1.0*/
+		public Ability ScarletShot = new Ability();
+		
+		/*DMG: STR*2.5 - STR*2.7
+				AP: +3
+				Multiplier: 1.3*/
+		public Ability DarkBullet = new Ability();
+		
+		/*DMG: STR*2.5 - STR*2.7
+			AP: +4
+			Multiplier: 1.0*/
+		public Ability PlagueBlast = new Ability();
+		
+		/*DMG: STR*2.7-STR*2.9
+			AP: +2
+			Multiplier: 1.5*/
+		public Ability BlitzBarrage = new Ability();
+		
+		/*DMG: STR*3.0 - STR*3.2
+			AP: +1
+			Multiplier: 1.8*/
+		public Ability ShadowflameShot = new Ability();
+		
+	}
+	
+	[System.Serializable]
+	public class SwordAbilities{
+		/*DMG: STR*4
+			AP: -10
+			Multiplier: 1.0*/
+		public Ability BloodBlade = new Ability();
+		
+		/*DMG: STR*4.6
+			AP: -20
+			Multiplier: 1.3*/
+		public Ability DeathStrike = new Ability();
+		
+		/*DMG: STR*4.6
+			AP: -40
+			Multiplier: 1.8*/
+		public Ability ShadowFlameSlash = new Ability();
+		
+		/*DMG: STR*5.0
+			AP: -40
+			Multiplier: 1.6*/
+		public Ability CrimsonCut = new Ability();
+		
+		/*DMG: STR*5
+			AP: -80
+			Multiplier: 3.0*/
+		public Ability ShadowFury = new Ability();
+	}
+	
+	[System.Serializable]
+	public class Stances{
+		
+		//Increases damage done by 25% and damage taken by 25%. (Offensive)
+		public bool StanceOfBloodlust;
+		public float StanceOfBLOffensiveIncrease = 1.25f;
+		public float StancesOfBLDefensiveDecrease = .25f;
+		
+		//Health Gains increased by 25% (Health Regen)
+		public bool StanceOfMurder;
+		public float StanceOfMHealthRegen = 1.25f;
+		
+		//Reduces Damage done by 25% and Reduces damage taken by 25% (Defensive)
+		public bool StanceOfShadowsVengence;
+		public float StanceOfSVOffensiveDecrease = .25f;
+		public float StanceOfSVDeffensiveIncrease = 1.25f;
+		
+		//Increases AP generation by 25%
+		public bool StanceOfDeath;
+		public float StanceOfDApGenBoost = 1.25f;
+			
+		//reduces all DoT damage by 50%
+		public bool StanceOfDarkProtection;
+		public float StanceOfDPDoTReduction = .50f;
+		
+		
+	}
+	
+	public GunAbilities gunAbilities;
+	public SwordAbilities sworddAbilities;
+	public Stances stances;
 	
 	
-	//Struct to hold the values changing through battle
-	/*Possiblity: Ability class holding a TotalBonus figure to add to player's stats
-	public struct abilityGroupCurrent{
-		
-		//A abilities
-		
-		//AddPopRockBonus
-		
-		//B abilities
-		
-		//AddPopRockBonus
-		
-		//C abilities
-		
-		//AddPopRockBonus
-	}*/
-	
+	//Old Code
+	/*
 	//Generates AP
 	public struct AbilitiesA{
 		
@@ -29,7 +127,7 @@ public class Abilities : MonoBehaviour {
 		/*[A-1]LvL 1 Generate 20 AP. Heals 3% for the next 2 turns. (HoT)
 			2 Gen 20 AP. Heals 5% next 2 turns. (HoT)
 			3 Gen 20 AP. Heals  5% the next 3 turns. (HoT)
-			All nonstack*/
+			All nonstack
 		public int a1level;
 		
 		public int a1ApBoost;
@@ -49,7 +147,7 @@ public class Abilities : MonoBehaviour {
 			15%, 10%, 5% chance to generate 25AP,
 			35%, 40%, 45% chance to generate 30AP,
 			35%, 40%, 45% chance to generate 35AP,
-			*/
+			
 		public int a2level;
 		
 		public int a2aPBoostA;
@@ -79,7 +177,7 @@ public class Abilities : MonoBehaviour {
 		/*[A-3]Lvl 1 Generate 15AP. Gen 10AP for next 2 turns. 
 				2 Gen 15AP. Gen 10AP for next 3 turns.
 				3 Gen 15AP. Gen 15AP for next 3 turns.
-				All unstackable with self*/
+				All unstackable with self
 		public int a3level;
 		
 		public int a3ApBoost;
@@ -98,7 +196,7 @@ public class Abilities : MonoBehaviour {
 		/*[A-4] Gen 25 AP. Gen 5AP for next 2 turns.
 				Gen 25 AP. Gen 5AP for next 3 turns.
 				Gen 25 AP. Gen 10AP for next 3 turns.
-				All unstackable with self*/
+				All unstackable with self
 		public int a4level;
 		
 		public float a4ApBoost;
@@ -118,7 +216,7 @@ public class Abilities : MonoBehaviour {
 		/*[A-5] Gen 20 AP + 3 AP each turn for rest of battle.
 				Gen 20 AP + 5 AP each turn for rest of battle.
 				Gen 30 AP + 5 AP each turn for rest of battle.
-				All unstackable with self*/
+				All unstackable with self
 		
 		public int a5level;
 		
@@ -147,7 +245,7 @@ public class Abilities : MonoBehaviour {
 		/*[B-1] Costs 20AP
 				Mid Damage + 5% heal
 				Mid Damage +10% heal
-				Mid Damage + 15% heal*/
+				Mid Damage + 15% heal
 		public int b1level;
 		
 		public int b1aPCost;
@@ -163,7 +261,7 @@ public class Abilities : MonoBehaviour {
 		/*[B-2] Costs 35AP
 				Mid damage + Cast a DoT on the enemy for next 2 turns
 				High damage + Cast a DoT on the enemy for next 2 turns
-				High damage + Cast a DoT on the enemy for next 3 turns*/
+				High damage + Cast a DoT on the enemy for next 3 turns
 		public int b2level;
 		
 		public int b2aPCost;
@@ -185,7 +283,7 @@ public class Abilities : MonoBehaviour {
 		/*B-3] Costs 50AP
 				High damage + dispel all enemy buffs
 				Higher damage + dispel all enemy buffs
-				Higher Damage + prevent enemy from casting any buff*/
+				Higher Damage + prevent enemy from casting any buff
 		
 		public int b3level;
 		
@@ -200,7 +298,7 @@ public class Abilities : MonoBehaviour {
 		/*B-4] Costs 70AP
 				Mid Dmg + 50% heal
 				Mid Damage + 60% heal
-				Mid Damage +70% heal*/
+				Mid Damage +70% heal
 		
 		public int b4level;
 		
@@ -218,7 +316,7 @@ public class Abilities : MonoBehaviour {
 		/*[B-5] Costs 90AP
 				Mega Damage. Crit area is bigger than usual
 				Mega Damage. Guaranteed Crit
-				Mega Damage. Guaranteed Crit. Casts a powerful DoT on enemy for 3 turns.*/
+				Mega Damage. Guaranteed Crit. Casts a powerful DoT on enemy for 3 turns.
 		
 		public int b5level;
 		
@@ -245,7 +343,7 @@ public class Abilities : MonoBehaviour {
 		/*[C-1] Free
 				B abilities cost 10AP less but are 15% less effective for next 2 turns. C-2 negates
 				B abilities cost 10AP less but are 10% less effective for next 2 turns. C-2 negates
-				B abilities cost 10AP less but are 5% less effective for next 2 turns. C-2 negates*/
+				B abilities cost 10AP less but are 5% less effective for next 2 turns. C-2 negates
 		public int c1level;
 		
 		public int c1ApDiscount;
@@ -263,7 +361,7 @@ public class Abilities : MonoBehaviour {
 		/*C-2] Free
 			B Abilities cost 10 more AP but are 15% more effective for next 2 turns. C-1 Negates
 			B Abilities cost 10 more AP but are 20% more effective for next 2 turns. C-1 Negates
-			B Abilities cost 10 more AP but are 25% more effective for next 2 turns. C-1 Negates*/
+			B Abilities cost 10 more AP but are 25% more effective for next 2 turns. C-1 Negates
 		public int c2level;
 		
 		public int c2ApTax;
@@ -280,7 +378,7 @@ public class Abilities : MonoBehaviour {
 		/*[C-3] Costs 50 AP
 			A abilities base generation in increased by 5AP for next 2 turns. Affects APoT (A-3, A-4, A-5)
 			A abilities base generation in increased by 10AP for next 2 turns. Affects APoT (A-3, A-4, A-5)
-			A abilities base generation in increased by 10AP for next 3 turns. Affects APoT (A-3, A-4, A-5)*/
+			A abilities base generation in increased by 10AP for next 3 turns. Affects APoT (A-3, A-4, A-5)
 		public int c3level;
 		
 		public int c3ApCost;
@@ -300,7 +398,7 @@ public class Abilities : MonoBehaviour {
 		/*C-4] Costs 50 AP
 			Casts a protective shield on yourself that absorbs 10% of your total health. Fades away in 2 turns
 			Casts a protective shield on yourself that absorbs 20% of your total health. Fades away in 2 turns
-			Casts a protective shield on yourself that absorbs 30% of your total health. Fades away in 2 turns*/
+			Casts a protective shield on yourself that absorbs 30% of your total health. Fades away in 2 turns
 		
 		
 		public int c4level;
@@ -319,7 +417,7 @@ public class Abilities : MonoBehaviour {
 		/*[C-5] Costs 70AP
 			B abilities cost 10 less AP for next 2 turns. A abilities generate 10AP more for 2 turns.
 			B abilities cost 10 less AP for next 3 turns. A abilities generate 10AP more for 3 turns.
-			B abilities cost 10 less AP for next 4 turns. A abilities generate 10AP more for 4 turns.*/
+			B abilities cost 10 less AP for next 4 turns. A abilities generate 10AP more for 4 turns.
 		public int c5level;
 		
 		public int c5ApCost;
@@ -339,11 +437,7 @@ public class Abilities : MonoBehaviour {
 	}
 	
 	public AbilitiesC abilitiesC;
+	*/
 
-	
-	
-	//public void AddPopRockBonus(){
-		//TODO:Add pop rox bonus to most current Ability figure
-	//}
 	
 }
