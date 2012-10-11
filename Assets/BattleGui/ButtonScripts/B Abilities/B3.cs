@@ -40,7 +40,7 @@ public class B3 : MonoBehaviour {
 		//else if(player.TurnPhases == 0){
 			//if(player.bAbilityChosen != 3)
 		else
-				button.defaultColor = Color.green;
+				button.defaultColor = Color.white;
 		//}
 		
 		//Do not player select what they can't afford

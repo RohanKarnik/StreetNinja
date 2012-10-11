@@ -28,115 +28,243 @@ public class BattleGui : MonoBehaviour {
 	public int turnPhases;
 	
 	//Abilities Buttons
-	public UIButton A1Button;
-	public UIButton A2Button;
-	public UIButton A3Button;
-	public UIButton A4Button;
-	public UIButton A5Button;
-	public UIButton B1Button;
-	public UIButton B2Button;
-	public UIButton B3Button;
-	public UIButton B4Button;
-	public UIButton B5Button;
-	public UIButton C1Button;
-	public UIButton C2Button;
-	public UIButton C3Button;
-	public UIButton C4Button;
-	public UIButton C5Button;
+	[System.Serializable]
+	public class AbilitiesButtons{
+		public UIButton A1Button;
+		public UIButton A2Button;
+		public UIButton A3Button;
+		public UIButton A4Button;
+		public UIButton A5Button;
+		public UIButton B1Button;
+		public UIButton B2Button;
+		public UIButton B3Button;
+		public UIButton B4Button;
+		public UIButton B5Button;
+		public UIButton C1Button;
+		public UIButton C2Button;
+		public UIButton C3Button;
+		public UIButton C4Button;
+		public UIButton C5Button;
+	}
+	
+	public AbilitiesButtons abilitiesButtons;
 	
 	//NGUI GUI
-	public UILabel playerStatusBox;
-	public UILabel battleInfoBox;
+	[System.Serializable]
+	public class BattleInfo{
+		public UILabel playerStatusBox;
+		public UILabel battleInfoBox;
 	
-	public UIFilledSprite hPoTIcon;
-	public UILabel hPoTTurnLabel;
+		public UILabel enemyStatusBox;
 	
-	public UIFilledSprite aPoTIcon;
-	public UILabel aPoTTurnLabel;
+		public UILabel turnsLabel;
 	
-	public UILabel enemyStatusBox;
+		//Shown Damage Icons
+		public UILabel playerHpHealLabel;
+		public UILabel playerHpDamageLabel;
 	
-	public UILabel turnsLabel;
+		public UILabel playerApGenLabel;
 	
-	public UIFilledSprite shieldIcon;
-	public UILabel shieldLabel;
+		public UILabel turnTotalDamageLabel;
 	
-	//Enemy Icons
-	public UIFilledSprite enemyHPoTIcon;
-	public UILabel enemyHPoTIconLabel;
+		public UILabel enemyHpDamageLabel;
+		public UILabel enemyHpPlusLabel;
+	}
 	
-	public UIFilledSprite enemyDoTIcon;
-	public UILabel enemyDoTIconLabel;
+	public BattleInfo battleInfo;
 	
-	public UIFilledSprite enemyCanCastIcon;
-	public UILabel enemyCanCastLabel;
+	[System.Serializable]
+	public class TOP{
 	
-	//Shown Damage Icons
-	public UILabel playerHpHealLabel;
-	public UILabel playerHpDamageLabel;
+		public UISlider playerHealthSlider;
+		public UILabel playerHpPercent;
+		
+		public UISlider playerAPSlider;
+		public UILabel playerAP;
+		
+		public UILabel playerLevel;
+		
+		
+		public UISlider enemyHealthSlider;
+		public UILabel enemyHpPercent;
+		
+		public UILabel enemyLevel;
+		
+	}
 	
-	public UILabel playerApGenLabel;
+	public TOP GuiTop;
 	
-	public UILabel turnTotalDamageLabel;
+	//PlayerOverTime Icons
+	[System.Serializable]
+	public class PlayerOverTimeIcons{
+		//Buffs
+		public UIFilledSprite hPoTIcon;
+		public UILabel hPoTTurnLabel;
 	
-	public UILabel enemyHpDamageLabel;
-	public UILabel enemyHpPlusLabel;
+		public UIFilledSprite aPoTIcon;
+		public UILabel aPoTTurnLabel;
 	
+		public UIFilledSprite strDefUpIcon;
+		public UILabel strDefUpLabel;
+		
+		public UIFilledSprite shieldIcon;
+		public UILabel shieldLabel;
+		
+		
+		//Debuffs
+		public UIFilledSprite doTIcon;
+		public UILabel doTLabel;
+		
+		public UIFilledSprite aPCostUpIcon;
+		public UILabel aPCostUpLabel;
+		
+		public UIFilledSprite aPGenDownIcon;
+		public UILabel apGenDownLabel;
+		
+		public UIFilledSprite strDefDownIcon;
+		public UILabel strDefDownLabel;
+		
+	}
+	
+	public PlayerOverTimeIcons playerOverTimeIcons;
+	
+	//EnemyOverTime Icons
+	[System.Serializable]
+	public class EnemyOverTimeIcons{
+		//Buffs
+		public UIFilledSprite enemyHPoTIcon;
+		public UILabel enemyHPoTIconLabel;
+		
+		public UIFilledSprite strDefUpIcon;
+		public UILabel strDefUpLabel;
+		
+		public UIFilledSprite shieldIcon;
+		public UILabel shieldLabel;
+		
+		public UIFilledSprite enemySpecificIcon;
+		public UILabel enemySpecificLabel;
+	
+		//Debuff
+		public UIFilledSprite enemyDoTIcon;
+		public UILabel enemyDoTIconLabel;
+	
+		public UIFilledSprite strDefDownIcon;
+		public UILabel strDefDownLabel;
+		
+		public UIFilledSprite playerDebuff1Icon;
+		public UILabel playerDebuff1Label;
+		
+		public UIFilledSprite playerDebuff2Icon;
+		public UILabel playerDebuff2Label;
+	}
+	
+	public EnemyOverTimeIcons enemyOverTimeIcons;
+		
 	
 	// Update is called once per frame
 	void Update () {
 		
-		if(turnTotalDamageLabel != null)
-			turnTotalDamageLabel.text = "TurnDam: -" + player.turnDamage;
+		//TOP
+		#region Player
+		//PlayerHP
+		if(GuiTop.playerHealthSlider != null)
+			GuiTop.playerHealthSlider.foreground.localScale = new Vector3((player.hP / player.hPMax) *
+				423,
+				GuiTop.playerHealthSlider.foreground.localScale.y,
+				GuiTop.playerHealthSlider.foreground.localScale.z);
+		if(GuiTop.playerHpPercent != null)
+			GuiTop.playerHpPercent.text = "" + (int)(100 * (player.hP/player.hPMax)) + "%";
 		
-		if(enemyHpDamageLabel != null)
-			enemyHpPlusLabel.OnUpdate();
+		
+		//PlayerAP
+		if(GuiTop.playerAPSlider != null)
+			GuiTop.playerAPSlider.foreground.localScale = new Vector3((player.aP / 100) *
+				338,
+				GuiTop.playerAPSlider.foreground.localScale.y,
+				GuiTop.playerAPSlider.foreground.localScale.z);
+		if(GuiTop.playerAP != null)
+			GuiTop.playerAP.text = "" + player.aP;
+		
+		//PlayerLevel
+		if(GuiTop.playerLevel != null)
+			GuiTop.playerLevel.text = "Level ~ " + player.level;
+		#endregion
+		
+		#region Enemy
+		//EnemyHP
+		if(GuiTop.enemyHealthSlider != null)
+			GuiTop.enemyHealthSlider.foreground.localScale = new Vector3((enemy.hP / enemy.hpMax) *
+				423,
+				GuiTop.enemyHealthSlider.foreground.localScale.y,
+				GuiTop.enemyHealthSlider.foreground.localScale.z);
+		if(GuiTop.enemyHpPercent != null)
+			GuiTop.enemyHpPercent.text = "" + (int)(100 * (enemy.hP/enemy.hpMax)) + "%";
+		
+		//Enemy Level
+		if(GuiTop.enemyLevel != null)
+			GuiTop.enemyLevel.text = "Level ~ " + enemy.level;
+		
+		#endregion
+		
+		
+		//Turn Damage
+		if(battleInfo.turnTotalDamageLabel != null){
+			if(player.TurnPhases >= 1 && player.TurnPhases < 8)
+				battleInfo.turnTotalDamageLabel.text = "TurnDam: -" + player.turnDamage;
+			else
+				battleInfo.turnTotalDamageLabel.text = "";
+		}
+
+		
+		//ShownDamage
+		if(battleInfo.enemyHpDamageLabel != null)
+			battleInfo.enemyHpPlusLabel.OnUpdate();
 		
 		if(player.TurnPhases == 0){
-			if(playerHpHealLabel != false)
-				playerHpHealLabel.enabled = false;
-			if(playerHpDamageLabel != false)
-				playerHpDamageLabel.enabled = false;
-			if(playerApGenLabel != false)
-				playerApGenLabel.enabled = false;
+			if(battleInfo.playerHpHealLabel != false)
+				battleInfo.playerHpHealLabel.enabled = false;
+			if(battleInfo.playerHpDamageLabel != false)
+				battleInfo.playerHpDamageLabel.enabled = false;
+			if(battleInfo.playerApGenLabel != false)
+				battleInfo.playerApGenLabel.enabled = false;
 			
-			if(enemyHpDamageLabel != null)
-				enemyHpDamageLabel.enabled = false;
-			if(enemyHpPlusLabel != null)
-				enemyHpPlusLabel.enabled = false;
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.enabled = false;
+			if(battleInfo.enemyHpPlusLabel != null)
+				battleInfo.enemyHpPlusLabel.enabled = false;
 		}
 		
 		#region Update Buttons
-		if(A1Button != null)
-			A1Button.UpdateColor(true,true);
-		if(A2Button != null)
-			A2Button.UpdateColor(true,true);
-		if(A3Button != null)
-			A3Button.UpdateColor(true,true);
-		if(A4Button != null)
-			A4Button.UpdateColor(true,true);
-		if(A5Button != null)
-			A5Button.UpdateColor(true,true);
-		if(B1Button != null)
-			B1Button.UpdateColor(true,true);
-		if(B2Button != null)
-			B2Button.UpdateColor(true,true);
-		if(B3Button != null)
-			B3Button.UpdateColor(true,true);
-		if(B4Button != null)
-			B4Button.UpdateColor(true,true);
-		if(B5Button != null)
-			B5Button.UpdateColor(true,true);
-		if(C1Button != null)
-			C1Button.UpdateColor(true,true);
-		if(C2Button != null)
-			C2Button.UpdateColor(true,true);
-		if(C3Button != null)
-			C3Button.UpdateColor(true,true);
-		if(C4Button != null)
-			C4Button.UpdateColor(true,true);
-		if(C5Button != null)
-			C5Button.UpdateColor(true,true);
+		if(abilitiesButtons.A1Button != null)
+			abilitiesButtons.A1Button.UpdateColor(true,true);
+		if(abilitiesButtons.A2Button != null)
+			abilitiesButtons.A2Button.UpdateColor(true,true);
+		if(abilitiesButtons.A3Button != null)
+			abilitiesButtons.A3Button.UpdateColor(true,true);
+		if(abilitiesButtons.A4Button != null)
+			abilitiesButtons.A4Button.UpdateColor(true,true);
+		if(abilitiesButtons.A5Button != null)
+			abilitiesButtons.A5Button.UpdateColor(true,true);
+		if(abilitiesButtons.B1Button != null)
+			abilitiesButtons.B1Button.UpdateColor(true,true);
+		if(abilitiesButtons.B2Button != null)
+			abilitiesButtons.B2Button.UpdateColor(true,true);
+		if(abilitiesButtons.B3Button != null)
+			abilitiesButtons.B3Button.UpdateColor(true,true);
+		if(abilitiesButtons.B4Button != null)
+			abilitiesButtons.B4Button.UpdateColor(true,true);
+		if(abilitiesButtons.B5Button != null)
+			abilitiesButtons.B5Button.UpdateColor(true,true);
+		if(abilitiesButtons.C1Button != null)
+			abilitiesButtons.C1Button.UpdateColor(true,true);
+		if(abilitiesButtons.C2Button != null)
+			abilitiesButtons.C2Button.UpdateColor(true,true);
+		if(abilitiesButtons.C3Button != null)
+			abilitiesButtons.C3Button.UpdateColor(true,true);
+		if(abilitiesButtons.C4Button != null)
+			abilitiesButtons.C4Button.UpdateColor(true,true);
+		if(abilitiesButtons.C5Button != null)
+			abilitiesButtons.C5Button.UpdateColor(true,true);
 		#endregion
 		
 		
@@ -144,114 +272,272 @@ public class BattleGui : MonoBehaviour {
 		string abilityText = "No ability chosen";
 		
 		#region BattleUI
-		playerStatusBox.text = "Player\nHP : " + player.hP + "\nAP : " + player.aP;
+		if(battleInfo.playerStatusBox != null)
+			battleInfo.playerStatusBox.text = "Player\nHP : " + player.hP + "\nAP : " + player.aP;
 		
-		if(enemyStatusBox != null)
-			enemyStatusBox.text = "Enemy\nHP : " + enemy.hP;
+		if(battleInfo.enemyStatusBox != null)
+			battleInfo.enemyStatusBox.text = "Enemy\nHP : " + enemy.hP;
 		
 		#region Player OverTime Icons
+		
+		#region Buffs
 		//Hp over TimeBuff
 		if(player.playerStatus.overTimeBuffs.hPBuffCounter > 0){
-			if(hPoTIcon != null)
-				hPoTIcon.fillAmount = 1;
-			if(hPoTTurnLabel != null)
-				hPoTTurnLabel.text = "" + (player.playerStatus.overTimeBuffs.hPBuffCounter);
+			if(playerOverTimeIcons.hPoTIcon != null)
+				playerOverTimeIcons.hPoTIcon.fillAmount = 1;
+			if(playerOverTimeIcons.hPoTTurnLabel != null)
+				playerOverTimeIcons.hPoTTurnLabel.text = "" + (player.playerStatus.overTimeBuffs.hPBuffCounter);
 		}
 		else{
-			if(hPoTIcon != null)
-				hPoTIcon.fillAmount = 0;
-			if(hPoTTurnLabel != null)
-				hPoTTurnLabel.text = "";
+			if(playerOverTimeIcons.hPoTIcon != null)
+				playerOverTimeIcons.hPoTIcon.fillAmount = 0;
+			if(playerOverTimeIcons.hPoTTurnLabel != null)
+				playerOverTimeIcons.hPoTTurnLabel.text = "";
 		}
 		
 		//Ap over TimeBuff
 		if(player.playerStatus.overTimeBuffs.aPBuffCounter > 0){
-			if(aPoTIcon != null)
-				aPoTIcon.fillAmount = 1;
-			if(aPoTTurnLabel != null)
-				aPoTTurnLabel.text = "" + (player.playerStatus.overTimeBuffs.aPBuffCounter);
+			if(playerOverTimeIcons.aPoTIcon != null)
+				playerOverTimeIcons.aPoTIcon.fillAmount = 1;
+			if(playerOverTimeIcons.aPoTTurnLabel != null)
+				playerOverTimeIcons.aPoTTurnLabel.text = "" + (player.playerStatus.overTimeBuffs.aPBuffCounter);
 		}
 		else{
-			if(aPoTIcon != null)
-				aPoTIcon.fillAmount = 0;
-			if(aPoTTurnLabel != null)
-				aPoTTurnLabel.text = "";
+			if(playerOverTimeIcons.aPoTIcon != null)
+				playerOverTimeIcons.aPoTIcon.fillAmount = 0;
+			if(playerOverTimeIcons.aPoTTurnLabel != null)
+				playerOverTimeIcons.aPoTTurnLabel.text = "";
+		}
+		
+		//StrDef Buff
+		if(player.playerStatus.overTimeBuffs.StrDefUpBuffCounter > 0){
+			if(playerOverTimeIcons.strDefUpIcon != null)
+				playerOverTimeIcons.strDefUpIcon.fillAmount = 1;
+			if(playerOverTimeIcons.strDefUpLabel != null)
+				playerOverTimeIcons.strDefUpLabel.text = "" + (player.playerStatus.overTimeBuffs.StrDefUpBuffCounter);
+			
+		}
+		else{
+			if(playerOverTimeIcons.strDefUpIcon != null)
+				playerOverTimeIcons.strDefUpIcon.fillAmount = 0;
+			if(playerOverTimeIcons.strDefUpLabel != null)
+				playerOverTimeIcons.strDefUpLabel.text = "";
 		}
 		
 		//Shield Buff
 		if(player.playerStatus.overTimeBuffs.shieldBuffCounter > 0){
-			if(shieldIcon != null)
-				shieldIcon.fillAmount = 1;
-			if(shieldLabel != null)
-				shieldLabel.text = "" + player.playerStatus.overTimeBuffs.shieldBuffCounter;
+			if(playerOverTimeIcons.shieldIcon != null)
+				playerOverTimeIcons.shieldIcon.fillAmount = 1;
+			if(playerOverTimeIcons.shieldLabel != null)
+				playerOverTimeIcons.shieldLabel.text = "" + player.playerStatus.overTimeBuffs.shieldBuffCounter;
 		}
 		else{
-			if(shieldIcon != null)
-				shieldIcon.fillAmount = 0;
-			if(shieldLabel != null)
-				shieldLabel.text = "";
+			if(playerOverTimeIcons.shieldIcon != null)
+				playerOverTimeIcons.shieldIcon.fillAmount = 0;
+			if(playerOverTimeIcons.shieldLabel != null)
+				playerOverTimeIcons.shieldLabel.text = "";
 		}
+		#endregion
+		
+		#region DeBuff
+		
+		//Damage over time
+		if(player.playerStatus.overTimeDeBuffs.doTCounter > 0){
+			if(playerOverTimeIcons.doTIcon != null)
+				playerOverTimeIcons.doTIcon.fillAmount = 1;
+			if(playerOverTimeIcons.doTLabel != null)
+				playerOverTimeIcons.doTLabel.text = "" + player.playerStatus.overTimeDeBuffs.doTCounter;
+		}
+		else{
+			if(playerOverTimeIcons.doTIcon != null)
+				playerOverTimeIcons.doTIcon.fillAmount = 0;
+			if(playerOverTimeIcons.doTLabel != null)
+				playerOverTimeIcons.doTLabel.text = "";
+		}
+		
+		//AP Tax
+		if(player.playerStatus.overTimeDeBuffs.aPTaxCounter > 0){
+			if(playerOverTimeIcons.aPCostUpIcon != null)
+				playerOverTimeIcons.aPCostUpIcon.fillAmount = 1;
+			if(playerOverTimeIcons.aPCostUpLabel != null)
+				playerOverTimeIcons.aPCostUpLabel.text = "" + player.playerStatus.overTimeDeBuffs.aPTaxCounter;
+		}
+		else{
+			if(playerOverTimeIcons.aPCostUpIcon != null)
+				playerOverTimeIcons.aPCostUpIcon.fillAmount = 0;
+			if(playerOverTimeIcons.aPCostUpLabel != null)
+				playerOverTimeIcons.aPCostUpLabel.text = "";
+		}
+		
+		//AP Gen Degrade
+		if(player.playerStatus.overTimeDeBuffs.aPGenDegradeCounter > 0){
+			if(playerOverTimeIcons.aPGenDownIcon != null)
+				playerOverTimeIcons.aPGenDownIcon.fillAmount = 1;
+			if(playerOverTimeIcons.apGenDownLabel != null)
+				playerOverTimeIcons.apGenDownLabel.text = "" + player.playerStatus.overTimeDeBuffs.aPGenDegradeCounter;
+		}
+		else{
+			if(playerOverTimeIcons.aPGenDownIcon != null)
+				playerOverTimeIcons.aPGenDownIcon.fillAmount = 0;
+			if(playerOverTimeIcons.apGenDownLabel != null)
+				playerOverTimeIcons.apGenDownLabel.text = "";
+		}
+		
+		//StrDefDown Debuff
+		if(player.playerStatus.overTimeDeBuffs.StrDefDownDeBuffCounter > 0){
+			if(playerOverTimeIcons.strDefDownIcon != null)
+				playerOverTimeIcons.strDefDownIcon.fillAmount = 1;
+			if(playerOverTimeIcons.strDefDownLabel != null)
+				playerOverTimeIcons.strDefDownLabel.text = "" + player.playerStatus.overTimeDeBuffs.StrDefDownDeBuffCounter;
+		}
+		else{
+			if(playerOverTimeIcons.strDefDownIcon != null)
+				playerOverTimeIcons.strDefDownIcon.fillAmount = 0;
+			if(playerOverTimeIcons.strDefDownLabel != null)
+				playerOverTimeIcons.strDefDownLabel.text = "";
+		}
+		
+		#endregion
 		
 		#endregion
 		
 		#region Enemy OverTime Icons
-		//Hp over TimeBuff
-		if(enemy.hPoTCounter > 0){
-			if(enemyHPoTIcon != null)
-				enemyHPoTIcon.fillAmount = 1;
-			if(enemyHPoTIconLabel != null)
-				enemyHPoTIconLabel.text = "" + enemy.hPoTCounter;
-		}
-		else{
-			if(enemyHPoTIcon != null)
-				enemyHPoTIcon.fillAmount = 0;
-			if(enemyHPoTIconLabel != null)
-				enemyHPoTIconLabel.text = "";
-		}
-		//
 		
-		//Dam over Time
-		if(enemy.doTCounter > 0){
-			if(enemyDoTIcon != null)
-				enemyDoTIcon.fillAmount = 1;
-			if(enemyDoTIconLabel != null)
-				enemyDoTIconLabel.text = "" + enemy.doTCounter;
+		#region Buffs
+		
+		//DoT
+		if(enemy.enemyStatus.hPoTCounter > 0){
+			if(enemyOverTimeIcons.enemyHPoTIcon != null)
+				enemyOverTimeIcons.enemyHPoTIcon.fillAmount = 1;
+			if(enemyOverTimeIcons.enemyHPoTIconLabel != null)
+				enemyOverTimeIcons.enemyHPoTIconLabel.text = "" + enemy.enemyStatus.hPoTCounter;
 		}
 		else{
-			if(enemyDoTIcon != null)
-				enemyDoTIcon.fillAmount = 0;
-			if(enemyDoTIconLabel != null)
-				enemyDoTIconLabel.text = "";
+			if(enemyOverTimeIcons.enemyHPoTIcon != null)
+				enemyOverTimeIcons.enemyHPoTIcon.fillAmount = 0;
+			if(enemyOverTimeIcons.enemyHPoTIconLabel != null)
+				enemyOverTimeIcons.enemyHPoTIconLabel.text = "";
 		}
 		
-		//CanCast Debuff
-		if(enemy.canCastCounter > 0){
-			if(enemyCanCastIcon != null)
-				enemyCanCastIcon.fillAmount = 1;
-			if(enemyCanCastLabel != null)
-				enemyCanCastLabel.text = "" + enemy.canCastCounter;
+		//SrtDefUp Buff
+		if(enemy.enemyStatus.strDefUpBuffCounter > 0){
+			if(enemyOverTimeIcons.strDefUpIcon != null)
+				enemyOverTimeIcons.strDefUpIcon.fillAmount = 1;
+			if(enemyOverTimeIcons.strDefUpLabel != null)
+				enemyOverTimeIcons.strDefUpLabel.text = "" + enemy.enemyStatus.strDefUpBuffCounter;
 		}
 		else{
-			if(enemyCanCastIcon != null)
-				enemyCanCastIcon.fillAmount = 0;
-			if(enemyCanCastLabel != null)
-				enemyCanCastLabel.text = "";	
+			if(enemyOverTimeIcons.strDefUpIcon != null)
+				enemyOverTimeIcons.strDefUpIcon.fillAmount = 0;
+			if(enemyOverTimeIcons.strDefUpLabel != null)
+				enemyOverTimeIcons.strDefUpLabel.text = "";
+		}
+		
+		//Shield Buff
+		if(enemy.enemyStatus.shieldBuffCounter > 0){
+			if(enemyOverTimeIcons.shieldIcon != null)
+				enemyOverTimeIcons.shieldIcon.fillAmount = 1;
+			if(enemyOverTimeIcons.shieldLabel != null)
+				enemyOverTimeIcons.shieldLabel.text = "" + enemy.enemyStatus.shieldBuffCounter;
+		}
+		else{
+			if(enemyOverTimeIcons.shieldIcon != null)
+				enemyOverTimeIcons.shieldIcon.fillAmount = 0;
+			if(enemyOverTimeIcons.shieldLabel != null)
+				enemyOverTimeIcons.shieldLabel.text = "";
+		}
+		
+		//EnemySpecific Buff
+		if(enemy.enemyStatus.enemySpecificBuffCounter > 0){
+			if(enemyOverTimeIcons.enemySpecificIcon != null)
+				enemyOverTimeIcons.enemySpecificIcon.fillAmount = 1;
+			if(enemyOverTimeIcons.enemySpecificLabel != null)
+				enemyOverTimeIcons.enemySpecificLabel.text = "" + enemy.enemyStatus.enemySpecificBuffCounter;
+		}
+		else{
+			if(enemyOverTimeIcons.enemySpecificIcon != null)
+				enemyOverTimeIcons.enemySpecificIcon.fillAmount = 0;
+			if(enemyOverTimeIcons.enemySpecificLabel != null)
+				enemyOverTimeIcons.enemySpecificLabel.text = "";
 		}
 		
 		#endregion
 		
+		#region Debuffs
+		
+		//DoT
+		if(enemy.enemyStatus.doTCounter > 0){
+			if(enemyOverTimeIcons.enemyDoTIcon != null)
+				enemyOverTimeIcons.enemyDoTIcon.fillAmount = 1;
+			if(enemyOverTimeIcons.enemyDoTIconLabel != null)
+				enemyOverTimeIcons.enemyDoTIconLabel.text = "" + enemy.enemyStatus.doTCounter;
+		}
+		else{
+			if(enemyOverTimeIcons.enemyDoTIcon != null)
+				enemyOverTimeIcons.enemyDoTIcon.fillAmount = 0;
+			if(enemyOverTimeIcons.enemyDoTIconLabel != null)
+				enemyOverTimeIcons.enemyDoTIconLabel.text = "";
+		}
+		
+		//StrDefDown Debuff
+		if(enemy.enemyStatus.strDefDownDebuffCounter > 0){
+			if(enemyOverTimeIcons.strDefDownIcon != null)
+				enemyOverTimeIcons.strDefDownIcon.fillAmount = 1;
+			if(enemyOverTimeIcons.strDefDownLabel != null)
+				enemyOverTimeIcons.strDefDownLabel.text = "" + enemy.enemyStatus.strDefDownDebuffCounter;
+		}
+		else{
+			if(enemyOverTimeIcons.strDefDownIcon != null)
+				enemyOverTimeIcons.strDefDownIcon.fillAmount = 0;
+			if(enemyOverTimeIcons.strDefDownLabel != null)
+				enemyOverTimeIcons.strDefDownLabel.text = "";
+		}
+		
+		//PlayerSpecific Debuff 1
+		if(enemy.enemyStatus.playerSpecificDebuff1Counter > 0){
+			if(enemyOverTimeIcons.playerDebuff1Icon != null)
+				enemyOverTimeIcons.playerDebuff1Icon.fillAmount = 1;
+			if(enemyOverTimeIcons.playerDebuff1Label != null)
+				enemyOverTimeIcons.playerDebuff1Label.text = "" + enemy.enemyStatus.playerSpecificDebuff1Counter;
+		}
+		else{
+			if(enemyOverTimeIcons.playerDebuff1Icon != null)
+				enemyOverTimeIcons.playerDebuff1Icon.fillAmount = 0;
+			if(enemyOverTimeIcons.playerDebuff1Label != null)
+				enemyOverTimeIcons.playerDebuff1Label.text = "";
+		}
+		
+		//PlayerSpecific Debuff 2
+		if(enemy.enemyStatus.playerSpecificDebuff2Counter > 0){
+			if(enemyOverTimeIcons.playerDebuff2Icon != null)
+				enemyOverTimeIcons.playerDebuff2Icon.fillAmount = 1;
+			if(enemyOverTimeIcons.playerDebuff2Label != null)
+				enemyOverTimeIcons.playerDebuff2Label.text = "" + enemy.enemyStatus.playerSpecificDebuff2Counter;
+		}
+		else{
+			if(enemyOverTimeIcons.playerDebuff2Icon != null)
+				enemyOverTimeIcons.playerDebuff2Icon.fillAmount = 0;
+			if(enemyOverTimeIcons.playerDebuff2Label != null)
+				enemyOverTimeIcons.playerDebuff2Label.text = "";
+		}
+		#endregion
+		
+		
+		#endregion
+		
 		//Turns
-		if(turnsLabel != null){
+		if(battleInfo.turnsLabel != null){
 			if(player.TurnPhases < 8)
-				turnsLabel.text = "Player's Turn";
+				battleInfo.turnsLabel.text = "Player";
 			else
-				turnsLabel.text = "Enemy's Turn";
+				battleInfo.turnsLabel.text = "Enemy";
 				
 		}
 		
 		#endregion
 		
-		
+		//Choose Abilities
+		#region Choose Abilities
 		//Player chooses Abilities
 		if(player.TurnPhases == 0){
 			
@@ -594,10 +880,10 @@ public class BattleGui : MonoBehaviour {
 			
 			headingText = "Battle Update: Time to choose abilities\n" + abilityText;
 		}
-		
-		
+		#endregion
 		
 		//Execute Sword Abilities
+		#region Execute Sword Abilities
 		else if(player.TurnPhases == 4){
 			
 			string tempPlayerApCostLabel = "";
@@ -669,20 +955,22 @@ public class BattleGui : MonoBehaviour {
 				}
 				
 				
-				if(playerApGenLabel != null){
-					playerApGenLabel.text = tempPlayerApCostLabel;
-					playerApGenLabel.enabled = true;	
+				if(battleInfo.playerApGenLabel != null){
+					battleInfo.playerApGenLabel.text = tempPlayerApCostLabel;
+					battleInfo.playerApGenLabel.enabled = true;	
 				}
 				
-				if(enemyHpDamageLabel != null){
-					enemyHpDamageLabel.text = tempEnemyDamLabel;
-					enemyHpDamageLabel.enabled = true;
+				if(battleInfo.enemyHpDamageLabel != null){
+					battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
+					battleInfo.enemyHpDamageLabel.enabled = true;
 				}
 				
 			}
 		}
+		#endregion
 		
 		//Execute Gun Abilities
+		#region Execute Gun Abilities
 		else if(player.TurnPhases == 5){
 			//Reset ShownIcons
 			//if(enemyHpDamageLabel != null)
@@ -765,30 +1053,32 @@ public class BattleGui : MonoBehaviour {
 						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";*/
 				}
 				
-				if(enemyHpDamageLabel != null){
-					enemyHpDamageLabel.text = tempEnemyDamLabel;
-					enemyHpDamageLabel.enabled = true;
+				if(battleInfo.enemyHpDamageLabel != null){
+					battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
+					battleInfo.enemyHpDamageLabel.enabled = true;
 				}
 				
-				if(playerApGenLabel != null){
-					playerApGenLabel.text = tempPlayerApBoost;
-					playerApGenLabel.enabled = true;
+				if(battleInfo.playerApGenLabel != null){
+					battleInfo.playerApGenLabel.text = tempPlayerApBoost;
+					battleInfo.playerApGenLabel.enabled = true;
 				}
 				
 				
 			}
 			
 		}
+		#endregion
 		
 		//Execute StanceChange
+		#region execute StanceChange
 		else if(player.TurnPhases == 6){
 			//Reset ShownIcons
-			if(playerHpHealLabel != null)
-				playerHpHealLabel.enabled = false;
-			if(playerApGenLabel != null)
-				playerApGenLabel.enabled = false;
-			if(enemyHpDamageLabel != null)
-				enemyHpDamageLabel.enabled = false;
+			if(battleInfo.playerHpHealLabel != null)
+				battleInfo.playerHpHealLabel.enabled = false;
+			if(battleInfo.playerApGenLabel != null)
+				battleInfo.playerApGenLabel.enabled = false;
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.enabled = false;
 			
 			
 			if(player.stanceChosen == -1)
@@ -807,8 +1097,10 @@ public class BattleGui : MonoBehaviour {
 				
 			}
 		}
+		#endregion
 		
 		//Apply OverTime Effects
+		#region Apply AoverTimeEffects
 		else if(player.TurnPhases == 7){
 			//Reset ShownIcons
 			//if(playerHpHealLabel != null)
@@ -829,64 +1121,61 @@ public class BattleGui : MonoBehaviour {
 			if(player.playerStatus.overTimeBuffs.aPBuffCounter > 0)
 				tempPlayerApBoost = "+" + player.playerStatus.overTimeBuffs.aPoT + "AP";
 			
-			if(enemy.doTCounter > 0)
-				tempEnemyDamLabel = "-" + (int)(enemy.hP * enemy.doT) + "HP";
+			if(enemy.enemyStatus.doTCounter > 0)
+				tempEnemyDamLabel = "-" + (int)(enemy.hP * enemy.enemyStatus.doT) + "HP";
 			
 			
 			headingText = "Battle Update: Applying OvertimeEffects";
 			
 			
 			//Show effects
-			if(playerHpHealLabel != null){
-				playerHpHealLabel.text = tempPlayerHpBoost;
-				playerHpHealLabel.enabled = true;
+			if(battleInfo.playerHpHealLabel != null){
+				battleInfo.playerHpHealLabel.text = tempPlayerHpBoost;
+				battleInfo.playerHpHealLabel.enabled = true;
 			}
-			if(playerApGenLabel != null){
-				playerApGenLabel.text = tempPlayerApBoost;
-				playerApGenLabel.enabled = true;
+			if(battleInfo.playerApGenLabel != null){
+				battleInfo.playerApGenLabel.text = tempPlayerApBoost;
+				battleInfo.playerApGenLabel.enabled = true;
 			}
-			if(enemyHpDamageLabel !=null){
-				enemyHpDamageLabel.text = tempEnemyDamLabel;
-				enemyHpDamageLabel.enabled = true;
+			if(battleInfo.enemyHpDamageLabel !=null){
+				battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
+				battleInfo.enemyHpDamageLabel.enabled = true;
 			}
 			
 		}
+		#endregion
 		
 		//Enemy's turn
+		#region Enemies Turn
 		else if(player.TurnPhases == 8){
 			//Reset ShownIcons
-			if(playerHpHealLabel != null)
-				playerHpHealLabel.enabled = false;
-			if(playerApGenLabel != null)
-				playerApGenLabel.enabled = false;
-			if(enemyHpDamageLabel != null)
-				enemyHpDamageLabel.enabled = false;
+			if(battleInfo.playerHpHealLabel != null)
+				battleInfo.playerHpHealLabel.enabled = false;
+			if(battleInfo.playerApGenLabel != null)
+				battleInfo.playerApGenLabel.enabled = false;
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.enabled = false;
 			
 			
 			
-			if(battleInfoBox != null)
+			if(battleInfo.battleInfoBox != null)
 				headingText = "Battle Update: Enemy's Turn\n" +
 					"Enemy Attacking Player";
 			
 			
 			
-			if(enemy.previousAttack == 0){
-				if(playerHpDamageLabel != null)
-					playerHpDamageLabel.text = "-25HP";	
-			}
+			if(battleInfo.playerHpDamageLabel != null)
+				battleInfo.playerHpDamageLabel.text = "-" + enemy.enemyStatus.previousDam + "HP";	
 			
-			else if(enemy.previousAttack == 1){
-				if(playerHpDamageLabel != null)
-					playerHpDamageLabel.text = "-50HP";	
-			}
 			
-			if(playerHpDamageLabel != null)
-				playerHpDamageLabel.enabled = true;
+			if(battleInfo.playerHpDamageLabel != null)
+				battleInfo.playerHpDamageLabel.enabled = true;
 			
 		}
+		#endregion
 		
-		if(battleInfoBox != null)
-			battleInfoBox.text = headingText;
+		if(battleInfo.battleInfoBox != null)
+			battleInfo.battleInfoBox.text = headingText;
 		
 	}
 }

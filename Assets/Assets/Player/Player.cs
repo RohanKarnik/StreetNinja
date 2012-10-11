@@ -5,6 +5,10 @@ public class Player : MonoBehaviour {
 
 	
 		public float hP;
+		public float hPMax;
+		
+		public int level;
+		
 		public float aP;
 	
 		public float xP;
@@ -459,6 +463,11 @@ public class Player : MonoBehaviour {
 	
 		//Initial Stats
 		hP = 1000;
+		
+		level = 1;
+		
+		hPMax = 1000;
+		
 		aP = 0;
 		
 		xP = 0;

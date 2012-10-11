@@ -42,7 +42,7 @@ public class C5 : MonoBehaviour {
 		//else if(player.TurnPhases == 0){
 			//if(player.cAbilityChosen != 5)
 		else
-				button.defaultColor = Color.blue;
+				button.defaultColor = Color.white;
 		//}
 		
 	}

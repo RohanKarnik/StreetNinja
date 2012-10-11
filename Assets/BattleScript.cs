@@ -259,25 +259,21 @@ public class BattleScript : MonoBehaviour {
 					
 					#region EnemyOverTime Effects
 					//OverTime effects
-					if(enemy.doTCounter > 0){
+					if(enemy.enemyStatus.doTCounter > 0){
 					
-						enemy.hP -= (int)enemy.doT;
-						enemy.doTCounter--;
+						enemy.hP -= (int)enemy.enemyStatus.doT;
+						enemy.enemyStatus.doTCounter--;
 					}
-					if(enemy.hPoTCounter > 0){
+					if(enemy.enemyStatus.hPoTCounter > 0){
 					
-						enemy.hP += (int)enemy.hPoT;
-						enemy.hPoTCounter--;
+						enemy.hP += (int)enemy.enemyStatus.hPoT;
+						enemy.enemyStatus.hPoTCounter--;
 					}
-					if(enemy.canCastCounter > 0){
-					
-						enemy.canCastCounter--;
-						
-						if(enemy.canCastCounter == 0)
-							enemy.canCast = true;
-						
-					}
+
 					#endregion
+					
+					//Enemy's turn
+					ExecuteEnemysTurn();
 					
 					//Delay
 					player.gameTimer = Time.time + 3;
@@ -291,16 +287,8 @@ public class BattleScript : MonoBehaviour {
 			else if(player.TurnPhases == 8){
 				
 				if(Time.time >= player.gameTimer){
-					int tempAttack = Random.Range(1,3);
 					
-					if(tempAttack == 1){
-						enemy.previousAttack = 0;
-						player.hP -= 25;
-					}
-					else{
-						enemy.previousAttack = 1;
-						player.hP -= 50;
-					}
+					
 					//start over again
 					resetTurns();
 					
@@ -1324,6 +1312,21 @@ public class BattleScript : MonoBehaviour {
 		}
 		#endregion
 		*/
+	}
+	
+	public void ExecuteEnemysTurn(){
+		int tempAttack = Random.Range(1,3);
+					
+					if(tempAttack == 1){
+						enemy.enemyStatus.previousAttack = 0;
+						enemy.enemyStatus.previousDam = 25;
+						player.hP -= 25;
+					}
+					else{
+						enemy.enemyStatus.previousAttack = 1;
+						enemy.enemyStatus.previousDam = 50;
+						player.hP -= 50;
+					}	
 	}
 	
 }

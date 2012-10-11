@@ -37,7 +37,7 @@ public class A5 : MonoBehaviour {
 		//else if(player.TurnPhases == 0){
 			//if(player.aAbilityChosen != 2)
 		else
-				button.defaultColor = Color.yellow;
+				button.defaultColor = Color.white;
 		//}
 	}
 }

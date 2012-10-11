@@ -41,7 +41,7 @@ public class B4 : MonoBehaviour {
 		//else if(player.TurnPhases == 0){
 			//if(player.bAbilityChosen != 4)
 		else
-				button.defaultColor = Color.green;
+				button.defaultColor = Color.white;
 		//}
 		
 		//Do not player select what they can't afford
