@@ -2,8 +2,29 @@ using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour {
-
 	
+		//LevelStuff
+		public TextAsset playerLevels;
+	
+		[System.Serializable]
+		public class Level{
+			public int lvl;
+			public int xPNeeded;
+			public int hP;
+			public int str;
+			public int def;
+		}
+		
+		[System.Serializable]
+		public class LevelArray{ 
+		
+			public Level playerLevelArray = new Level();
+		
+		}
+	
+		public LevelArray[] playerLevelArray = new LevelArray[100];
+	
+
 		public float hP;
 		public float hPMax;
 		
@@ -458,23 +479,57 @@ public class Player : MonoBehaviour {
 		
 	}
 	
+		public void fillLevelArray(LevelArray[] playerLevelArray, TextAsset playerLevelFile){
+		
+		string[] dataLines = playerLevelFile.text.Split('\n');
+		
+		int lineNum = 0;
+        foreach (string line in dataLines)
+        {	
+				
+			
+			string[] dataNode = line.Split(',');
+			
+			foreach(string node in dataNode){
+				
+				
+				if(playerLevelArray[lineNum].playerLevelArray.lvl == 0){
+					playerLevelArray[lineNum].playerLevelArray.lvl = int.Parse(node);
+				}
+
+				else if(playerLevelArray[lineNum].playerLevelArray.xPNeeded == 0){
+					playerLevelArray[lineNum].playerLevelArray.xPNeeded = int.Parse(node);
+				}
+				
+				else if(playerLevelArray[lineNum].playerLevelArray.hP == 0){
+					playerLevelArray[lineNum].playerLevelArray.hP = int.Parse(node);
+				}
+				
+				else if(playerLevelArray[lineNum].playerLevelArray.str == 0){
+					playerLevelArray[lineNum].playerLevelArray.str = int.Parse(node);
+				}
+				
+				else if(playerLevelArray[lineNum].playerLevelArray.def == 0){
+					playerLevelArray[lineNum].playerLevelArray.def = int.Parse(node);
+				}
+			}
+			
+
+				
+			lineNum++;
+        }
+		
+	}
+	
+	
 	// Use this for initialization
 	void Start () {
-	
-		//Initial Stats
-		hP = 1000;
 		
-		level = 1;
-		
-		hPMax = 1000;
-		
-		aP = 0;
-		
-		xP = 0;
-		def = 0;
+		level = 0;
 		
 		populateAbilities(playerAbilities);
 		populatePlayerStatus(playerStatus);
+		fillLevelArray(playerLevelArray, playerLevels);
 		
 		gunAbilityChosen = -1;
 		swordAbilityChosen = -1;
@@ -491,6 +546,38 @@ public class Player : MonoBehaviour {
 		lastTurn = 1;
 		
 		gameTimer = 0;
+		
+		//Initial Stats
+		hP = playerLevelArray[level].playerLevelArray.hP;
+		
+		
+		hPMax = playerLevelArray[level].playerLevelArray.hP;
+		
+		aP = 0;
+		
+		xP = 0;
+		
+		str = playerLevelArray[level].playerLevelArray.str;
+		def = playerLevelArray[level].playerLevelArray.def;
+		
+	}
+	
+	void Update(){
+	
+		/*public float hP;
+		public float hPMax;
+		
+		public int level;
+		
+		public float aP;
+	
+		public float xP;
+	
+		public float str = 5;
+	
+		public float def;*/
+		
+		
 		
 	}
 	

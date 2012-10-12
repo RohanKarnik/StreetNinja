@@ -208,6 +208,7 @@
      <None Include="Assets\TK2DROOT\tk2d\Shaders\LitSolidVertexColor.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo20.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo14.txt" />
+     <None Include="Assets\Assets\LvLStuff\Lvl_XP_HP_STR_DEF(Text).txt" />
      <None Include="Assets\TK2DROOT\tk2d\Shaders\SolidVertexColor.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo18.txt" />
