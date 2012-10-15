@@ -10,7 +10,7 @@ public class C1 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		if(player.TurnPhases == 0){
+		if(player.TurnPhases == 3){
 			
 			player.stanceChosen = 1;
 				
@@ -25,23 +25,24 @@ public class C1 : MonoBehaviour {
 	}
 	
 	void OnHover(){
-			if(player.TurnPhases == 0)
+			if(player.TurnPhases == 3)
 				player.lastAbilityChosen = 11;
 	}
 	
 	void Update(){
 	
-		//if(player.TurnPhases > 0){
+		if(player.TurnPhases == 3){
+			button.isEnabled = true;
 		
-		if(player.stanceChosen  == 1)
+			if(player.stanceChosen  == 1)
 				button.defaultColor = Color.red;
-		//}
-		
-		//else if(player.TurnPhases == 0){
-			//if(player.cAbilityChosen != 1)
-		else
+			else
 				button.defaultColor = Color.white;
-		//}
+		}
+		else{
+			button.isEnabled = false;
+			button.defaultColor = Color.clear;
+		}
 		
 		
 	}

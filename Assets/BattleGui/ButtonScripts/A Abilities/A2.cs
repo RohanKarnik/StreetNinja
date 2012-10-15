@@ -10,7 +10,7 @@ public class A2 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		if(player.TurnPhases == 0){
+		if(player.TurnPhases == 1){
 			player.gunAbilityChosen = 2;
 		
 			//player.TurnPhases = 1;
@@ -22,23 +22,25 @@ public class A2 : MonoBehaviour {
 	}
 	
 	void OnHover(){
-			if(player.TurnPhases == 0)
+			if(player.TurnPhases == 1)
 				player.lastAbilityChosen = 2;
 	}
 	
 	void Update(){
 	
-		//if(player.TurnPhases > 0){
+		if(player.TurnPhases == 1){
+			button.isEnabled = true;
 		
 			if(player.gunAbilityChosen == 2)
 				button.defaultColor = Color.red;
-		//}
-		
-		//else if(player.TurnPhases == 0){
-			//if(player.aAbilityChosen != 2)
-		else
+			else
 				button.defaultColor = Color.white;
-		//}
+		}
+		
+		else{
+			button.defaultColor = Color.clear;
+			button.isEnabled = false;
+		}
 	}
 
 }

@@ -63,7 +63,7 @@ public class BattleScript : MonoBehaviour {
 		if(menuPage == "battle"){
 			
 			//Player Chooses Abilities
-			if(player.TurnPhases == 0){
+			if(player.TurnPhases >= 0 && player.TurnPhases < 4){
 				
 				if(enemy.isClicked == true){
 					player.TurnPhases = 4;
@@ -210,44 +210,6 @@ public class BattleScript : MonoBehaviour {
 						
 						player.playerStatus.overTimeDeBuffs.StrDefDownDeBuffCounter--;
 					}
-					
-					
-					
-					//Old Code
-					/*//OverTime effects
-					if(player.playerStatus.hPBuffCounter > 0){
-		
-						player.hP += (int)(player.hP * player.playerStatus.hPoT);
-						player.playerStatus.hPBuffCounter--;
-					}
-				
-					if(player.playerStatus.aPBuffCounter > 0){
-			
-						player.aP += player.playerStatus.aPoT;
-						player.playerStatus.aPBuffCounter--;
-					}
-					
-					//Buff and Debuff Counters
-					if(player.playerStatus.aAbilitiesBuffCounter > 0){
-						player.playerStatus.aAbilitiesBuffCounter--;
-					}
-					
-					if(player.playerStatus.bAbilitiesApDiscountCounter > 0){
-						player.playerStatus.bAbilitiesApDiscountCounter--;
-					}
-					
-					if(player.playerStatus.bAbilitiesApTaxCounter > 0){
-						player.playerStatus.bAbilitiesApTaxCounter--;
-					}
-					if(player.playerStatus.bAbilitiesBuffCounter > 0){
-						player.playerStatus.bAbilitiesBuffCounter--;	
-					}
-					if(player.playerStatus.bAbilitiesDeBuffCounter > 0){
-						player.playerStatus.bAbilitiesDeBuffCounter--;
-					}
-					if(player.playerStatus.shieldBuffCounter > 0){
-						player.playerStatus.shieldBuffCounter--;
-					}*/
 					
 					
 					
@@ -1319,13 +1281,13 @@ public class BattleScript : MonoBehaviour {
 					
 					if(tempAttack == 1){
 						enemy.enemyStatus.previousAttack = 0;
-						enemy.enemyStatus.previousDam = 25;
-						player.hP -= 25;
+						enemy.enemyStatus.previousDam = 5;
+						player.hP -= 5;
 					}
 					else{
 						enemy.enemyStatus.previousAttack = 1;
-						enemy.enemyStatus.previousDam = 50;
-						player.hP -= 50;
+						enemy.enemyStatus.previousDam = 10;
+						player.hP -= 10;
 					}	
 	}
 	

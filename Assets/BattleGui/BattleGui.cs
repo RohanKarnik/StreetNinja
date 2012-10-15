@@ -51,11 +51,23 @@ public class BattleGui : MonoBehaviour {
 	
 	//NGUI GUI
 	[System.Serializable]
-	public class BattleInfo{
-		public UILabel playerStatusBox;
-		public UILabel battleInfoBox;
 	
-		public UILabel enemyStatusBox;
+	//BattleInfo
+	public class BattleInfo{
+		//public UILabel playerStatusBox
+		public UIPanel abilitiesPanel;
+		
+		public UIPanel battleInfoPanel;
+		
+		public UIFilledSprite battleInfoAbility1Box;
+		public UIFilledSprite battleInfoAbility2Box;
+		public UIFilledSprite battleInfoAbility3Box;
+		public UIFilledSprite battleInfoAbility4Box;
+		public UIFilledSprite battleInfoAbility5Box;
+		
+		public UILabel battleInfoLabel;
+	
+		//public UILabel enemyStatusBox;
 	
 		public UILabel turnsLabel;
 	
@@ -73,6 +85,7 @@ public class BattleGui : MonoBehaviour {
 	
 	public BattleInfo battleInfo;
 	
+	//TOP
 	[System.Serializable]
 	public class TOP{
 	
@@ -159,7 +172,43 @@ public class BattleGui : MonoBehaviour {
 	}
 	
 	public EnemyOverTimeIcons enemyOverTimeIcons;
+	
+	
+	//Botom
+	[System.Serializable]
+	public class BOTTOM{
 		
+		public UIButton gunAbilityButton;
+		public UIButton swordAbilityButton;
+		public UIButton stanceAbilityButton;
+		
+		public UILabel playerBuffDeBuffDescription;
+		
+		public UIButton playerBuffSwitch1;
+		public UIButton playerBuffSwitch2;
+		public UIButton playerBuffSwitch3;
+		public UIButton playerBuffSwitch4;
+		public UIButton playerDeBuffSwitch1;
+		public UIButton playerDeBuffSwitch2;
+		public UIButton playerDeBuffSwitch3;
+		public UIButton playerDeBuffSwitch4;
+		
+		public UILabel enemyBuffDeBuffDescription;
+		
+		public UIButton enemyBuffSwitch1;
+		public UIButton enemyBuffSwitch2;
+		public UIButton enemyBuffSwitch3;
+		public UIButton enemyBuffSwitch4;
+		public UIButton enemyDeBuffSwitch1;
+		public UIButton enemyDeBuffSwitch2;
+		public UIButton enemyDeBuffSwitch3;
+		public UIButton enemyDeBuffSwitch4;
+		
+		//TODO: ADD Battle Info variable into Bottom class for Inspector's sake
+		
+	}
+	
+	public BOTTOM GuiBottom;
 	
 	// Update is called once per frame
 	void Update () {
@@ -187,7 +236,7 @@ public class BattleGui : MonoBehaviour {
 		
 		//PlayerLevel
 		if(GuiTop.playerLevel != null)
-			GuiTop.playerLevel.text = "Level ~ " + player.level;
+			GuiTop.playerLevel.text = "Level ~ " + (player.level + 1);
 		#endregion
 		
 		#region Enemy
@@ -207,6 +256,8 @@ public class BattleGui : MonoBehaviour {
 		#endregion
 		
 		
+		//MIDDLE
+		#region Middle
 		//Turn Damage
 		if(battleInfo.turnTotalDamageLabel != null){
 			if(player.TurnPhases >= 1 && player.TurnPhases < 8)
@@ -233,8 +284,9 @@ public class BattleGui : MonoBehaviour {
 			if(battleInfo.enemyHpPlusLabel != null)
 				battleInfo.enemyHpPlusLabel.enabled = false;
 		}
+		#endregion
 		
-		#region Update Buttons
+		#region Update Ability Buttons
 		if(abilitiesButtons.A1Button != null)
 			abilitiesButtons.A1Button.UpdateColor(true,true);
 		if(abilitiesButtons.A2Button != null)
@@ -267,18 +319,83 @@ public class BattleGui : MonoBehaviour {
 			abilitiesButtons.C5Button.UpdateColor(true,true);
 		#endregion
 		
-		
+		//BOTTOM
+		#region BOTTOM
 		string headingText = "";
 		string abilityText = "No ability chosen";
 		
-		#region BattleUI
-		if(battleInfo.playerStatusBox != null)
-			battleInfo.playerStatusBox.text = "Player\nHP : " + player.hP + "\nAP : " + player.aP;
-		
-		if(battleInfo.enemyStatusBox != null)
-			battleInfo.enemyStatusBox.text = "Enemy\nHP : " + enemy.hP;
+		//OverTimeIvons
+		#region OverTimeIcons
 		
 		#region Player OverTime Icons
+		
+		//Update RestedOverIcons
+		#region Update RestedOverIcons
+		//UpdateButtonColor
+		if(GuiBottom.playerBuffSwitch1 != null)
+			GuiBottom.playerBuffSwitch1.UpdateColor(true, true);
+		if(GuiBottom.playerBuffSwitch2 != null)
+			GuiBottom.playerBuffSwitch2.UpdateColor(true, true);
+		if(GuiBottom.playerBuffSwitch3 != null)
+			GuiBottom.playerBuffSwitch3.UpdateColor(true, true);
+		if(GuiBottom.playerBuffSwitch4 != null)
+			GuiBottom.playerBuffSwitch4.UpdateColor(true, true);
+		if(GuiBottom.playerDeBuffSwitch1 != null)
+			GuiBottom.playerDeBuffSwitch1.UpdateColor(true,true);
+		if(GuiBottom.playerDeBuffSwitch2 != null)
+			GuiBottom.playerDeBuffSwitch2.UpdateColor(true,true);
+		if(GuiBottom.playerDeBuffSwitch3 != null)
+			GuiBottom.playerDeBuffSwitch3.UpdateColor(true,true);
+		if(GuiBottom.playerDeBuffSwitch4 != null)
+			GuiBottom.playerDeBuffSwitch4.UpdateColor(true,true);
+		
+		
+		//UpdateDescriptBox
+		if(player.lastBuffDebuffClicked == 0){
+			GuiBottom.playerBuffDeBuffDescription.text = "Hp Up\n" +
+				"Hp Up by " + player.playerStatus.overTimeBuffs.hPoT + "% for "
+					+ player.playerStatus.overTimeBuffs.hPBuffCounter + " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 1){
+			GuiBottom.playerBuffDeBuffDescription.text = "Ap GenUp\n" +
+				"Ap Gen by " + player.playerStatus.overTimeBuffs.aPoT + "% For "
+					+ player.playerStatus.overTimeBuffs.aPBuffCounter + " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 2){
+			GuiBottom.playerBuffDeBuffDescription.text = "Str/Def Up\n" +
+				"Str/Def Up by " + player.playerStatus.overTimeBuffs.StrDefUpBuffCounter + "% for "
+					+ player.playerStatus.overTimeBuffs.StrDefUpBuffCounter+ " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 3){
+			GuiBottom.playerBuffDeBuffDescription.text = "Shield Buff\n" +
+				"Player is Shieled for "
+					+ player.playerStatus.overTimeBuffs.shieldBuffCounter + " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 4){
+			GuiBottom.playerBuffDeBuffDescription.text = "Damage Over Time\n" +
+				"Player takes " + player.playerStatus.overTimeDeBuffs.doTDamage + "dam for "
+					+ player.playerStatus.overTimeDeBuffs.doTCounter + " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 5){
+			GuiBottom.playerBuffDeBuffDescription.text = "Ap Gen Down\n" +
+				"Ap Gen Decreased by " + (player.playerStatus.overTimeDeBuffs.aPGenDegrade) + " for "
+					+ player.playerStatus.overTimeDeBuffs.aPGenDegradeCounter + " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 6){
+			GuiBottom.playerBuffDeBuffDescription.text = "Ap Cost Up\n" +
+				"Ap Cost Increase by " + player.playerStatus.overTimeDeBuffs.aPTax+ " for "
+					+ player.playerStatus.overTimeDeBuffs.aPTaxCounter + " turns";
+		}
+		else if(player.lastBuffDebuffClicked == 7){
+			GuiBottom.playerBuffDeBuffDescription.text = "Str/Def Down\n" +
+				"Str/Def Down by " + player.playerStatus.overTimeDeBuffs.StrDefDownDeBuff + "% for "
+					+ player.playerStatus.overTimeDeBuffs.StrDefDownDeBuffCounter + " turns";
+		}
+		
+		else
+			GuiBottom.playerBuffDeBuffDescription.text = "";
+		#endregion
+		
 		
 		#region Buffs
 		//Hp over TimeBuff
@@ -403,6 +520,78 @@ public class BattleGui : MonoBehaviour {
 		
 		#region Enemy OverTime Icons
 		
+		//Update RestedOverIcons
+		#region Update RestedOver Icons
+		//Update RestedOverIcons
+		
+		//UpdateButtonColor
+		if(GuiBottom.enemyBuffSwitch1 != null)
+			GuiBottom.enemyBuffSwitch1.UpdateColor(true, true);
+		if(GuiBottom.enemyBuffSwitch2 != null)
+			GuiBottom.enemyBuffSwitch2.UpdateColor(true, true);
+		if(GuiBottom.enemyBuffSwitch3 != null)
+			GuiBottom.enemyBuffSwitch3.UpdateColor(true, true);
+		if(GuiBottom.enemyBuffSwitch4 != null)
+			GuiBottom.enemyBuffSwitch4.UpdateColor(true, true);
+		
+		if(GuiBottom.enemyDeBuffSwitch1 != null)
+			GuiBottom.enemyDeBuffSwitch1.UpdateColor(true,true);
+		if(GuiBottom.enemyDeBuffSwitch2 != null)
+			GuiBottom.enemyDeBuffSwitch2.UpdateColor(true,true);
+		if(GuiBottom.enemyDeBuffSwitch3 != null)
+			GuiBottom.enemyDeBuffSwitch3.UpdateColor(true,true);
+		if(GuiBottom.enemyDeBuffSwitch4 != null)
+			GuiBottom.enemyDeBuffSwitch4.UpdateColor(true,true);
+		
+		
+		//UpdateDescriptBox
+		if(player.lastEnemyBuffDebuffClicked == 0){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Hp Up\n" +
+				"Hp Up by " + enemy.enemyStatus.hPoT + "% for "
+					+ enemy.enemyStatus.hPoTCounter + " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 1){
+			GuiBottom.enemyBuffDeBuffDescription.text = "EnemySpecific Buff 1\n" +
+				"Does special effect for "
+					+ enemy.enemyStatus.enemySpecificBuffCounter + " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 2){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Shield Buff\n" +
+				"Enemy is Shieled for "
+					+ enemy.enemyStatus.shieldBuffCounter + " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 3){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Str/Def Up\n" +
+				"Str/Def Up by " + player.playerStatus.overTimeBuffs.StrDefUpBuffCounter + "% for "
+					+ player.playerStatus.overTimeBuffs.StrDefUpBuffCounter+ " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 4){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Damage Over Time\n" +
+				"Enemy takes " + enemy.enemyStatus.doT + "dam for "
+					+ enemy.enemyStatus.doTCounter + " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 5){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Player Specific Debuff1\n" +
+				"Enemy negatively effected by player for "
+					+ enemy.enemyStatus.playerSpecificDebuff1Counter + " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 6){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Player Specific Debuff2\n" +
+				"Enemy negatively effected by player for "
+					+ enemy.enemyStatus.playerSpecificDebuff1Counter + " turns";
+		}
+		else if(player.lastEnemyBuffDebuffClicked == 7){
+			GuiBottom.enemyBuffDeBuffDescription.text = "Str/Def Down\n" +
+				"Enemy Str/Def Down by " + enemy.enemyStatus.strDefDownDebuff + "% for "
+					+ enemy.enemyStatus.strDefDownDebuffCounter + " turns";
+		}
+		
+		else
+			GuiBottom.enemyBuffDeBuffDescription.text = "";
+		
+		
+		#endregion
+		
 		#region Buffs
 		
 		//DoT
@@ -524,26 +713,76 @@ public class BattleGui : MonoBehaviour {
 		
 		
 		#endregion
+				
+		#endregion 
 		
-		//Turns
+		// Draw Turns
 		if(battleInfo.turnsLabel != null){
 			if(player.TurnPhases < 8)
 				battleInfo.turnsLabel.text = "Player";
 			else
 				battleInfo.turnsLabel.text = "Enemy";
-				
 		}
 		
-		#endregion
+		//Update Ability buttons
+		if(GuiBottom.gunAbilityButton != null)
+			GuiBottom.gunAbilityButton.UpdateColor(true,true);
+		if(GuiBottom.swordAbilityButton != null)
+			GuiBottom.swordAbilityButton.UpdateColor(true,true);
+		if(GuiBottom.stanceAbilityButton != null)
+			GuiBottom.stanceAbilityButton.UpdateColor(true,true);
+	
+	
+		//UpdatingBattleInfo
+		#region UpdateBattleInfo
 		
 		//Choose Abilities
 		#region Choose Abilities
-		//Player chooses Abilities
+		//Player has chosen No Abilities
 		if(player.TurnPhases == 0){
 			
-			//BattleInfo
+			
+			//Hide Ability Boxes
+			//NGUITools.SetActive(GameObject.Find("AbilitiesPanel") as GameObject, false)
+			if(battleInfo.battleInfoAbility1Box != null)
+				battleInfo.battleInfoAbility1Box.fillAmount = 0;
+			if(battleInfo.battleInfoAbility2Box != null)
+				battleInfo.battleInfoAbility2Box.fillAmount = 0;
+			if(battleInfo.battleInfoAbility3Box != null)
+				battleInfo.battleInfoAbility3Box.fillAmount = 0;
+			if(battleInfo.battleInfoAbility4Box != null)
+				battleInfo.battleInfoAbility4Box.fillAmount = 0;
+			if(battleInfo.battleInfoAbility5Box != null)
+				battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
+			//Hide Ability label
+			headingText = "";
+			
+			
+		}
+		#endregion
+		
+		//Turn Phase 1 ~ Player has chosen Gun Abilities
+		else if(player.TurnPhases == 1){
+		
+			
+			//Set BattleInfo
 			#region GunAbilities
+				
 			if(player.lastAbilityChosen == 1){
+				
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
+				
 				
 				abilityText = "Gun Ability ~ Scarlet Shot\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.ScarletShot.rangeMin + " - " +
@@ -551,19 +790,23 @@ public class BattleGui : MonoBehaviour {
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.ScarletShot.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.ScarletShot.multiplier);
 			
-				/*if(player.playerAbilities.abilitiesA.a1level == 1)
-					abilityText = "Ability A1 Lvl l: Generates 20 AP.\nHeals you for 3% each turn for the next 2 turns";
-			
-				else if(player.playerAbilities.abilitiesA.a1level == 2)
-					abilityText = "Ability A1 Lvl 2: Generates 20 AP.\nHeals you for 5% each turn for the next 2 turns";
-			
-				else if(player.playerAbilities.abilitiesA.a1level == 3)
-					abilityText = "Ability A1 Lvl 3: Generates 30 AP.\nHeals you for 5% each turn for the next 3 turns";*/
 
 	
 
 			}
 			else if(player.lastAbilityChosen == 2){
+				
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
 				
 				abilityText = "Gun Ability ~ Dark Bullet\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.DarkBullet.rangeMin + " - " +
@@ -571,15 +814,21 @@ public class BattleGui : MonoBehaviour {
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.DarkBullet.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.DarkBullet.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesA.a2level == 1)
-					abilityText = "Ability A2 LvL 1: AP Swipes, 15%-20AP, 15%-25AP,\n35%-30AP,35%-35AP";
-				else if(player.playerAbilities.abilitiesA.a2level == 2)
-					abilityText = "Ability A2 LvL 2: AP Swipes, 10%-20AP, 10%-25AP,\n40%-30AP,40%-35AP";
-				else if(player.playerAbilities.abilitiesA.a2level == 3)
-					abilityText = "Ability A2 LvL 3: AP Swipes, 5%-20AP, 5%-25AP,\n45%-30AP,45%-35AP";*/
+
 
 			}
 			else if(player.lastAbilityChosen == 3){
+				
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Gun Ability ~ Plague Blast\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.PlagueBlast.rangeMin + " - " +
@@ -587,15 +836,20 @@ public class BattleGui : MonoBehaviour {
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.PlagueBlast.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.PlagueBlast.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesA.a3level == 1)
-					abilityText = "Ability A3 LvL 1: Generates 15 AP.\nGenerates 10AP each turn for next 2 turns";
-				else if (player.playerAbilities.abilitiesA.a3level == 2)
-					abilityText = "Ability A3 LvL 2: Generates 15 AP.\nGenerates 10AP each turn for next 3 turns";
-				else if (player.playerAbilities.abilitiesA.a3level == 3)
-					abilityText = "Ability A3 LvL 3: Generates 15 AP.\nGenerates 15AP each turn for next 3 turns";*/
 			
 			}
 			else if(player.lastAbilityChosen == 4){
+				
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Gun Ability ~ Blitz Barrage\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.BlitzBarrage.rangeMin + " - " +
@@ -603,15 +857,20 @@ public class BattleGui : MonoBehaviour {
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.BlitzBarrage.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.BlitzBarrage.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesA.a4level == 1)
-					abilityText = "Ability A4 LvL 1: Generates 25 AP.\nGenerates 5AP each turn for next 2 turns";
-				else if (player.playerAbilities.abilitiesA.a4level == 2)
-					abilityText = "Ability A4 LvL 2: Generates 25 AP.\nGenerates 5AP each turn for next 3 turns";
-				else if (player.playerAbilities.abilitiesA.a3level == 3)
-					abilityText = "Ability A4 LvL 3: Generates 25 AP.\nGenerates 10AP each turn for next 3 turns";*/
 
 			}
 			else if(player.lastAbilityChosen == 5){
+				
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
 				abilityText = "Gun Ability ~ Shadowflame Shot\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.ShadowflameShot.rangeMin + " - " +
@@ -619,272 +878,271 @@ public class BattleGui : MonoBehaviour {
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.ShadowflameShot.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.ShadowflameShot.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesA.a5level == 1)
-					abilityText = "Ability A5 LvL 1: Generates 20 AP + 3 AP\n each turn for rest of battle";
-				else if (player.playerAbilities.abilitiesA.a5level == 2)
-					abilityText = "Ability A5 LvL 2: Generates 20 AP + 5 AP\n each turn for rest of battle";
-				else if (player.playerAbilities.abilitiesA.a5level == 3)
-					abilityText = "Ability A5 LvL 3: Generates 30 AP + 5 AP\n each turn for rest of battle";*/
 
 			}
+			else{
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
+				abilityText = "";
+			}
+			
+			headingText = abilityText;
+			
 			#endregion
+		}
 		
-			#region Sword Abilities
-			else if(player.lastAbilityChosen == 6){
+		//Turn Phase 2 ~ Player has chosen Sword Abilities
+		else if(player.TurnPhases == 2){
+			
+			#region Sword Abilities			
+			if(player.lastAbilityChosen == 6){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Sword Ability ~ Blood Blade\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.BloodBlade.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.BloodBlade.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.BloodBlade.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesB.b1level == 1){
-					abilityText = "Ability B1 LvL1: Costs " + player.playerAbilities.abilitiesB.b1aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL1 * 100) +
-							"%HP";
-				}
 				
-				else if(player.playerAbilities.abilitiesB.b1level == 2){
-					abilityText = "Ability B1 LvL2: Costs " + player.playerAbilities.abilitiesB.b1aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL2 * 100) +
-							"%HP";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b1level == 3){
-					abilityText = "Ability B1 LvL2: Costs " + player.playerAbilities.abilitiesB.b1aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL3 * 100) +
-							"%HP";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 7){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Sword Ability ~ Death Strike\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.DeathStrike.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.DeathStrike.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.DeathStrike.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesB.b2level == 1){
-					abilityText = "Ability B2 LvL1: Costs " + player.playerAbilities.abilitiesB.b2aPCost +
-						" AP\nDoes Mid-Dam (25hP) and DoT to ememy for " + player.playerAbilities.abilitiesB.b2doTTurnsLvL1 +
-							" turns";
-				}
 				
-				else if(player.playerAbilities.abilitiesB.b2level == 2){
-					abilityText = "Ability B2 LvL2: Costs " + player.playerAbilities.abilitiesB.b2aPCost +
-						" AP\nDoes High-Dam (50hP) and DoT to ememy for " + player.playerAbilities.abilitiesB.b2doTTurnsLvL2 +
-							" turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b2level == 2){
-					abilityText = "Ability B2 LvL3: Costs " + player.playerAbilities.abilitiesB.b2aPCost +
-						" AP\nDoes High-Dam (50hP) and DoT to ememy for  " + player.playerAbilities.abilitiesB.b2doTTurnsLvL3 +
-							" turns";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 8){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Sword Ability ~ Shadowflame Slash\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.ShadowFlameSlash.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.ShadowFlameSlash.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesB.b3level == 1){
-					abilityText = "Ability B3 LvL1: Costs " + player.playerAbilities.abilitiesB.b3aPCost +
-						" AP\nDoes High-Dam (50hP) and dispells enemy's buffs";
-				}
 				
-				else if(player.playerAbilities.abilitiesB.b3level == 2){
-					abilityText = "Ability B3 LvL2: Costs " + player.playerAbilities.abilitiesB.b3aPCost +
-						" AP\nDoes Higher-Dam (75hP) and dispells enemy's buffs";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b3level == 3){
-					abilityText = "Ability B3 LvL3: Costs " + player.playerAbilities.abilitiesB.b3aPCost +
-						" AP\nDoes Higher-Dam (75hP) and prevents enemy from casting buffs";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 9){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Sword Ability ~ Crimson Cut\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.CrimsonCut.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.CrimsonCut.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.CrimsonCut.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesB.b4level == 1){
-					abilityText = "Ability B4 LvL1: Costs " + player.playerAbilities.abilitiesB.b4aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL1 * 100) +
-							"%HP";
-				}
 				
-				else if(player.playerAbilities.abilitiesB.b4level == 2){
-					abilityText = "Ability B4 LvL2: Costs " + player.playerAbilities.abilitiesB.b4aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL2 * 100) +
-							"%HP";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b4level == 3){
-					abilityText = "Ability B4 LvL3: Costs " + player.playerAbilities.abilitiesB.b4aPCost +
-						" AP\nDoes Mid-Dam (25hP) and Heals " + (player.playerAbilities.abilitiesB.b1hPHealLvL3 * 100) +
-							"%HP";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 10){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
 				abilityText = "Sword Ability ~ Shadowfury\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.ShadowFury.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.ShadowFury.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.ShadowFury.multiplier);
 				
-				/*if(player.playerAbilities.abilitiesB.b5level == 1){
-					abilityText = "Ability B5 LvL1: Costs " + player.playerAbilities.abilitiesB.b5aPCost +
-						" AP\nDoes Mega-Dam (100HP) and ups Crit Area";
-				}
 				
-				else if(player.playerAbilities.abilitiesB.b5level == 2){
-					abilityText = "Ability B5 LvL2: Costs " + player.playerAbilities.abilitiesB.b5aPCost +
-						" AP\nDoes Mega-Dam (100HP) and is a guaranteed Crit";
-				}
-				
-				else if(player.playerAbilities.abilitiesB.b5level == 3){
-					abilityText = "Ability B5 LvL3: Costs " + player.playerAbilities.abilitiesB.b5aPCost +
-						" AP\nDoes Mega-Dam (100HP) and casts Big DoT for 3 turns";
-				}*/
 			}
+			else{
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
+				abilityText = "";
+			}
+			
+			headingText = abilityText;
+			
 			#endregion
 			
+		}
+		
+		//Turn Phase 3 ~ Player has chosen Change Stance
+		else if(player.TurnPhases == 3){
+		
 			#region Stances
-			else if(player.lastAbilityChosen == 11){
+			if(player.lastAbilityChosen == 11){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
 				
 				abilityText = "Stance ~ Shade of Bloodlust\n\n" +
 					"Increases damage done by 25%\nAnd damage taken by 25% (Offensive)";
 				
-				/*if(player.playerAbilities.abilitiesC.c1level == 1){
-					abilityText = "Ability C1 LvL1 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + (100 * player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL1) + "% less effective" +
-						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
-				}
 				
-				else if(player.playerAbilities.abilitiesC.c1level == 2){
-					abilityText = "Ability C1 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + (100 * player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL2) + "% less effective" +
-						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c1level == 3){
-					abilityText = "Ability C1 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c1ApDiscount + " less AP\n" +
-						"But " + (100 * player.playerAbilities.abilitiesC.c1AbilityDeBuffLvL3) + "% less effective" +
-						" for " + player.playerAbilities.abilitiesC.c1DeBuffTurns + " turns";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 12){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
 				
 				abilityText = "Stance ~ Shade of Murder\n\n\n" +
 					"Health Gains increased by 25% (Health Regen)";
 				
-				/*if(player.playerAbilities.abilitiesC.c2level == 1){
-					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + (100 * (player.playerAbilities.abilitiesC.c2AbilityBuffLvL1 - 1.0f)) + "% more effective" +
-						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c2level == 2){
-					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + (100 * (player.playerAbilities.abilitiesC.c2AbilityBuffLvL2 - 1.0f)) + "% more effective" +
-						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c2level == 3){
-					abilityText = "Ability C2 LvL2 Costs: 0AP\n" +
-						"B Abilities cost " + player.playerAbilities.abilitiesC.c2ApTax + " more AP\n" +
-						"But " + (100 * (player.playerAbilities.abilitiesC.c2AbilityBuffLvL3 - 1.0f)) + "% more effective" +
-						" for " + player.playerAbilities.abilitiesC.c2BuffTurns + " turns";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 13){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Stance ~ Shade of Ruthlessness\n\n" +
 					"Reduces Damage done by 25%\nAnd Reduces damage taken by 25% (Defensive)";
 				
-				/*if(player.playerAbilities.abilitiesC.c3level == 1){
-					abilityText = "Ability C3 LvL1 Costs: " + player.playerAbilities.abilitiesC.c3ApCost + "AP" +
-						"\nA Abilities base generation in increased by " + player.playerAbilities.abilitiesC.c3ApGenBuffLvL1 +
-						"AP\nFor the next " + player.playerAbilities.abilitiesC.c3ApGenBuffTurnsLvL1 +  " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 2){
-					abilityText = "Ability C3 LvL1 Costs: " + player.playerAbilities.abilitiesC.c3ApCost + "AP" +
-						"\nA Abilities base generation in increased by " + player.playerAbilities.abilitiesC.c3ApGenBuffLvL2 +
-						"AP\nFor the next " + player.playerAbilities.abilitiesC.c3ApGenBuffTurnsLvL2 +  " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c3level == 3){
-					abilityText = "Ability C3 LvL1 Costs: " + player.playerAbilities.abilitiesC.c3ApCost + "AP" +
-						"\nA Abilities base generation in increased by " + player.playerAbilities.abilitiesC.c3ApGenBuffLvL3 +
-						"AP\nFor the next " + player.playerAbilities.abilitiesC.c3ApGenBuffTurnsLvL3 +  " turns";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 14){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				abilityText = "Stance ~ Shade of Death\n\n\n" +
 					"Increases AP generation by 25% (AP Regen)";
 				
-				/*if(player.playerAbilities.abilitiesC.c4level == 1){
-					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
-						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL1) + "%" +
-						" of total health\n" +
-						"Fades away in 2 turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c4level == 2){
-					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
-						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL2) + "%" +
-						" of total health\n" +
-						"Fades away in 2 turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c4level == 3){
-					abilityText = "Ability C4 LvL1 Costs: " + player.playerAbilities.abilitiesC.c4ApCost + "AP" +
-						"\nCasts a shield on self that absorbs " + (100 * player.playerAbilities.abilitiesC.c4BubbleBuffLvL3) + "%" +
-						" of total health\n" +
-						"Fades away in 2 turns";
-				}*/
 			}
 			else if(player.lastAbilityChosen == 15){
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
 				abilityText = "Stance ~ Shade of Dark Protection\n\n\n" +
 					"Reduces all DoT damage by 50%";
 				
-				/*if(player.playerAbilities.abilitiesC.c5level == 1){
-					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL1 + " turns\n" +
-						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl1 + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c5level == 2){
-					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL2 + " turns\n" +
-						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl2 + " turns";
-				}
-				
-				else if(player.playerAbilities.abilitiesC.c5level == 3){
-					abilityText = "Ability C5 LvL1 Costs: " + player.playerAbilities.abilitiesC.c5ApCost + "AP" +
-						"\nB abilities cost 10 less AP for next " + player.playerAbilities.abilitiesC.c5AbilityBBuffTurnsLvL3 + " turns\n" +
-						"A abilities generate 10AP more for " + player.playerAbilities.abilitiesC.c5AbilityABuffTurnsLvl3 + " turns";
-				}*/
 			}
+			else{
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+				
+				abilityText = "";
+			}
+			
+			headingText = abilityText;
+			
 			#endregion
 			
-			headingText = "Battle Update: Time to choose abilities\n" + abilityText;
 		}
-		#endregion
 		
-		//Execute Sword Abilities
+		
+		//Turn Phase 4 ~ Execute Sword Abilities
 		#region Execute Sword Abilities
 		else if(player.TurnPhases == 4){
+			if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+			
 			
 			string tempPlayerApCostLabel = "";
 			
@@ -910,44 +1168,17 @@ public class BattleGui : MonoBehaviour {
 				if(player.swordAbilityChosen == 1){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.BloodBlade.damage + "HP";
 					
-					/*if(player.playerAbilities.abilitiesB.b1level == 1)
-						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL1) + "HP";
-					else if(player.playerAbilities.abilitiesB.b1level == 2)
-						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL2) + "HP";
-					else if(player.playerAbilities.abilitiesB.b1level == 3)
-						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b1hPHealLvL3) + "HP";*/
 				}
 				else if(player.swordAbilityChosen == 2){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.DeathStrike.damage + "HP";
-					
-					/*if(player.playerAbilities.abilitiesB.b2level == 1)
-						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b2DamageLvL1 + "HP";
-					else if(player.playerAbilities.abilitiesB.b2level == 2)
-						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b2DamageLvL2 + "HP";
-					else if(player.playerAbilities.abilitiesB.b2level == 3)
-						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b2DamageLvL3 + "HP";*/
 					
 				}
 				else if(player.swordAbilityChosen == 3){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFlameSlash.damage + "HP";
 					
-					/*if(player.playerAbilities.abilitiesB.b3level == 1)
-						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b3DamageLvL1 + "HP";
-					else if(player.playerAbilities.abilitiesB.b3level == 2)
-						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b3DamageLvL2 + "HP";
-					else if(player.playerAbilities.abilitiesB.b3level == 3)
-						tempEnemyDamLabel = "-" + player.playerAbilities.abilitiesB.b3DamageLvL3 + "HP";*/
 				}
 				else if(player.swordAbilityChosen == 4){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.CrimsonCut.damage + "HP";
-					
-					/*if(player.playerAbilities.abilitiesB.b4level == 1)
-						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL1) + "HP";
-					else if(player.playerAbilities.abilitiesB.b4level == 2)
-						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL2) + "HP";
-					else if(player.playerAbilities.abilitiesB.b4level == 3)
-						tempPlayerHealLabel = "+" + (int)(player.hP * player.playerAbilities.abilitiesB.b4hPHealLvL3) + "HP";*/
-					
 					
 				}
 				else if(player.swordAbilityChosen == 5){
@@ -969,14 +1200,21 @@ public class BattleGui : MonoBehaviour {
 		}
 		#endregion
 		
-		//Execute Gun Abilities
+		//Turn Phase 5 ~ Execute Gun Abilities
 		#region Execute Gun Abilities
 		else if(player.TurnPhases == 5){
-			//Reset ShownIcons
-			//if(enemyHpDamageLabel != null)
-				//enemyHpDamageLabel.enabled = false;
-			//if(playerApGenLabel != null)
-				//playerApGenLabel.enabled = false;
+			//Hide Panels
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+
 			
 			
 			string tempEnemyDamLabel = "";
@@ -1069,9 +1307,23 @@ public class BattleGui : MonoBehaviour {
 		}
 		#endregion
 		
-		//Execute StanceChange
+		//Turn Phase 6 ~ StanceChange
 		#region execute StanceChange
 		else if(player.TurnPhases == 6){
+			
+			//Hide Panels
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+
+			
 			//Reset ShownIcons
 			if(battleInfo.playerHpHealLabel != null)
 				battleInfo.playerHpHealLabel.enabled = false;
@@ -1099,16 +1351,22 @@ public class BattleGui : MonoBehaviour {
 		}
 		#endregion
 		
-		//Apply OverTime Effects
+		//Turn Phase 7 ~ Apply OverTime Effects
 		#region Apply AoverTimeEffects
 		else if(player.TurnPhases == 7){
-			//Reset ShownIcons
-			//if(playerHpHealLabel != null)
-				//playerHpHealLabel.enabled = false;
-			//if(playerApGenLabel != null)
-				//playerApGenLabel.enabled = false;
-			//if(enemyHpDamageLabel != null)
-				//enemyHpDamageLabel.enabled = false;
+			
+			//Hide Panels
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+			
 			
 			string tempPlayerHpBoost = "";
 			string tempPlayerApBoost = "";
@@ -1145,9 +1403,24 @@ public class BattleGui : MonoBehaviour {
 		}
 		#endregion
 		
-		//Enemy's turn
+		//Turn Phase 8 ~ Enemy's turn
 		#region Enemies Turn
 		else if(player.TurnPhases == 8){
+			
+			//Hide Panels
+				if(battleInfo.battleInfoAbility1Box != null)
+					battleInfo.battleInfoAbility1Box.fillAmount = 1;
+				if(battleInfo.battleInfoAbility2Box != null)
+					battleInfo.battleInfoAbility2Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility3Box != null)
+					battleInfo.battleInfoAbility3Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility4Box != null)
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
+				if(battleInfo.battleInfoAbility5Box != null)
+					battleInfo.battleInfoAbility5Box.fillAmount = 0;
+
+			headingText = "Battle Update: Enemy's Turn";
+			
 			//Reset ShownIcons
 			if(battleInfo.playerHpHealLabel != null)
 				battleInfo.playerHpHealLabel.enabled = false;
@@ -1155,12 +1428,6 @@ public class BattleGui : MonoBehaviour {
 				battleInfo.playerApGenLabel.enabled = false;
 			if(battleInfo.enemyHpDamageLabel != null)
 				battleInfo.enemyHpDamageLabel.enabled = false;
-			
-			
-			
-			if(battleInfo.battleInfoBox != null)
-				headingText = "Battle Update: Enemy's Turn\n" +
-					"Enemy Attacking Player";
 			
 			
 			
@@ -1174,8 +1441,14 @@ public class BattleGui : MonoBehaviour {
 		}
 		#endregion
 		
-		if(battleInfo.battleInfoBox != null)
-			battleInfo.battleInfoBox.text = headingText;
+		//Draw Battle Info
+		if(battleInfo.battleInfoLabel != null)
+			battleInfo.battleInfoLabel.text = headingText;
+		#endregion
+		
+		
+		#endregion		
+		
 		
 	}
 }

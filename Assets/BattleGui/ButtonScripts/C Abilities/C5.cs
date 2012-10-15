@@ -10,7 +10,7 @@ public class C5 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		if(player.TurnPhases == 0){
+		if(player.TurnPhases == 3){
 				
 			player.stanceChosen = 5;
 			
@@ -26,24 +26,25 @@ public class C5 : MonoBehaviour {
 	}
 	
 	void OnHover(){
-			if(player.TurnPhases == 0)
+			if(player.TurnPhases == 3)
 				player.lastAbilityChosen = 15;
 	}
 	
 	
 	void Update(){
 		
-		//if(player.TurnPhases > 0){
+		if(player.TurnPhases == 3){
+			button.isEnabled = true;
 		
-		if(player.stanceChosen  == 5)
+			if(player.stanceChosen  == 5)
 				button.defaultColor = Color.red;
-		//}
-		
-		//else if(player.TurnPhases == 0){
-			//if(player.cAbilityChosen != 5)
-		else
+			else
 				button.defaultColor = Color.white;
-		//}
+		}
+		else{
+			button.isEnabled = false;
+			button.defaultColor = Color.clear;
+		}
 		
 	}
 }

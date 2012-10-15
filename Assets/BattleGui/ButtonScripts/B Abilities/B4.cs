@@ -10,7 +10,7 @@ public class B4 : MonoBehaviour {
 	
 	void OnClick(){
 		
-		if(player.TurnPhases == 0){
+		if(player.TurnPhases == 2){
 			
 			if(player.aP >= (-1 * player.playerAbilities.sworddAbilities.CrimsonCut.cost)){
 				player.swordAbilityChosen = 4;
@@ -26,27 +26,29 @@ public class B4 : MonoBehaviour {
 	}
 	
 	void OnHover(){
-			if(player.TurnPhases == 0)
+			if(player.TurnPhases == 2)
 				player.lastAbilityChosen = 9;
 	}
 	
 	void Update(){
 		
-		//if(player.TurnPhases > 0){
+		if(player.TurnPhases == 2){
+			button.isEnabled = true;
 		
 			if(player.swordAbilityChosen == 4)
 				button.defaultColor = Color.red;
-		//}
-		
-		//else if(player.TurnPhases == 0){
-			//if(player.bAbilityChosen != 4)
-		else
+			else
 				button.defaultColor = Color.white;
-		//}
-		
-		//Do not player select what they can't afford
-		if(player.aP < (-1 * player.playerAbilities.sworddAbilities.CrimsonCut.cost))
+			
+			//Do not player select what they can't afford
+			if(player.aP < (-1 * player.playerAbilities.sworddAbilities.CrimsonCut.cost))
 			button.defaultColor = Color.grey;
+			
+		}
+		else{
+			button.defaultColor = Color.clear;
+			button.isEnabled = false;
+		}
 		
 	}
 }

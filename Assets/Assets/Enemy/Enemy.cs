@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour {
 		public Player player;
 	
 		void OnClick(){
-			if(player.TurnPhases == 0){
+			if(player.TurnPhases >= 0){
 				isClicked = true;
 			}
 		}
