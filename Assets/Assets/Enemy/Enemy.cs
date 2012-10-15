@@ -9,9 +9,17 @@ public class Enemy : MonoBehaviour {
 	
 		void OnClick(){
 			if(player.TurnPhases >= 0){
-				isClicked = true;
+			
+				if(player.gunAbilityChosen > 0 ||
+				player.swordAbilityChosen > 0 ||
+				player.stanceChanged == true){
+				
+				
+					isClicked = true;
+				
 			}
 		}
+	}
 
 		public float hP;
 	

@@ -66,16 +66,46 @@ public class BattleScript : MonoBehaviour {
 			if(player.TurnPhases >= 0 && player.TurnPhases < 4){
 				
 				if(enemy.isClicked == true){
-					player.TurnPhases = 4;
 					
-					//Execute Sword Abilities
-					if(player.swordAbilityChosen != 0)
+					if(player.swordAbilityChosen > 0){
+						player.TurnPhases = 4;
+					
+						//Execute Sword Abilities
 						ExecuteSwordAbilities(player.swordAbilityChosen);
 					
-					//Wait
-					player.gameTimer = Time.time + 3;
+						//Wait
+						player.gameTimer = Time.time + 3;
 					
-					enemy.isClicked = false;
+						enemy.isClicked = false;
+					}
+					else if(player.gunAbilityChosen > 0){
+						player.TurnPhases = 5;
+						
+						//Execute Gun Abilities
+						ExecuteGunAbilities(player.gunAbilityChosen);
+						
+						//Wait
+						player.gameTimer = Time.time + 3;
+					
+						enemy.isClicked = false;
+					}
+					else if(player.stanceChanged == true){
+						player.TurnPhases = 6;
+						
+						//Wait
+						player.gameTimer = Time.time + 3;
+					
+						enemy.isClicked = false;
+						
+					}
+					else{
+						player.TurnPhases = 7;
+						
+						//Wait
+						player.gameTimer = Time.time + 3;
+					
+						enemy.isClicked = false;
+					}
 				}
 				
 				
@@ -1281,13 +1311,35 @@ public class BattleScript : MonoBehaviour {
 					
 					if(tempAttack == 1){
 						enemy.enemyStatus.previousAttack = 0;
-						enemy.enemyStatus.previousDam = 5;
-						player.hP -= 5;
+			
+						if(player.playerAbilities.stances.StanceOfBloodlust == true){
+							enemy.enemyStatus.previousDam = (int)(5 * player.playerAbilities.stances.StanceOfBLDefensiveDecrease);
+							player.hP -= enemy.enemyStatus.previousDam ;
+						}
+						else if(player.playerAbilities.stances.StanceOfShadowsVengence == true){
+							enemy.enemyStatus.previousDam = (int)(5 * player.playerAbilities.stances.StanceOfSVDeffensiveIncrease);
+							player.hP -= enemy.enemyStatus.previousDam ;
+						}
+						else{
+							enemy.enemyStatus.previousDam = 5;
+							player.hP -= enemy.enemyStatus.previousDam ;
+						}
 					}
 					else{
 						enemy.enemyStatus.previousAttack = 1;
-						enemy.enemyStatus.previousDam = 10;
-						player.hP -= 10;
+			
+						if(player.playerAbilities.stances.StanceOfBloodlust == true){
+							enemy.enemyStatus.previousDam = (int)(10 * player.playerAbilities.stances.StanceOfBLDefensiveDecrease);
+							player.hP -= enemy.enemyStatus.previousDam;
+						}
+						else if(player.playerAbilities.stances.StanceOfShadowsVengence == true){
+							enemy.enemyStatus.previousDam = (int)(10 * player.playerAbilities.stances.StanceOfSVDeffensiveIncrease);
+							player.hP -= enemy.enemyStatus.previousDam;
+						}
+						else{
+							enemy.enemyStatus.previousDam = 10;
+							player.hP -= enemy.enemyStatus.previousDam;
+						}
 					}	
 	}
 	

@@ -90,7 +90,7 @@ public class Abilities : MonoBehaviour{
 		//Increases damage done by 25% and damage taken by 25%. (Offensive)
 		public bool StanceOfBloodlust;
 		public float StanceOfBLOffensiveIncrease = 1.25f;
-		public float StancesOfBLDefensiveDecrease = .25f;
+		public float StanceOfBLDefensiveDecrease = 1.25f;
 		
 		//Health Gains increased by 25% (Health Regen)
 		public bool StanceOfMurder;
@@ -98,8 +98,8 @@ public class Abilities : MonoBehaviour{
 		
 		//Reduces Damage done by 25% and Reduces damage taken by 25% (Defensive)
 		public bool StanceOfShadowsVengence;
-		public float StanceOfSVOffensiveDecrease = .25f;
-		public float StanceOfSVDeffensiveIncrease = 1.25f;
+		public float StanceOfSVOffensiveDecrease = .75f;
+		public float StanceOfSVDeffensiveIncrease = .75f;
 		
 		//Increases AP generation by 25%
 		public bool StanceOfDeath;

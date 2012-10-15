@@ -1071,7 +1071,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Stance ~ Shade of Ruthlessness\n\n" +
+				abilityText = "Stance ~ Shade of Shadow Vengence\n\n" +
 					"Reduces Damage done by 25%\nAnd Reduces damage taken by 25% (Defensive)";
 				
 			}
@@ -1352,7 +1352,7 @@ public class BattleGui : MonoBehaviour {
 		#endregion
 		
 		//Turn Phase 7 ~ Apply OverTime Effects
-		#region Apply AoverTimeEffects
+		#region Apply OverTimeEffects
 		else if(player.TurnPhases == 7){
 			
 			//Hide Panels

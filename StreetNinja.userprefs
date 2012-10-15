@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattleGui\BattleGui.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Assets\Player\Abilities.cs">
     <Files>
-      <File FileName="Assets\Assets\Player\Player.cs" Line="1" Column="1" />
-      <File FileName="Assets\Assets\Enemy\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\BattleScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Assets\Player\Abilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\BattleGui\BattleGui.cs" Line="727" Column="13" />
-      <File FileName="Assets\BattleGui\ButtonScripts\BuffDebuffSwitches\Player\Buff1Switch.cs" Line="36" Column="1" />
+      <File FileName="Assets\Assets\Player\Player.cs" Line="114" Column="41" />
+      <File FileName="Assets\Assets\Enemy\Enemy.cs" Line="17" Column="5" />
+      <File FileName="Assets\BattleScript.cs" Line="1332" Column="45" />
+      <File FileName="Assets\Assets\Player\Abilities.cs" Line="101" Column="5" />
+      <File FileName="Assets\BattleGui\BattleGui.cs" Line="1243" Column="48" />
+      <File FileName="Assets\BattleGui\ButtonScripts\BuffDebuffSwitches\Player\Buff1Switch.cs" Line="1" Column="1" />
       <File FileName="Assets\BattleGui\ButtonScripts\GunAbilityButton.cs" Line="27" Column="4" />
       <File FileName="Assets\BattleGui\ButtonScripts\SwordAbilityButton.cs" Line="28" Column="3" />
       <File FileName="Assets\BattleGui\ButtonScripts\StanceAbilities.cs" Line="28" Column="3" />
