@@ -14,5 +14,5 @@ Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\
 Loading C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\UnityEngine.dll into Unity Child Domain
 Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
 Loading C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.240 seconds
+- Completed reload, in  0.162 seconds
 Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\System.dll (this message is harmless)
