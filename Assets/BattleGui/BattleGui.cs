@@ -179,8 +179,12 @@ public class BattleGui : MonoBehaviour {
 	public class BOTTOM{
 		
 		public UIButton gunAbilityButton;
+
+		
 		public UIButton swordAbilityButton;
+		
 		public UIButton stanceAbilityButton;
+
 		
 		public UILabel playerBuffDeBuffDescription;
 		
@@ -754,6 +758,7 @@ public class BattleGui : MonoBehaviour {
 				battleInfo.battleInfoAbility4Box.fillAmount = 0;
 			if(battleInfo.battleInfoAbility5Box != null)
 				battleInfo.battleInfoAbility5Box.fillAmount = 0;
+			
 				
 			//Hide Ability label
 			headingText = "";

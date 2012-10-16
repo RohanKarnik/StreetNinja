@@ -15,7 +15,7 @@ public class B5 : MonoBehaviour {
 			if(player.aP >= (-1 * player.playerAbilities.sworddAbilities.ShadowFury.cost)){
 				player.swordAbilityChosen = 5;
 		
-				//player.TurnPhases = 2;
+				player.TurnPhases = 0;
 			
 			
 				//Delay

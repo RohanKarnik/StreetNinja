@@ -338,20 +338,6 @@ public class Player : MonoBehaviour {
 		
 		str = playerLevelArray[level].playerLevelArray.str;
 		def = playerLevelArray[level].playerLevelArray.def;
-	
-		/*public float hP;
-		public float hPMax;
-		
-		public int level;
-		
-		public float aP;
-	
-		public float xP;
-	
-		public float str = 5;
-	
-		public float def;*/
-		
 		
 		
 	}

@@ -16,7 +16,7 @@ public class B2 : MonoBehaviour {
 				
 				player.swordAbilityChosen = 2;
 		
-				//player.TurnPhases = 3;
+				player.TurnPhases = 0;
 			
 				//Delay
 				//player.gameTimer = Time.time + 3;

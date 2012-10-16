@@ -13,7 +13,7 @@ public class A5 : MonoBehaviour {
 		if(player.TurnPhases == 1){
 			player.gunAbilityChosen = 5;
 		
-			//player.TurnPhases = 1;
+			player.TurnPhases = 0;
 			
 			//Test
 			//player.gameTimer = Time.time + 3;
