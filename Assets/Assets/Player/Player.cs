@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
 		public float aP;
 	
 		public float xP;
+		public float xPNextLevel;
 	
 		public float str = 5;
 	
@@ -326,6 +327,7 @@ public class Player : MonoBehaviour {
 		aP = 0;
 		
 		xP = 0;
+		xPNextLevel = playerLevelArray[level+1].playerLevelArray.xPNeeded;
 		
 		str = playerLevelArray[level].playerLevelArray.str;
 		def = playerLevelArray[level].playerLevelArray.def;

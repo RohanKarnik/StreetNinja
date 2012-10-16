@@ -35,11 +35,7 @@ public class B1 : MonoBehaviour {
 	
 		if(player.TurnPhases == 2){
 			button.isEnabled = true;
-		
-			if(player.swordAbilityChosen == 1)
-				button.defaultColor = Color.red;
-			else
-				button.defaultColor = Color.white;
+			button.defaultColor = Color.white;
 			
 			//Do not player select what they can't afford
 			if(player.aP < (-1 * player.playerAbilities.sworddAbilities.BloodBlade.cost))

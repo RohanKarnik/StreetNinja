@@ -30,11 +30,9 @@ public class A3 : MonoBehaviour {
 	
 		if(player.TurnPhases == 1){
 			button.isEnabled = true;
-		
-			if(player.gunAbilityChosen == 3)
-				button.defaultColor = Color.red;
-			else
-				button.defaultColor = Color.white;
+			
+			button.defaultColor = Color.white;
+
 		}
 		
 		else{

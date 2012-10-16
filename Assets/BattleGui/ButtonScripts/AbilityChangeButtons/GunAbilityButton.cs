@@ -27,54 +27,42 @@ public class GunAbilityButton : MonoBehaviour {
 		
 		//Update Ability Button Logo
 		switch(player.gunAbilityChosen){
-		case 1:
-			button.defaultColor = Color.clear;
-			
+		case 1:			
 			gunAbilitySkin1.color = Color.white;
 			gunAbilitySkin2.color = Color.clear;
 			gunAbilitySkin3.color = Color.clear;
 			gunAbilitySkin4.color = Color.clear;
 			gunAbilitySkin5.color = Color.clear;
 			break;
-		case 2:
-			button.defaultColor = Color.clear;
-			
+		case 2:			
 			gunAbilitySkin1.color = Color.clear;
 			gunAbilitySkin2.color = Color.white;
 			gunAbilitySkin3.color = Color.clear;
 			gunAbilitySkin4.color = Color.clear;
 			gunAbilitySkin5.color = Color.clear;
 			break;
-		case 3:
-			button.defaultColor = Color.clear;
-			
+		case 3:			
 			gunAbilitySkin1.color = Color.clear;
 			gunAbilitySkin2.color = Color.clear;
 			gunAbilitySkin3.color = Color.white;
 			gunAbilitySkin4.color = Color.clear;
 			gunAbilitySkin5.color = Color.clear;
 			break;
-		case 4:
-			button.defaultColor = Color.clear;
-			
+		case 4:			
 			gunAbilitySkin1.color = Color.clear;
 			gunAbilitySkin2.color = Color.clear;
 			gunAbilitySkin3.color = Color.clear;
 			gunAbilitySkin4.color = Color.white;
 			gunAbilitySkin5.color = Color.clear;
 			break;
-		case 5:
-			button.defaultColor = Color.clear;
-			
+		case 5:			
 			gunAbilitySkin1.color = Color.clear;
 			gunAbilitySkin2.color = Color.clear;
 			gunAbilitySkin3.color = Color.clear;
 			gunAbilitySkin4.color = Color.clear;
 			gunAbilitySkin5.color = Color.white;
 			break;
-		default:
-			button.defaultColor = Color.white;
-			
+		default:			
 			gunAbilitySkin1.color = Color.clear;
 			gunAbilitySkin2.color = Color.clear;
 			gunAbilitySkin3.color = Color.clear;

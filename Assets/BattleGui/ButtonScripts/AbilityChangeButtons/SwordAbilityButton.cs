@@ -27,54 +27,42 @@ public class SwordAbilityButton : MonoBehaviour {
 		
 		switch(player.swordAbilityChosen)
 		{
-		case 1:
-			button.defaultColor = Color.clear;
-			
+		case 1:			
 			swordAbilitySkin1.color = Color.white;
 			swordAbilitySkin2.color = Color.clear;
 			swordAbilitySkin3.color = Color.clear;
 			swordAbilitySkin4.color = Color.clear;
 			swordAbilitySkin5.color = Color.clear;
 			break;
-		case 2:
-			button.defaultColor = Color.clear;
-			
+		case 2:			
 			swordAbilitySkin1.color = Color.clear;
 			swordAbilitySkin2.color = Color.white;
 			swordAbilitySkin3.color = Color.clear;
 			swordAbilitySkin4.color = Color.clear;
 			swordAbilitySkin5.color = Color.clear;
 			break;
-		case 3:
-			button.defaultColor = Color.clear;
-			
+		case 3:			
 			swordAbilitySkin1.color = Color.clear;
 			swordAbilitySkin2.color = Color.clear;
 			swordAbilitySkin3.color = Color.white;
 			swordAbilitySkin4.color = Color.clear;
 			swordAbilitySkin5.color = Color.clear;
 			break;
-		case 4:
-			button.defaultColor = Color.clear;
-			
+		case 4:			
 			swordAbilitySkin1.color = Color.clear;
 			swordAbilitySkin2.color = Color.clear;
 			swordAbilitySkin3.color = Color.clear;
 			swordAbilitySkin4.color = Color.white;
 			swordAbilitySkin5.color = Color.clear;
 			break;
-		case 5:
-			button.defaultColor = Color.clear;
-			
+		case 5:			
 			swordAbilitySkin1.color = Color.clear;
 			swordAbilitySkin2.color = Color.clear;
 			swordAbilitySkin3.color = Color.clear;
 			swordAbilitySkin4.color = Color.clear;
 			swordAbilitySkin5.color = Color.white;
 			break;
-		default:
-			button.defaultColor = Color.white;
-			
+		default:			
 			swordAbilitySkin1.color = Color.clear;
 			swordAbilitySkin2.color = Color.clear;
 			swordAbilitySkin3.color = Color.clear;

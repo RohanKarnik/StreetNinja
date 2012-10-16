@@ -34,11 +34,8 @@ public class C2 : MonoBehaviour {
 	
 		if(player.TurnPhases == 3){
 			button.isEnabled = true;
-			
-			if(player.stanceChosen  == 2)
-				button.defaultColor = Color.red;
-			else
-				button.defaultColor = Color.white;
+
+			button.defaultColor = Color.white;
 		}
 		else{
 			button.isEnabled = false;

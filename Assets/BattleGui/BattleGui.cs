@@ -178,6 +178,8 @@ public class BattleGui : MonoBehaviour {
 	[System.Serializable]
 	public class BOTTOM{
 		
+		public UISlider playerXpSlider;
+		
 		public UIButton gunAbilityButton;
 
 		
@@ -737,6 +739,12 @@ public class BattleGui : MonoBehaviour {
 		if(GuiBottom.stanceAbilityButton != null)
 			GuiBottom.stanceAbilityButton.UpdateColor(true,true);
 	
+		//XP Bar
+		if(GuiBottom.playerXpSlider != null)
+			GuiBottom.playerXpSlider.foreground.localScale = new Vector3((player.xP/ player.xPNextLevel) *
+				1024,
+				GuiBottom.playerXpSlider.foreground.localScale.y,
+				GuiBottom.playerXpSlider.foreground.localScale.z);
 	
 		//UpdatingBattleInfo
 		#region UpdateBattleInfo
@@ -994,7 +1002,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility3Box != null)
 					battleInfo.battleInfoAbility3Box.fillAmount = 0;
 				if(battleInfo.battleInfoAbility4Box != null)
-					battleInfo.battleInfoAbility4Box.fillAmount = 1;
+					battleInfo.battleInfoAbility4Box.fillAmount = 0;
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
