@@ -13,7 +13,7 @@ public class A1 : MonoBehaviour {
 		if(player.TurnPhases == 1){
 			player.gunAbilityChosen = 1;
 		
-			//player.TurnPhases = 1;
+			player.TurnPhases = 0;
 
 			//Delay
 			//player.gameTimer = Time.time + 3;
@@ -26,10 +26,13 @@ public class A1 : MonoBehaviour {
 				player.lastAbilityChosen = 1;
 	}
 	
+	
 	void Update(){
 	
+		
 		if(player.TurnPhases == 1){
 			button.isEnabled = true;
+			
 		
 			if(player.gunAbilityChosen == 1)
 				button.defaultColor = Color.red;

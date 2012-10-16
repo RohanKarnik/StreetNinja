@@ -13,7 +13,7 @@ public class A2 : MonoBehaviour {
 		if(player.TurnPhases == 1){
 			player.gunAbilityChosen = 2;
 		
-			//player.TurnPhases = 1;
+			player.TurnPhases = 0;
 			
 			//Delay
 			//player.gameTimer = Time.time + 3;

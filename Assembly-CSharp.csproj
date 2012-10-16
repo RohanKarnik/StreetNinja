@@ -53,6 +53,9 @@
      <Compile Include="Assets\BattleGui\ButtonScripts\A Abilities\A3.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\A Abilities\A4.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\A Abilities\A5.cs" />
+     <Compile Include="Assets\BattleGui\ButtonScripts\AbilityChangeButtons\GunAbilityButton.cs" />
+     <Compile Include="Assets\BattleGui\ButtonScripts\AbilityChangeButtons\StanceAbilities.cs" />
+     <Compile Include="Assets\BattleGui\ButtonScripts\AbilityChangeButtons\SwordAbilityButton.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\B Abilities\B1.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\B Abilities\B2.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\B Abilities\B3.cs" />
@@ -79,9 +82,6 @@
      <Compile Include="Assets\BattleGui\ButtonScripts\C Abilities\C3.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\C Abilities\C4.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\C Abilities\C5.cs" />
-     <Compile Include="Assets\BattleGui\ButtonScripts\GunAbilityButton.cs" />
-     <Compile Include="Assets\BattleGui\ButtonScripts\StanceAbilities.cs" />
-     <Compile Include="Assets\BattleGui\ButtonScripts\SwordAbilityButton.cs" />
      <Compile Include="Assets\BattleScript.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipItems.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipRandomItem.cs" />

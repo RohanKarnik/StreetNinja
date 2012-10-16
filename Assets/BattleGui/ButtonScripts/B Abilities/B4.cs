@@ -15,7 +15,7 @@ public class B4 : MonoBehaviour {
 			if(player.aP >= (-1 * player.playerAbilities.sworddAbilities.CrimsonCut.cost)){
 				player.swordAbilityChosen = 4;
 		
-				//player.TurnPhases = 3;
+				player.TurnPhases = 0;
 			
 			
 				//Delay

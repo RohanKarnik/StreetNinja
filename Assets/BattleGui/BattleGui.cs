@@ -179,8 +179,12 @@ public class BattleGui : MonoBehaviour {
 	public class BOTTOM{
 		
 		public UIButton gunAbilityButton;
+
+		
 		public UIButton swordAbilityButton;
+		
 		public UIButton stanceAbilityButton;
+
 		
 		public UILabel playerBuffDeBuffDescription;
 		
@@ -226,11 +230,12 @@ public class BattleGui : MonoBehaviour {
 		
 		
 		//PlayerAP
-		if(GuiTop.playerAPSlider != null)
-			GuiTop.playerAPSlider.foreground.localScale = new Vector3((player.aP / 100) *
-				338,
+		if(GuiTop.playerAPSlider != null){
+			GuiTop.playerAPSlider.foreground.localScale = new Vector3( ((100 - player.aP)/100) *
+				350,
 				GuiTop.playerAPSlider.foreground.localScale.y,
 				GuiTop.playerAPSlider.foreground.localScale.z);
+		}
 		if(GuiTop.playerAP != null)
 			GuiTop.playerAP.text = "" + player.aP;
 		
@@ -754,6 +759,7 @@ public class BattleGui : MonoBehaviour {
 				battleInfo.battleInfoAbility4Box.fillAmount = 0;
 			if(battleInfo.battleInfoAbility5Box != null)
 				battleInfo.battleInfoAbility5Box.fillAmount = 0;
+			
 				
 			//Hide Ability label
 			headingText = "";

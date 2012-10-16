@@ -15,7 +15,7 @@ public class B3 : MonoBehaviour {
 			if(player.aP >= (-1 * player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost)){
 				player.swordAbilityChosen = 3;
 		
-			//player.TurnPhases = 3;
+			player.TurnPhases = 0;
 						
 			//Delay
 			//player.gameTimer = Time.time + 3;

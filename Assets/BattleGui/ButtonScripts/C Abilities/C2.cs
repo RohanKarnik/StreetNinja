@@ -15,7 +15,8 @@ public class C2 : MonoBehaviour {
 			player.stanceChosen  = 2;
 		
 			player.stanceChanged = true;
-				//player.TurnPhases = 4;
+			
+			player.TurnPhases = 0;
 			
 				//Delay
 				//player.gameTimer = Time.time + 3;
