@@ -1,6 +1,6 @@
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 9.0c [igdumdx32.dll 8.15.10.2253]
+    Version:  Direct3D 9.0c [igdumd64.dll 8.15.10.2253]
     Renderer: Intel(R) HD Graphics Family
     Vendor:   Intel
     VRAM:     880 MB (via DXGI)
@@ -14,5 +14,5 @@ Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\
 Loading C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\UnityEngine.dll into Unity Child Domain
 Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
 Loading C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.143 seconds
+- Completed reload, in  0.357 seconds
 Platform assembly: C:\Users\John\Desktop\WickedLoot\StreetNinjaRepo\StreetNinja\Task1_Data\Managed\System.dll (this message is harmless)

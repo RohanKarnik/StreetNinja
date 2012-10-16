@@ -57,7 +57,7 @@ public class StanceAbilities : MonoBehaviour {
 		case 4:
 			button.defaultColor = Color.clear;
 			
-			stanceAbilitySkin1.color = Color.white;
+			stanceAbilitySkin1.color = Color.clear;
 			stanceAbilitySkin2.color = Color.clear;
 			stanceAbilitySkin3.color = Color.clear;
 			stanceAbilitySkin4.color = Color.white;
@@ -66,7 +66,7 @@ public class StanceAbilities : MonoBehaviour {
 		case 5:
 			button.defaultColor = Color.clear;
 			
-			stanceAbilitySkin1.color = Color.white;
+			stanceAbilitySkin1.color = Color.clear;
 			stanceAbilitySkin2.color = Color.clear;
 			stanceAbilitySkin3.color = Color.clear;
 			stanceAbilitySkin4.color = Color.clear;

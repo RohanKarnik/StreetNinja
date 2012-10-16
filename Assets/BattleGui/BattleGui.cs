@@ -17,9 +17,9 @@ public class BattleGui : MonoBehaviour {
 	//Keeps track of number of turns
 	public int turns;
 	
-	//0 = Player chooses A Abilities
-	//1 = Player chooses B Abilities
-	//2 = Player chooses C Abilities
+	//0 = Player chooses Gun Abilities
+	//1 = Player chooses Sword Abilities
+	//2 = Player chooses Stance Abilities
 	//3 = Choose to execute or redo
 	//4 = A abilities execute
 	//5 = B abilities execute
