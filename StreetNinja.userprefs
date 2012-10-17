@@ -1,12 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattleGui\ButtonScripts\AbilityChangeButtons\StanceAbilities.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BattleGui\BattleGui.cs">
     <Files>
-      <File FileName="Assets\BattleGui\BattleGui.cs" Line="23" Column="33" />
-      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C3.cs" Line="1" Column="1" />
-      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C4.cs" Line="1" Column="1" />
-      <File FileName="Assets\BattleGui\ButtonScripts\C Abilities\C5.cs" Line="1" Column="1" />
-      <File FileName="Assets\BattleGui\ButtonScripts\AbilityChangeButtons\StanceAbilities.cs" Line="60" Column="42" />
+      <File FileName="Assets\BattleGui\BattleGui.cs" Line="230" Column="76" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A1.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A2.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A3.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A4.cs" Line="1" Column="1" />
+      <File FileName="Assets\BattleGui\ButtonScripts\A Abilities\A5.cs" Line="28" Column="2" />
+      <File FileName="Assets\BattleScript.cs" Line="282" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

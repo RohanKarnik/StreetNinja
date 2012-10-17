@@ -11,7 +11,7 @@ public class BattleGui : MonoBehaviour {
 	
 	public int screenCounter = 0;
 	
-	public int aAbility;
+	public UILabel screenLabel;
 	
 	
 	//Keeps track of number of turns
@@ -54,9 +54,21 @@ public class BattleGui : MonoBehaviour {
 	
 	//BattleInfo
 	public class BattleInfo{
-		//public UILabel playerStatusBox
-		public UIPanel abilitiesPanel;
+
+		public UIPanel gunAbilitiesPanel;
+		public UIPanel swordAbilitiesPanel;
+		public UIPanel stanceAbilitiesPanel;
 		
+		public UIPanel battleInfoGunIconPanel;
+		public UIPanel battleInfoSwordIconPanel;
+		public UIPanel battleInfoStanceIconPanel;
+		
+		public UIPanel playerBuffsPanel;
+		public UIPanel playerDeBuffsPanel;
+		public UIPanel enemyBuffsPanel;
+		public UIPanel enemyDeBuffsPanel;
+		
+		//BattleInfo
 		public UIPanel battleInfoPanel;
 		
 		public UIFilledSprite battleInfoAbility1Box;
@@ -67,7 +79,21 @@ public class BattleGui : MonoBehaviour {
 		
 		public UILabel battleInfoLabel;
 	
-		//public UILabel enemyStatusBox;
+		public UIFilledSprite battleInfoGunAbility1;
+		public UIFilledSprite battleInfoGunAbility2;
+		public UIFilledSprite battleInfoGunAbility3;
+		public UIFilledSprite battleInfoGunAbility4;
+		public UIFilledSprite battleInfoGunAbility5;
+		public UIFilledSprite battleInfoSwordAbility1;
+		public UIFilledSprite battleInfoSwordAbility2;
+		public UIFilledSprite battleInfoSwordAbility3;
+		public UIFilledSprite battleInfoSwordAbility4;
+		public UIFilledSprite battleInfoSwordAbility5;
+		public UIFilledSprite battleInfoStanceAbility1;
+		public UIFilledSprite battleInfoStanceAbility2;
+		public UIFilledSprite battleInfoStanceAbility3;
+		public UIFilledSprite battleInfoStanceAbility4;
+		public UIFilledSprite battleInfoStanceAbility5;
 	
 		public UILabel turnsLabel;
 	
@@ -219,14 +245,121 @@ public class BattleGui : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		switch(player.playerBattleStatus){
+		
+		case Player.BattleStatus.NotFighting:
+			if(screenLabel != null)
+				screenLabel.text = "Next fight About to Commence";
+			
+			#region Hide Everything
+			
+			//Shown Damage
+			if(battleInfo.playerApGenLabel != null)
+				battleInfo.playerApGenLabel.text =  "";
+			if(battleInfo.playerHpDamageLabel != null)
+				battleInfo.playerHpDamageLabel.text = "";
+			if(battleInfo.playerHpHealLabel != null)
+				battleInfo.playerHpHealLabel.text = "";
+			if(battleInfo.enemyHpPlusLabel != null)
+				battleInfo.enemyHpPlusLabel.text = "";
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.text = "";
+			
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = false;	
+			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = false;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = false;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = false;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = false;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = false;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = false;
+			
+			//OverTime Stuff
+			if(battleInfo.playerBuffsPanel != null)
+				battleInfo.playerBuffsPanel.enabled = false;
+			if(battleInfo.playerDeBuffsPanel != null)
+				battleInfo.playerDeBuffsPanel.enabled = false;
+			if(battleInfo.enemyBuffsPanel != null)
+				battleInfo.enemyBuffsPanel.enabled = false;
+			if(battleInfo.enemyDeBuffsPanel != null)
+				battleInfo.enemyDeBuffsPanel.enabled = false;
+			
+			if(GuiBottom.playerBuffDeBuffDescription != null)
+				GuiBottom.playerBuffDeBuffDescription.text = "";
+			if(GuiBottom.enemyBuffDeBuffDescription != null)
+				GuiBottom.enemyBuffDeBuffDescription.text = "";
+			
+			if(battleInfo.turnTotalDamageLabel != null)
+				battleInfo.turnTotalDamageLabel.text = "";
+			
+			#endregion
+			break;
+			
+		case Player.BattleStatus.Fighting:
+			if(screenLabel != null)
+				screenLabel.text = "";
+			
+			#region UnHide Panels
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = true;	
+			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = true;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = true;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = true;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = true;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = true;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = true;
+			
+			//OverTime Stuff
+			if(battleInfo.playerBuffsPanel != null)
+				battleInfo.playerBuffsPanel.enabled = true;
+			if(battleInfo.playerDeBuffsPanel != null)
+				battleInfo.playerDeBuffsPanel.enabled = true;
+			if(battleInfo.enemyBuffsPanel != null)
+				battleInfo.enemyBuffsPanel.enabled = true;
+			if(battleInfo.enemyDeBuffsPanel != null)
+				battleInfo.enemyDeBuffsPanel.enabled = true;
+			#endregion
+			
+			
+			#region Fighting
+		
+		//Lock Player's hp and Ap
+		if(player.hP <= 0)
+			player.hP = 0;
+		else if(player.hP > player.hPMax){
+			player.hP = player.hPMax;	
+		}
+		if(player.aP > 100)
+			player.aP = 100;
+		else if(player.aP <= 0){
+			player.aP = 0;	
+		}
+		
 		//TOP
 		#region Player
 		//PlayerHP
 		if(GuiTop.playerHealthSlider != null)
-			GuiTop.playerHealthSlider.foreground.localScale = new Vector3((player.hP / player.hPMax) *
-				423,
-				GuiTop.playerHealthSlider.foreground.localScale.y,
-				GuiTop.playerHealthSlider.foreground.localScale.z);
+			GuiTop.playerHealthSlider.sliderValue = (1 * (player.hP/player.hPMax));
 		if(GuiTop.playerHpPercent != null)
 			GuiTop.playerHpPercent.text = "" + (int)(100 * (player.hP/player.hPMax)) + "%";
 		
@@ -249,10 +382,11 @@ public class BattleGui : MonoBehaviour {
 		#region Enemy
 		//EnemyHP
 		if(GuiTop.enemyHealthSlider != null)
-			GuiTop.enemyHealthSlider.foreground.localScale = new Vector3((enemy.hP / enemy.hpMax) *
+			GuiTop.enemyHealthSlider.sliderValue = (1 * (enemy.hP/enemy.hpMax));
+			/*GuiTop.enemyHealthSlider.foreground.localScale = new Vector3((enemy.hP / enemy.hpMax) *
 				423,
 				GuiTop.enemyHealthSlider.foreground.localScale.y,
-				GuiTop.enemyHealthSlider.foreground.localScale.z);
+				GuiTop.enemyHealthSlider.foreground.localScale.z);*/
 		if(GuiTop.enemyHpPercent != null)
 			GuiTop.enemyHpPercent.text = "" + (int)(100 * (enemy.hP/enemy.hpMax)) + "%";
 		
@@ -749,11 +883,644 @@ public class BattleGui : MonoBehaviour {
 		//UpdatingBattleInfo
 		#region UpdateBattleInfo
 		
+		//Hide Apropriate Ability Icons
+		#region Hide Ability Icons
+		switch(player.TurnPhases){
+		//Player is picking Gun Abilities
+		case 1:
+				
+			switch(player.lastAbilityChosen){
+			case 1:	
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 1;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 2:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 1;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 3:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 1;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 4:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 1;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 5:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 1;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			default:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+			break;
+			}
+			break;
+		//Player is picking Sword Abilities
+		case 2:
+			switch(player.lastAbilityChosen){
+			case 6:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 1;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 7:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 1;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 8:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 1;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 9:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 1;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 10:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 1;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			default:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			}	
+			break;
+		//Player is picking Sttances
+		case 3:
+			switch(player.lastAbilityChosen){
+			case 11:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 1;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 12:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 1;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 13:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 1;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 14:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 1;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			case 15:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 1;
+				break;
+			default:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			}
+			break;
+			
+		default:
+				if(battleInfo.battleInfoGunAbility1 != null)
+					battleInfo.battleInfoGunAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility2 != null)
+					battleInfo.battleInfoGunAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility3 != null)
+					battleInfo.battleInfoGunAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility4 != null)
+					battleInfo.battleInfoGunAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoGunAbility5 != null)
+					battleInfo.battleInfoGunAbility5.fillAmount = 0;
+				
+				if(battleInfo.battleInfoSwordAbility1 != null)
+					battleInfo.battleInfoSwordAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility2 != null)
+					battleInfo.battleInfoSwordAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility3 != null)
+					battleInfo.battleInfoSwordAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility4 != null)
+					battleInfo.battleInfoSwordAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoSwordAbility5 != null)
+					battleInfo.battleInfoSwordAbility5.fillAmount = 0;
+				
+				if(battleInfo.battleInfoStanceAbility1 != null)
+					battleInfo.battleInfoStanceAbility1.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility2 != null)
+					battleInfo.battleInfoStanceAbility2.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility3 != null)
+					battleInfo.battleInfoStanceAbility3.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility4 != null)
+					battleInfo.battleInfoStanceAbility4.fillAmount = 0;
+				if(battleInfo.battleInfoStanceAbility5 != null)
+					battleInfo.battleInfoStanceAbility5.fillAmount = 0;
+				break;
+			}
+		#endregion
+		
+		
 		//Choose Abilities
 		#region Choose Abilities
 		//Player has chosen No Abilities
 		if(player.TurnPhases == 0){
-			
 			
 			//Hide Ability Boxes
 			//NGUITools.SetActive(GameObject.Find("AbilitiesPanel") as GameObject, false)
@@ -1051,7 +1818,7 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				
-				abilityText = "Stance ~ Shade of Bloodlust\n\n" +
+				abilityText = "Stance ~ Shade of Bloodlust\n" +
 					"Increases damage done by 25%\nAnd damage taken by 25% (Offensive)";
 				
 				
@@ -1069,7 +1836,7 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				
-				abilityText = "Stance ~ Shade of Murder\n\n\n" +
+				abilityText = "Stance ~ Shade of Murder\n" +
 					"Health Gains increased by 25% (Health Regen)";
 				
 			}
@@ -1085,7 +1852,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Stance ~ Shade of Shadow Vengence\n\n" +
+				abilityText = "Stance ~ Shade of Shadow Vengence\n" +
 					"Reduces Damage done by 25%\nAnd Reduces damage taken by 25% (Defensive)";
 				
 			}
@@ -1101,7 +1868,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Stance ~ Shade of Death\n\n\n" +
+				abilityText = "Stance ~ Shade of Death\n" +
 					"Increases AP generation by 25% (AP Regen)";
 				
 			}
@@ -1117,7 +1884,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
-				abilityText = "Stance ~ Shade of Dark Protection\n\n\n" +
+				abilityText = "Stance ~ Shade of Dark Protection\n" +
 					"Reduces all DoT damage by 50%";
 				
 			}
@@ -1463,6 +2230,135 @@ public class BattleGui : MonoBehaviour {
 		
 		#endregion		
 		
+		//Lock Player's hp
+		if(player.hP <= 0)
+			player.hP = 0;
+		else if(player.hP > player.hPMax){
+			player.hP = player.hPMax;	
+		}
+		if(player.aP > 100)
+			player.aP = 100;
+		else if(player.aP <= 0){
+			player.aP = 0;	
+		}
+		#endregion
+			
+			break;
+		case Player.BattleStatus.Won:
+			if(screenLabel != null)
+				screenLabel.text = "Player has Won";
+			
+			#region Hide Everything
+			
+			//Shown Damage
+			if(battleInfo.playerApGenLabel != null)
+				battleInfo.playerApGenLabel.text =  "";
+			if(battleInfo.playerHpDamageLabel != null)
+				battleInfo.playerHpDamageLabel.text = "";
+			if(battleInfo.playerHpHealLabel != null)
+				battleInfo.playerHpHealLabel.text = "";
+			if(battleInfo.enemyHpPlusLabel != null)
+				battleInfo.enemyHpPlusLabel.text = "";
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.text = "";
+			
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = false;	
+			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = false;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = false;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = false;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = false;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = false;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = false;
+			
+			//OverTime Stuff
+			if(battleInfo.playerBuffsPanel != null)
+				battleInfo.playerBuffsPanel.enabled = false;
+			if(battleInfo.playerDeBuffsPanel != null)
+				battleInfo.playerDeBuffsPanel.enabled = false;
+			if(battleInfo.enemyBuffsPanel != null)
+				battleInfo.enemyBuffsPanel.enabled = false;
+			if(battleInfo.enemyDeBuffsPanel != null)
+				battleInfo.enemyDeBuffsPanel.enabled = false;
+			
+			if(GuiBottom.playerBuffDeBuffDescription != null)
+				GuiBottom.playerBuffDeBuffDescription.text = "";
+			if(GuiBottom.enemyBuffDeBuffDescription != null)
+				GuiBottom.enemyBuffDeBuffDescription.text = "";
+			
+			if(battleInfo.turnTotalDamageLabel != null)
+				battleInfo.turnTotalDamageLabel.text = "";
+			
+			#endregion
+			break;
+		case Player.BattleStatus.Lost:
+			if(screenLabel != null)
+				screenLabel.text = "Player has Lost";
+			#region Hide Everything
+			
+			//Shown Damage
+			if(battleInfo.playerApGenLabel != null)
+				battleInfo.playerApGenLabel.text =  "";
+			if(battleInfo.playerHpDamageLabel != null)
+				battleInfo.playerHpDamageLabel.text = "";
+			if(battleInfo.playerHpHealLabel != null)
+				battleInfo.playerHpHealLabel.text = "";
+			if(battleInfo.enemyHpPlusLabel != null)
+				battleInfo.enemyHpPlusLabel.text = "";
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.text = "";
+			
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = false;	
+			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = false;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = false;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = false;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = false;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = false;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = false;
+			
+			//OverTime Stuff
+			if(battleInfo.playerBuffsPanel != null)
+				battleInfo.playerBuffsPanel.enabled = false;
+			if(battleInfo.playerDeBuffsPanel != null)
+				battleInfo.playerDeBuffsPanel.enabled = false;
+			if(battleInfo.enemyBuffsPanel != null)
+				battleInfo.enemyBuffsPanel.enabled = false;
+			if(battleInfo.enemyDeBuffsPanel != null)
+				battleInfo.enemyDeBuffsPanel.enabled = false;
+			
+			if(GuiBottom.playerBuffDeBuffDescription != null)
+				GuiBottom.playerBuffDeBuffDescription.text = "";
+			if(GuiBottom.enemyBuffDeBuffDescription != null)
+				GuiBottom.enemyBuffDeBuffDescription.text = "";
+			
+			if(battleInfo.turnTotalDamageLabel != null)
+				battleInfo.turnTotalDamageLabel.text = "";
+			
+			#endregion
+			break;
+		}
 		
+			
 	}
 }

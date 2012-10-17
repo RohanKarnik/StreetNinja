@@ -43,6 +43,10 @@ public class Player : MonoBehaviour {
 	
 		public float turnDamage;
 	
+		public enum BattleStatus{NotFighting,Fighting,Won,Lost};
+	
+		public BattleStatus playerBattleStatus;
+	
 		//0 = Player chooses A Abilities
 		//1 = Player chooses B Abilities
 		//2 = Player chooses C Abilities
@@ -117,7 +121,65 @@ public class Player : MonoBehaviour {
 		public float gameTimer;
 	
 	
-		public void populateAbilities(Abilities abilities){
+	// Use this for initialization
+	void Start () {
+		
+		level = 10;
+		
+		fillLevelArray(playerLevelArray, playerLevels);
+
+		
+		gunAbilityChosen = -1;
+		swordAbilityChosen = -1;
+		stanceChosen = -1;
+		
+		stanceChanged = false;
+		
+		lastAbilityChosen = -1;
+		
+		lastEnemyBuffDebuffClicked = -1;
+		
+		lastBuffDebuffClicked = -1;
+		
+		turnDamage = 0;
+		
+		battleTurn = 0;
+		TurnPhases = 0;
+		lastTurn = 1;
+		
+		gameTimer = 0;
+		
+		playerBattleStatus = BattleStatus.NotFighting;
+		
+		//Initial Stats
+		hP = playerLevelArray[level].playerLevelArray.hP;
+
+		hPMax = playerLevelArray[level].playerLevelArray.hP;
+		
+		aP = 0;
+		
+		xP = 0;
+		xPNextLevel = playerLevelArray[level+1].playerLevelArray.xPNeeded;
+		
+		str = playerLevelArray[level].playerLevelArray.str;
+		def = playerLevelArray[level].playerLevelArray.def;
+		
+		populateAbilities(playerAbilities);
+		populatePlayerStatus(playerStatus);
+		
+	}
+	
+	void Update(){
+		
+		hPMax = playerLevelArray[level].playerLevelArray.hP;
+		
+		str = playerLevelArray[level].playerLevelArray.str;
+		def = playerLevelArray[level].playerLevelArray.def;
+		
+		
+	}
+	
+	public void populateAbilities(Abilities abilities){
 		
 		//Random tempRandom;
 		
@@ -285,62 +347,6 @@ public class Player : MonoBehaviour {
 				
 			lineNum++;
         }
-		
-	}
-	
-	
-	// Use this for initialization
-	void Start () {
-		
-		level = 0;
-		
-		populateAbilities(playerAbilities);
-		populatePlayerStatus(playerStatus);
-		fillLevelArray(playerLevelArray, playerLevels);
-		
-		gunAbilityChosen = -1;
-		swordAbilityChosen = -1;
-		stanceChosen = -1;
-		
-		stanceChanged = false;
-		
-		lastAbilityChosen = -1;
-		
-		lastEnemyBuffDebuffClicked = -1;
-		
-		lastBuffDebuffClicked = -1;
-		
-		turnDamage = 0;
-		
-		battleTurn = 0;
-		TurnPhases = 0;
-		lastTurn = 1;
-		
-		gameTimer = 0;
-		
-		//Initial Stats
-		hP = playerLevelArray[level].playerLevelArray.hP;
-		
-		
-		hPMax = playerLevelArray[level].playerLevelArray.hP;
-		
-		aP = 0;
-		
-		xP = 0;
-		xPNextLevel = playerLevelArray[level+1].playerLevelArray.xPNeeded;
-		
-		str = playerLevelArray[level].playerLevelArray.str;
-		def = playerLevelArray[level].playerLevelArray.def;
-		
-	}
-	
-	void Update(){
-		
-		hPMax = playerLevelArray[level].playerLevelArray.hP;
-		
-		str = playerLevelArray[level].playerLevelArray.str;
-		def = playerLevelArray[level].playerLevelArray.def;
-		
 		
 	}
 	
