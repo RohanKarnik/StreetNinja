@@ -118,6 +118,16 @@ public class Player : MonoBehaviour {
 		//0-16 EnemyBuff1 = 0, EnemyBuff2 = 1..etc
 		public int lastEnemyBuffDebuffClicked;
 	
+	
+		public enum LastGunHit{NoHit, Normal, Crit, Miss}
+	
+		public LastGunHit lastGunHit;
+	
+		public int clickCounter;
+		public int clickMax;
+	
+		public int numOfAttacks;
+	
 		public float gameTimer;
 	
 	
@@ -125,6 +135,12 @@ public class Player : MonoBehaviour {
 	void Start () {
 		
 		level = 10;
+		
+		lastGunHit = LastGunHit.NoHit;
+		
+		clickCounter = 0;
+		
+		numOfAttacks = 0;
 		
 		fillLevelArray(playerLevelArray, playerLevels);
 
@@ -185,48 +201,55 @@ public class Player : MonoBehaviour {
 		
 		#region GunAbilities
 		//ScarletShot
-		abilities.gunAbilities.ScarletShot.cost = -5;
+		abilities.gunAbilities.ScarletShot.cost = -15;
 		
-		abilities.gunAbilities.ScarletShot.rangeMin =(int) str * 2;
-		abilities.gunAbilities.ScarletShot.rangeMax =(int) str * 2.2f;
-		//abilities.gunAbilities.ScarletShot.lastRangedDam = 0;
+		abilities.gunAbilities.ScarletShot.damage = (int)str;
+		
+		//abilities.gunAbilities.ScarletShot.rangeMin =(int) str * 2;
+		//abilities.gunAbilities.ScarletShot.rangeMax =(int) str * 2.2f;
 		
 		abilities.gunAbilities.ScarletShot.multiplier = 1.0f;
+		abilities.gunAbilities.ScarletShot.xPToClip = 1;
 		//DarkBullet
-		abilities.gunAbilities.DarkBullet.cost = -3;
+		abilities.gunAbilities.DarkBullet.cost = -5;
 		
-		abilities.gunAbilities.DarkBullet.rangeMin =(int) str * 2.5f;
-		abilities.gunAbilities.DarkBullet.rangeMax =(int) str * 2.7f;
-		//abilities.gunAbilities.DarkBullet.lastRangedDam = 0;
+		abilities.gunAbilities.DarkBullet.damage = (int)(str * 1.75);
+		
+		//abilities.gunAbilities.DarkBullet.rangeMin =(int) str * 2.5f;
+		//abilities.gunAbilities.DarkBullet.rangeMax =(int) str * 2.7f;
 		
 		abilities.gunAbilities.DarkBullet.multiplier = 1.3f;
-		
+		abilities.gunAbilities.DarkBullet.xPToClip = 1;
 		//PlagueBlast
-		abilities.gunAbilities.PlagueBlast.cost = -4;
+		abilities.gunAbilities.PlagueBlast.cost = -3;
 		
-		abilities.gunAbilities.PlagueBlast.rangeMin =(int) str * 2.5f;
-		abilities.gunAbilities.PlagueBlast.rangeMax =(int) str * 2.7f;
-		//abilities.gunAbilities.PlagueBlast.lastRangedDam = 0;
+		abilities.gunAbilities.PlagueBlast.damage = (int)str;
+		
+		//abilities.gunAbilities.PlagueBlast.rangeMin =(int) str * 2.5f;
+		//abilities.gunAbilities.PlagueBlast.rangeMax =(int) str * 2.7f;
 		
 		abilities.gunAbilities.PlagueBlast.multiplier = 1.0f;
-		
+		abilities.gunAbilities.PlagueBlast.xPToClip = 1;
 		//BlitzBarrage
-		abilities.gunAbilities.BlitzBarrage.cost = -2;
+		abilities.gunAbilities.BlitzBarrage.cost = -3;
 		
-		abilities.gunAbilities.BlitzBarrage.rangeMin =(int) str * 2.7f;
-		abilities.gunAbilities.BlitzBarrage.rangeMax =(int) str * 2.9f;
-		//abilities.gunAbilities.BlitzBarrage.lastRangedDam = 0;
+		abilities.gunAbilities.BlitzBarrage.damage = (int)str;
+		
+		//abilities.gunAbilities.BlitzBarrage.rangeMin =(int) str * 2.7f;
+		//abilities.gunAbilities.BlitzBarrage.rangeMax =(int) str * 2.9f;
 		
 		abilities.gunAbilities.BlitzBarrage.multiplier = 1.5f;
-		
+		abilities.gunAbilities.BlitzBarrage.xPToClip = 2;
 		//ShadowflameShot
-		abilities.gunAbilities.ShadowflameShot.cost = -1;
+		abilities.gunAbilities.ShadowflameShot.cost = -3;
 		
-		abilities.gunAbilities.ShadowflameShot.rangeMin =(int) str * 3f;
-		abilities.gunAbilities.ShadowflameShot.rangeMax =(int) str * 3.2f;
-		//abilities.gunAbilities.ShadowflameShot.lastRangedDam = 0;
+		abilities.gunAbilities.ShadowflameShot.damage = (int)str;
+		
+		//abilities.gunAbilities.ShadowflameShot.rangeMin =(int) str * 3f;
+		//abilities.gunAbilities.ShadowflameShot.rangeMax =(int) str * 3.2f;
 		
 		abilities.gunAbilities.ShadowflameShot.multiplier = 1.8f;
+		abilities.gunAbilities.ShadowflameShot.xPToClip = 2;
 		#endregion
 		
 		#region SwordAbilities

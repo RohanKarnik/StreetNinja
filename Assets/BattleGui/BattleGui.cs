@@ -95,7 +95,9 @@ public class BattleGui : MonoBehaviour {
 		public UIFilledSprite battleInfoStanceAbility4;
 		public UIFilledSprite battleInfoStanceAbility5;
 	
-		public UILabel turnsLabel;
+		//public UILabel turnsLabel;
+		public UIFilledSprite turnsPlayer;
+		public UIFilledSprite turnsEnemy;
 	
 		//Shown Damage Icons
 		public UILabel playerHpHealLabel;
@@ -104,12 +106,14 @@ public class BattleGui : MonoBehaviour {
 		public UILabel playerApGenLabel;
 	
 		public UILabel turnTotalDamageLabel;
+		public Vector3 turnsOriginalScale = new Vector3(34,84,1);
 	
 		public UILabel enemyHpDamageLabel;
 		public UILabel enemyHpPlusLabel;
 	}
 	
 	public BattleInfo battleInfo;
+	
 	
 	//TOP
 	[System.Serializable]
@@ -242,10 +246,76 @@ public class BattleGui : MonoBehaviour {
 	
 	public BOTTOM GuiBottom;
 	
+	
+	
+	
+	
 	// Update is called once per frame
 	void Update () {
 		
+		
+		
+		
 		switch(player.playerBattleStatus){
+			
+		/*case Player.BattleStatus.GunDial:
+			if(screenLabel != null)
+				screenLabel.text = "";
+			
+			#region Hide Everything
+			
+			//Shown Damage
+			if(battleInfo.playerApGenLabel != null)
+				battleInfo.playerApGenLabel.text =  "";
+			if(battleInfo.playerHpDamageLabel != null)
+				battleInfo.playerHpDamageLabel.text = "";
+			if(battleInfo.playerHpHealLabel != null)
+				battleInfo.playerHpHealLabel.text = "";
+			if(battleInfo.enemyHpPlusLabel != null)
+				battleInfo.enemyHpPlusLabel.text = "";
+			if(battleInfo.enemyHpDamageLabel != null)
+				battleInfo.enemyHpDamageLabel.text = "";
+			
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = false;	
+			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = false;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = false;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = false;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = false;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = false;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = false;
+			
+			//OverTime Stuff
+			if(battleInfo.playerBuffsPanel != null)
+				battleInfo.playerBuffsPanel.enabled = false;
+			if(battleInfo.playerDeBuffsPanel != null)
+				battleInfo.playerDeBuffsPanel.enabled = false;
+			if(battleInfo.enemyBuffsPanel != null)
+				battleInfo.enemyBuffsPanel.enabled = false;
+			if(battleInfo.enemyDeBuffsPanel != null)
+				battleInfo.enemyDeBuffsPanel.enabled = false;
+			
+			if(GuiBottom.playerBuffDeBuffDescription != null)
+				GuiBottom.playerBuffDeBuffDescription.text = "";
+			if(GuiBottom.enemyBuffDeBuffDescription != null)
+				GuiBottom.enemyBuffDeBuffDescription.text = "";
+			
+			if(battleInfo.turnTotalDamageLabel != null)
+				battleInfo.turnTotalDamageLabel.text = "";
+			
+			#endregion
+			break;*/
+			
 		
 		case Player.BattleStatus.NotFighting:
 			if(screenLabel != null)
@@ -405,6 +475,18 @@ public class BattleGui : MonoBehaviour {
 				battleInfo.turnTotalDamageLabel.text = "TurnDam: -" + player.turnDamage;
 			else
 				battleInfo.turnTotalDamageLabel.text = "";
+				
+			if(player.numOfAttacks > 0){
+				float tempSizeX = (float)((1.0f + (.05 * player.numOfAttacks)) * battleInfo.turnsOriginalScale.x);
+				float tempSizeY = (float) ((1.0f + (.05 * player.numOfAttacks)) * battleInfo.turnsOriginalScale.y);
+				float tempSizeZ = (float) battleInfo.turnsOriginalScale.x;
+				
+				//Make label Larger
+				battleInfo.turnTotalDamageLabel.transform.localScale = new Vector3(tempSizeX,
+						tempSizeY,tempSizeZ);
+				}
+				else
+					battleInfo.turnTotalDamageLabel.transform.localScale = battleInfo.turnsOriginalScale;
 		}
 
 		
@@ -858,12 +940,20 @@ public class BattleGui : MonoBehaviour {
 		#endregion 
 		
 		// Draw Turns
-		if(battleInfo.turnsLabel != null){
-			if(player.TurnPhases < 8)
-				battleInfo.turnsLabel.text = "Player";
-			else
-				battleInfo.turnsLabel.text = "Enemy";
-		}
+		if(player.TurnPhases < 8){
+				if(battleInfo.turnsPlayer != null)
+					battleInfo.turnsPlayer.fillAmount = 1;
+				
+				if(battleInfo.turnsEnemy != null)
+					battleInfo.turnsEnemy.fillAmount = 0;
+			}
+		else{
+				if(battleInfo.turnsPlayer != null)
+					battleInfo.turnsPlayer.fillAmount = 0;
+				
+				if(battleInfo.turnsEnemy != null)
+					battleInfo.turnsEnemy.fillAmount = 1;
+			}
 		
 		//Update Ability buttons
 		if(GuiBottom.gunAbilityButton != null)
@@ -1565,9 +1655,8 @@ public class BattleGui : MonoBehaviour {
 				
 				
 				
-				abilityText = "Gun Ability ~ Scarlet Shot\n" +
-					"DMG: " + player.playerAbilities.gunAbilities.ScarletShot.rangeMin + " - " +
-						player.playerAbilities.gunAbilities.ScarletShot.rangeMax+ "\n" +
+				abilityText = "Gun Ability ~ Scarlet Shot\n1 Tap\n" +
+					"DMG: " + player.playerAbilities.gunAbilities.ScarletShot.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.ScarletShot.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.ScarletShot.multiplier);
 			
@@ -1589,9 +1678,8 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				
-				abilityText = "Gun Ability ~ Dark Bullet\n" +
-					"DMG: " + player.playerAbilities.gunAbilities.DarkBullet.rangeMin + " - " +
-						player.playerAbilities.gunAbilities.DarkBullet.rangeMax+ "\n" +
+				abilityText = "Gun Ability ~ Dark Bullet\n2 Taps\n" +
+					"DMG: " + player.playerAbilities.gunAbilities.DarkBullet.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.DarkBullet.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.DarkBullet.multiplier);
 				
@@ -1611,9 +1699,8 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Gun Ability ~ Plague Blast\n" +
-					"DMG: " + player.playerAbilities.gunAbilities.PlagueBlast.rangeMin + " - " +
-						player.playerAbilities.gunAbilities.PlagueBlast.rangeMax+ "\n" +
+				abilityText = "Gun Ability ~ Plague Blast\n4 Tap\n" +
+					"DMG: " + player.playerAbilities.gunAbilities.PlagueBlast.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.PlagueBlast.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.PlagueBlast.multiplier);
 				
@@ -1632,9 +1719,8 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Gun Ability ~ Blitz Barrage\n" +
-					"DMG: " + player.playerAbilities.gunAbilities.BlitzBarrage.rangeMin + " - " +
-						player.playerAbilities.gunAbilities.BlitzBarrage.rangeMax+ "\n" +
+				abilityText = "Gun Ability ~ Blitz Barrage\n5 Tap\n" +
+					"DMG: " + player.playerAbilities.gunAbilities.BlitzBarrage.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.BlitzBarrage.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.BlitzBarrage.multiplier);
 				
@@ -1653,9 +1739,8 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
-				abilityText = "Gun Ability ~ Shadowflame Shot\n" +
-					"DMG: " + player.playerAbilities.gunAbilities.ShadowflameShot.rangeMin + " - " +
-						player.playerAbilities.gunAbilities.ShadowflameShot.rangeMax+ "\n" +
+				abilityText = "Gun Ability ~ Shadowflame Shot\n6 Tap\n" +
+					"DMG: " + player.playerAbilities.gunAbilities.ShadowflameShot.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.ShadowflameShot.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.ShadowflameShot.multiplier);
 				
@@ -1984,7 +2069,96 @@ public class BattleGui : MonoBehaviour {
 		//Turn Phase 5 ~ Execute Gun Abilities
 		#region Execute Gun Abilities
 		else if(player.TurnPhases == 5){
-			//Hide Panels
+				
+				//Update shown dam
+				
+				string tempEnemyDamLabel = "";
+				string tempPlayerApBoost = "";
+				
+				if(player.gunAbilityChosen == 1){
+					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.ScarletShot.lastDamage + "HP";
+					
+					tempPlayerApBoost = "+" + player.playerAbilities.gunAbilities.ScarletShot.lastApBoost + "AP";
+
+				}
+				else if(player.gunAbilityChosen == 2){
+					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.DarkBullet.lastDamage + "HP";
+					
+					tempPlayerApBoost = "+" + player.playerAbilities.gunAbilities.DarkBullet.lastApBoost + "AP";
+					
+
+				}
+				else if(player.gunAbilityChosen == 3){
+					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.PlagueBlast.lastDamage + "HP";
+					
+					tempPlayerApBoost = "+" + player.playerAbilities.gunAbilities.PlagueBlast.lastApBoost + "AP";
+					
+
+				}
+				else if(player.gunAbilityChosen == 4){
+					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage + "HP";
+					
+					tempPlayerApBoost = "+" + player.playerAbilities.gunAbilities.BlitzBarrage.lastApBoost + "AP";
+					
+
+				}
+				else if(player.gunAbilityChosen == 5){
+					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage + "HP";
+					
+					tempPlayerApBoost = "+" + player.playerAbilities.gunAbilities.ShadowflameShot.lastApBoost + "AP";
+					
+				}
+
+				
+				if(battleInfo.enemyHpDamageLabel != null){
+						battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
+						battleInfo.enemyHpDamageLabel.enabled = true;
+					}
+				
+					if(battleInfo.playerApGenLabel != null){
+						battleInfo.playerApGenLabel.text = tempPlayerApBoost;
+						battleInfo.playerApGenLabel.enabled = true;
+					}
+
+				
+				/*if(battleInfo.enemyHpDamageLabel != null){
+						battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
+						battleInfo.enemyHpDamageLabel.enabled = true;
+					}
+				
+					if(battleInfo.playerApGenLabel != null){
+						battleInfo.playerApGenLabel.text = tempPlayerApBoost;
+						battleInfo.playerApGenLabel.enabled = true;
+					}*/
+						
+				#region Hide Everything
+			
+			
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = false;	
+			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = false;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = false;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = false;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = false;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = false;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = false;
+			
+
+			
+			#endregion
+			
+				#region Old Code
+				/*//Hide Panels
 				if(battleInfo.battleInfoAbility1Box != null)
 					battleInfo.battleInfoAbility1Box.fillAmount = 1;
 				if(battleInfo.battleInfoAbility2Box != null)
@@ -2064,15 +2238,11 @@ public class BattleGui : MonoBehaviour {
 					else
 						tempPlayerApBoost = "+" + (-1 * player.playerAbilities.gunAbilities.ShadowflameShot.cost) + "AP";
 					
-					/*if(player.playerAbilities.abilitiesC.c5level == 1)
-						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";
-					else if(player.playerAbilities.abilitiesC.c5level == 2)
-						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";	
-					else if(player.playerAbilities.abilitiesC.c5level == 3)
-						tempPlayerApBoost = "+" + player.playerAbilities.abilitiesA.a5ApBoostLvl1 + "AP";*/
 				}
+				*/
+				#endregion
 				
-				if(battleInfo.enemyHpDamageLabel != null){
+				/*if(battleInfo.enemyHpDamageLabel != null){
 					battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
 					battleInfo.enemyHpDamageLabel.enabled = true;
 				}
@@ -2080,10 +2250,10 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.playerApGenLabel != null){
 					battleInfo.playerApGenLabel.text = tempPlayerApBoost;
 					battleInfo.playerApGenLabel.enabled = true;
-				}
+				}*/
 				
 				
-			}
+			//}
 			
 		}
 		#endregion

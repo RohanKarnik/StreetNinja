@@ -16,42 +16,57 @@ public class Abilities : MonoBehaviour{
 		
 		public int damage;
 		
-		public float rangeMin;
+		/*public float rangeMin;
 		public float rangeMax;
-		public int lastRangedDam;
+		public int lastRangedDam;*/
+		
+		public int lastDamage;
+		public int lastApBoost;
 		
 		public int cost;
 		
 		public float multiplier;
+		
+		public float xPToClip;
 		
 	}
 	
 	[System.Serializable]
 	public class GunAbilities{
 		
-		/*DMG: STR*2 - STR*2.2
-				AP: +5
-				Multiplier: 1.0*/
+		/*1 tap
+		DMG: STR  
+		AP: +15 (15 total)
+		Multiplier: 100%
+		XP to Clips: 1*/
 		public Ability ScarletShot = new Ability();
 		
-		/*DMG: STR*2.5 - STR*2.7
-				AP: +3
-				Multiplier: 1.3*/
+		/*2 taps
+		DMG: STR * 1.75    
+		AP: +5 (10 total)
+		Multiplier: 100%
+        XP to Clips: 1*/
 		public Ability DarkBullet = new Ability();
 		
-		/*DMG: STR*2.5 - STR*2.7
-			AP: +4
-			Multiplier: 1.0*/
+		/*4 taps
+		DMG: STR  
+		AP: +3 (12 total)
+		Multiplier: 150%
+		XP to Clips: 1*/
 		public Ability PlagueBlast = new Ability();
 		
-		/*DMG: STR*2.7-STR*2.9
-			AP: +2
-			Multiplier: 1.5*/
+		/*5 taps
+		DMG: STR * 1
+		AP: +3 (15 total)
+		Multiplier: 150%
+		XP to Clips: 2*/
 		public Ability BlitzBarrage = new Ability();
 		
-		/*DMG: STR*3.0 - STR*3.2
-			AP: +1
-			Multiplier: 1.8*/
+		/*6 taps
+		DMG: STR * 1
+		AP: +3 (18 total)
+		Multiplier: 200%
+		XP to Clips: 2*/
 		public Ability ShadowflameShot = new Ability();
 		
 	}

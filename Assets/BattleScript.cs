@@ -55,6 +55,9 @@ public class BattleScript : MonoBehaviour {
 				
 				menuPage = "battle";
 				
+				//menuPage = "gunMiniGame";
+				//player.playerBattleStatus = Player.BattleStatus.GunDial;
+				
 				player.playerBattleStatus = Player.BattleStatus.Fighting;
 				
 			}
@@ -100,7 +103,7 @@ public class BattleScript : MonoBehaviour {
 						player.TurnPhases = 5;
 						
 						//Execute Gun Abilities
-						ExecuteGunAbilities(player.gunAbilityChosen);
+						//ExecuteGunAbilities(player.gunAbilityChosen);
 						
 						//Wait
 						player.gameTimer = Time.time + 3;
@@ -137,8 +140,8 @@ public class BattleScript : MonoBehaviour {
 				if(Time.time >= player.gameTimer){
 					
 					//Execute Gun Abilities
-					if(player.gunAbilityChosen != 0)
-						ExecuteGunAbilities(player.gunAbilityChosen);
+					//if(player.gunAbilityChosen != 0)
+						//ExecuteGunAbilities(player.gunAbilityChosen);
 					
 					
 					//Wait
@@ -152,7 +155,43 @@ public class BattleScript : MonoBehaviour {
 			//Execute A Ability
 			else if(player.TurnPhases == 5){
 				
-				if(Time.time >= player.gameTimer){
+				if(player.clickCounter >= player.clickMax){
+					
+					player.clickCounter = 0;
+					
+					player.gameTimer = Time.time + 3;
+					
+					if(player.stanceChanged == true)
+						player.TurnPhases = 6;
+					else
+						player.TurnPhases = 7;
+				}
+				
+				
+				if(player.lastGunHit == Player.LastGunHit.Normal){
+					//execute gun abilities
+					ExecuteGunAbilities(player.clickCounter,false);
+					
+					player.lastGunHit = Player.LastGunHit.NoHit;
+					
+				}
+				
+				else if(player.lastGunHit == Player.LastGunHit.Crit){
+					//execute gun abilities
+					ExecuteGunAbilities(player.clickCounter,true);
+					
+					player.lastGunHit = Player.LastGunHit.NoHit;
+				}
+				
+				if(player.lastGunHit == Player.LastGunHit.Miss){
+					//EndGun Dial
+					player.clickCounter = player.clickMax;
+					
+					player.lastGunHit = Player.LastGunHit.NoHit;
+				}
+				
+				//Old Code
+				/*if(Time.time >= player.gameTimer){
 					
 					//if(player.gunAbilityChosen != 0)
 						//ExecuteGunAbilities(player.gunAbilityChosen);
@@ -164,7 +203,7 @@ public class BattleScript : MonoBehaviour {
 						player.TurnPhases = 6;
 					else
 						player.TurnPhases = 7;
-				}
+				}*/
 				
 			}
 			
@@ -310,7 +349,7 @@ public class BattleScript : MonoBehaviour {
 		}
 		
 		if(menuPage == "win"){
-			
+			player.TurnPhases = 0;
 			
 			if(Time.time >= gameTimer){
 				resetFight();
@@ -324,7 +363,7 @@ public class BattleScript : MonoBehaviour {
 		}
 		
 		if(menuPage == "lose"){
-
+			player.TurnPhases = 0;
 			
 			if(Time.time >= gameTimer){
 				resetFight();
@@ -418,23 +457,47 @@ public class BattleScript : MonoBehaviour {
 		
 		player.TurnPhases = 0;
 		
+		player.clickCounter = 0;
+		
+		player.numOfAttacks = 0;
+		
+		#region BattleAbilities
+		player.playerAbilities.gunAbilities.ScarletShot.lastApBoost = 0;
+		player.playerAbilities.gunAbilities.ScarletShot.lastDamage = 0;
+		
+		player.playerAbilities.gunAbilities.DarkBullet.lastApBoost = 0;
+		player.playerAbilities.gunAbilities.DarkBullet.lastDamage = 0;
+		
+		player.playerAbilities.gunAbilities.PlagueBlast.lastApBoost = 0;
+		player.playerAbilities.gunAbilities.PlagueBlast.lastDamage = 0;
+		
+		player.playerAbilities.gunAbilities.BlitzBarrage.lastApBoost = 0;
+		player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage = 0;
+		
+		player.playerAbilities.gunAbilities.ShadowflameShot.lastApBoost = 0;
+		player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage = 0;
+		#endregion
+		
 	}
 	
-	public void ExecuteGunAbilities(int chosenAbility){
+	public void ExecuteGunAbilities(int clickCounter, bool isCrit){
+		player.numOfAttacks++;
 		
 		//ScarletShot
 		if(player.gunAbilityChosen == 1){
 			
-			//Apply Ap-Stance
+			//Apply Ap - (Stance)
 			if(player.playerAbilities.stances.StanceOfDeath == true)
-				player.aP -= (int)(player.playerAbilities.stances.StanceOfDApGenBoost *
-					player.playerAbilities.gunAbilities.ScarletShot.cost);
+				player.playerAbilities.gunAbilities.ScarletShot.lastApBoost = (int)(-1 *(player.playerAbilities.stances.StanceOfDApGenBoost *
+					player.playerAbilities.gunAbilities.ScarletShot.cost));
 			else
-				player.aP -= player.playerAbilities.gunAbilities.ScarletShot.cost;
+				player.playerAbilities.gunAbilities.ScarletShot.lastApBoost = (-1 * player.playerAbilities.gunAbilities.ScarletShot.cost);
 			
 			//Accrue Damage
-			tempTotalDamage = (int) Random.Range(player.playerAbilities.gunAbilities.ScarletShot.rangeMin,
-				player.playerAbilities.gunAbilities.ScarletShot.rangeMax);
+			if(isCrit == true)
+				tempTotalDamage = (int) player.playerAbilities.gunAbilities.ScarletShot.damage * 2;
+			else
+				tempTotalDamage = (int) player.playerAbilities.gunAbilities.ScarletShot.damage;
 			
 			//Apply Dam-Stance
 			if(player.playerAbilities.stances.StanceOfBloodlust == true)
@@ -445,22 +508,28 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.ScarletShot.lastRangedDam = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.ScarletShot.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
+			
+			player.aP += (int)player.playerAbilities.gunAbilities.ScarletShot.lastApBoost;
+			
+			//Apply Clip Effect if last tap
 		}
 		//DarkBullet
 		else if(player.gunAbilityChosen == 2){
 			
 			//Apply Ap-Stance
 			if(player.playerAbilities.stances.StanceOfDeath == true)
-				player.aP -= (int)(player.playerAbilities.stances.StanceOfDApGenBoost *
-					player.playerAbilities.gunAbilities.DarkBullet.cost);
+				player.playerAbilities.gunAbilities.DarkBullet.lastApBoost = (int)(-1 *(player.playerAbilities.stances.StanceOfDApGenBoost *
+					player.playerAbilities.gunAbilities.DarkBullet.cost));
 			else
-				player.aP -= player.playerAbilities.gunAbilities.DarkBullet.cost;
+				player.playerAbilities.gunAbilities.DarkBullet.lastApBoost = (-1 * player.playerAbilities.gunAbilities.DarkBullet.cost);
 			
 			//Accrue Damage
-			tempTotalDamage =(int) Random.Range(player.playerAbilities.gunAbilities.DarkBullet.rangeMin,
-				player.playerAbilities.gunAbilities.DarkBullet.rangeMax);
+			if(isCrit == true)
+				tempTotalDamage = (int) player.playerAbilities.gunAbilities.DarkBullet.damage * 2;
+			else
+				tempTotalDamage = (int) player.playerAbilities.gunAbilities.DarkBullet.damage;
 			
 			//Apply Dam-Stance
 			if(player.playerAbilities.stances.StanceOfBloodlust == true)
@@ -471,22 +540,26 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.DarkBullet.lastRangedDam = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.DarkBullet.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
+			
+			player.aP += (int)player.playerAbilities.gunAbilities.DarkBullet.lastApBoost;
 		}
 		//PlagueBlast
 		else if(player.gunAbilityChosen == 3){
 			
 			//Apply Ap-Stance
 			if(player.playerAbilities.stances.StanceOfDeath == true)
-				player.aP -= (int)(player.playerAbilities.stances.StanceOfDApGenBoost *
-					player.playerAbilities.gunAbilities.PlagueBlast.cost);
+				player.playerAbilities.gunAbilities.PlagueBlast.lastApBoost = (int)(-1 *(player.playerAbilities.stances.StanceOfDApGenBoost *
+					player.playerAbilities.gunAbilities.PlagueBlast.cost));
 			else
-				player.aP -= player.playerAbilities.gunAbilities.PlagueBlast.cost;
+				player.playerAbilities.gunAbilities.PlagueBlast.lastApBoost = (-1 * player.playerAbilities.gunAbilities.PlagueBlast.cost);
 			
 			//Accrue Damage
-			tempTotalDamage =(int) Random.Range(player.playerAbilities.gunAbilities.PlagueBlast.rangeMin,
-				player.playerAbilities.gunAbilities.PlagueBlast.rangeMax);
+			if(isCrit == true)
+				tempTotalDamage = player.playerAbilities.gunAbilities.PlagueBlast.damage * 2;
+			else
+				tempTotalDamage = player.playerAbilities.gunAbilities.PlagueBlast.damage;
 			
 			//Apply Dam-Stance
 			if(player.playerAbilities.stances.StanceOfBloodlust == true)
@@ -497,22 +570,26 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.PlagueBlast.lastRangedDam = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.PlagueBlast.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
+			
+			player.aP += (int)player.playerAbilities.gunAbilities.PlagueBlast.lastApBoost;
 		}
 		//BlitzBarage
 		else if(player.gunAbilityChosen == 4){
 			
 			//Apply Ap-Stance
 			if(player.playerAbilities.stances.StanceOfDeath == true)
-				player.aP -= (int)(player.playerAbilities.stances.StanceOfDApGenBoost *
-					player.playerAbilities.gunAbilities.BlitzBarrage.cost);
+				player.playerAbilities.gunAbilities.BlitzBarrage.lastApBoost = (int)(-1 *(player.playerAbilities.stances.StanceOfDApGenBoost *
+					player.playerAbilities.gunAbilities.BlitzBarrage.cost));
 			else
-				player.aP -= player.playerAbilities.gunAbilities.BlitzBarrage.cost;
+				player.playerAbilities.gunAbilities.BlitzBarrage.lastApBoost = (-1 * player.playerAbilities.gunAbilities.BlitzBarrage.cost);
 			
 			//Accrue Damage
-			tempTotalDamage =(int) Random.Range(player.playerAbilities.gunAbilities.BlitzBarrage.rangeMin,
-				player.playerAbilities.gunAbilities.BlitzBarrage.rangeMax);
+			if(isCrit == true)
+				tempTotalDamage = player.playerAbilities.gunAbilities.BlitzBarrage.damage * 2;
+			else
+				tempTotalDamage = player.playerAbilities.gunAbilities.BlitzBarrage.damage;
 			
 			//Apply Dam-Stance
 			if(player.playerAbilities.stances.StanceOfBloodlust == true)
@@ -523,22 +600,26 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.BlitzBarrage.lastRangedDam = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
+			
+			player.aP += (int)player.playerAbilities.gunAbilities.BlitzBarrage.lastApBoost;
 		}
 		//ShadowFlameShot
 		else if(player.gunAbilityChosen == 5){
 			
 			//Apply Ap-Stance
 			if(player.playerAbilities.stances.StanceOfDeath == true)
-				player.aP -= (int)(player.playerAbilities.stances.StanceOfDApGenBoost *
-					player.playerAbilities.gunAbilities.ShadowflameShot.cost);
+				player.playerAbilities.gunAbilities.ShadowflameShot.lastApBoost = (int)(-1 *(player.playerAbilities.stances.StanceOfDApGenBoost *
+					player.playerAbilities.gunAbilities.ShadowflameShot.cost));
 			else
-				player.aP -= player.playerAbilities.gunAbilities.ShadowflameShot.cost;
+				player.playerAbilities.gunAbilities.ShadowflameShot.lastApBoost = (-1 * player.playerAbilities.gunAbilities.ShadowflameShot.cost);
 			
 			//Accrue Damage
-			tempTotalDamage =(int) Random.Range(player.playerAbilities.gunAbilities.ShadowflameShot.rangeMin,
-				player.playerAbilities.gunAbilities.ShadowflameShot.rangeMax);
+			if(isCrit == true)
+				tempTotalDamage = player.playerAbilities.gunAbilities.ShadowflameShot.damage * 2;
+			else	
+				tempTotalDamage = player.playerAbilities.gunAbilities.ShadowflameShot.damage;
 			
 			//Apply Dam-Stance
 			if(player.playerAbilities.stances.StanceOfBloodlust == true)
@@ -549,8 +630,10 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.ShadowflameShot.lastRangedDam = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
+			
+			player.aP += (int) player.playerAbilities.gunAbilities.ShadowflameShot.lastApBoost;
 			
 		}
 		
@@ -558,7 +641,7 @@ public class BattleScript : MonoBehaviour {
 	}
 	
 	public void ExecuteSwordAbilities(int chosenAbility){
-		//float tempTotalDamage;
+		player.numOfAttacks++;
 		
 		//Bloodblade
 		if(player.swordAbilityChosen == 1){
