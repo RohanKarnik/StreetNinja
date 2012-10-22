@@ -461,6 +461,8 @@ public class BattleScript : MonoBehaviour {
 		
 		player.numOfAttacks = 0;
 		
+		player.isDialSet = false;
+		
 		#region BattleAbilities
 		player.playerAbilities.gunAbilities.ScarletShot.lastApBoost = 0;
 		player.playerAbilities.gunAbilities.ScarletShot.lastDamage = 0;

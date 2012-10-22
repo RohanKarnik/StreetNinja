@@ -119,7 +119,7 @@ public class Player : MonoBehaviour {
 		public int lastEnemyBuffDebuffClicked;
 	
 	
-		public enum LastGunHit{NoHit, Normal, Crit, Miss}
+		public enum LastGunHit{NoHit, Normal, Crit, Miss, BeenClicked}
 	
 		public LastGunHit lastGunHit;
 	
@@ -127,6 +127,8 @@ public class Player : MonoBehaviour {
 		public int clickMax;
 	
 		public int numOfAttacks;
+	
+		public bool isDialSet;
 	
 		public float gameTimer;
 	
@@ -141,6 +143,8 @@ public class Player : MonoBehaviour {
 		clickCounter = 0;
 		
 		numOfAttacks = 0;
+		
+		isDialSet = false;
 		
 		fillLevelArray(playerLevelArray, playerLevels);
 
