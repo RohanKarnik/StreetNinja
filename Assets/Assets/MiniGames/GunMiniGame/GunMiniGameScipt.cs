@@ -1229,7 +1229,7 @@ public class GunMiniGameScipt : MonoBehaviour {
 			
 			//Move Arrow
 			arrow.transform.RotateAround(gunDialButton.transform.position,
-				Vector3.forward, ArrowSpeed * Time.deltaTime);
+				Vector3.back, ArrowSpeed * Time.deltaTime);
 		
 		
 		
@@ -1242,7 +1242,7 @@ public class GunMiniGameScipt : MonoBehaviour {
 			//Stop Minigame if Arrow makes OneRotation
 			if(startTimer != 0){
 				if(Time.time >= startTimer){
-					if(distanceFromCenter <= 1 && distanceFromCenter >= 0){
+					if(distanceFromCenter >= 350){
 						
 						player.clickCounter = player.clickMax;
 					

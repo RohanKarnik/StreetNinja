@@ -120,8 +120,11 @@ public class Player : MonoBehaviour {
 	
 	
 		public enum LastGunHit{NoHit, Normal, Crit, Miss, BeenClicked}
-	
 		public LastGunHit lastGunHit;
+	
+		public enum LastSwordHit{NoHit, Hit, Miss, HasHit};
+		public LastSwordHit lastSwordHit;	
+	
 	
 		public int clickCounter;
 		public int clickMax;
@@ -129,6 +132,7 @@ public class Player : MonoBehaviour {
 		public int numOfAttacks;
 	
 		public bool isDialSet;
+		public bool isSwordSet;
 	
 		public float gameTimer;
 	
@@ -139,12 +143,14 @@ public class Player : MonoBehaviour {
 		level = 10;
 		
 		lastGunHit = LastGunHit.NoHit;
+		lastSwordHit = LastSwordHit.NoHit;
 		
 		clickCounter = 0;
 		
 		numOfAttacks = 0;
 		
 		isDialSet = false;
+		isSwordSet = false;
 		
 		fillLevelArray(playerLevelArray, playerLevels);
 
@@ -262,30 +268,35 @@ public class Player : MonoBehaviour {
 		
 		abilities.sworddAbilities.BloodBlade.damage =(int) (str*4);
 		abilities.sworddAbilities.BloodBlade.multiplier = 1.0f;
+		abilities.sworddAbilities.BloodBlade.xPToClip = 1;
 		
 		//DeathStrike
 		abilities.sworddAbilities.DeathStrike.cost = -20;
 		
 		abilities.sworddAbilities.DeathStrike.damage = (int) (str*4.6f);
 		abilities.sworddAbilities.DeathStrike.multiplier = 1.8f;
+		abilities.sworddAbilities.DeathStrike.xPToClip = 1;
 		
 		//ShadowFlameSlash
 		abilities.sworddAbilities.ShadowFlameSlash.cost = -40;
 		
 		abilities.sworddAbilities.ShadowFlameSlash.damage = (int) (str*4.6f);
 		abilities.sworddAbilities.ShadowFlameSlash.multiplier = 1.8f;
+		abilities.sworddAbilities.ShadowFlameSlash.xPToClip = 1;
 		
 		//CrimsonCut
 		abilities.sworddAbilities.CrimsonCut.cost = -40;
 		
 		abilities.sworddAbilities.CrimsonCut.damage =(int) (str*5);
 		abilities.sworddAbilities.CrimsonCut.multiplier = 1.6f;
+		abilities.sworddAbilities.CrimsonCut.xPToClip = 2;
 		
 		//Shadowfury
 		abilities.sworddAbilities.ShadowFury.cost = -80;
 		
 		abilities.sworddAbilities.ShadowFury.damage =(int) (str*5);
 		abilities.sworddAbilities.ShadowFury.multiplier = 3.0f;
+		abilities.sworddAbilities.ShadowFury.xPToClip = 3;
 		
 		#endregion
 		

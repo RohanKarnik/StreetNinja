@@ -92,7 +92,7 @@ public class BattleScript : MonoBehaviour {
 						player.TurnPhases = 4;
 					
 						//Execute Sword Abilities
-						ExecuteSwordAbilities(player.swordAbilityChosen);
+						//ExecuteSwordAbilities(player.swordAbilityChosen);
 					
 						//Wait
 						player.gameTimer = Time.time + 3;
@@ -136,26 +136,77 @@ public class BattleScript : MonoBehaviour {
 			//Execute Sword Ability Phase
 			else if(player.TurnPhases == 4){
 				
-				
-				if(Time.time >= player.gameTimer){
+				if(player.clickCounter >= player.clickMax){
 					
-					//Execute Gun Abilities
-					//if(player.gunAbilityChosen != 0)
-						//ExecuteGunAbilities(player.gunAbilityChosen);
+					switch(player.swordAbilityChosen){
+					case 1:
+						player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
+						break;
+					case 2:
+						player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
+						break;
+					case 3:
+						player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
+						break;
+					case 4:
+						player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
+						break;
+					case 5:
+						player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
+						break;
+					default:
+						player.aP = 0;
+						break;
+						
+					}
 					
+					player.isSwordSet = false;
 					
-					//Wait
+					player.clickCounter = 0;
+					
 					player.gameTimer = Time.time + 3;
 					
-					player.TurnPhases = 5;
+					
+					//Advance turn
+					if(player.gunAbilityChosen > 0){
+						player.TurnPhases = 5;
+					}
+					else{
+						if(player.stanceChanged == true)
+							player.TurnPhases = 6;
+						else
+							player.TurnPhases = 7;	
+					}
 				}
+				
+				if(player.lastSwordHit == Player.LastSwordHit.Hit){
+				
+					//Execute Sword Abilities
+					ExecuteSwordAbilities(player.swordAbilityChosen);
+					
+					
+					player.lastSwordHit = Player.LastSwordHit.HasHit;
+				}
+
+				
+				else if(player.lastSwordHit == Player.LastSwordHit.Miss){
+				
+					//EndGun Dial
+					player.clickCounter = player.clickMax;
+					
+					player.lastSwordHit = Player.LastSwordHit.NoHit;	
+				}
+				
+				
 				
 			}
 			
-			//Execute A Ability
+			//Execute Gun Ability
 			else if(player.TurnPhases == 5){
 				
 				if(player.clickCounter >= player.clickMax){
+					
+					//player.aP = 0;
 					
 					player.clickCounter = 0;
 					
@@ -189,21 +240,6 @@ public class BattleScript : MonoBehaviour {
 					
 					player.lastGunHit = Player.LastGunHit.NoHit;
 				}
-				
-				//Old Code
-				/*if(Time.time >= player.gameTimer){
-					
-					//if(player.gunAbilityChosen != 0)
-						//ExecuteGunAbilities(player.gunAbilityChosen);
-					
-					//Wait
-					player.gameTimer = Time.time + 3;
-					
-					if(player.stanceChanged == true)
-						player.TurnPhases = 6;
-					else
-						player.TurnPhases = 7;
-				}*/
 				
 			}
 			
@@ -462,6 +498,7 @@ public class BattleScript : MonoBehaviour {
 		player.numOfAttacks = 0;
 		
 		player.isDialSet = false;
+		player.isSwordSet = false;
 		
 		#region BattleAbilities
 		player.playerAbilities.gunAbilities.ScarletShot.lastApBoost = 0;
@@ -647,7 +684,7 @@ public class BattleScript : MonoBehaviour {
 		
 		//Bloodblade
 		if(player.swordAbilityChosen == 1){
-			player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
+			//player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.BloodBlade.damage;
@@ -661,11 +698,12 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
+			player.playerAbilities.sworddAbilities.BloodBlade.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 		}
 		//DeathStrike
 		else if(player.swordAbilityChosen == 2){
-			player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
+			//player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.DeathStrike.damage;
@@ -679,11 +717,12 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
+			player.playerAbilities.sworddAbilities.DeathStrike.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 		}
 		//ShadowFury
 		else if(player.swordAbilityChosen == 3){
-			player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
+			//player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.ShadowFury.damage;
@@ -697,11 +736,12 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
+			player.playerAbilities.sworddAbilities.ShadowFury.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 		}
 		//CrimsonCut
 		else if(player.swordAbilityChosen == 4){
-			player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
+			//player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.CrimsonCut.damage;
@@ -715,11 +755,12 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
+			player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 		}
 		//ShadowFlameSlash
 		else if(player.swordAbilityChosen == 5){
-			player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
+			//player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.ShadowFlameSlash.damage;
@@ -733,6 +774,7 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
+			player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage = (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;;
 		}
 	}

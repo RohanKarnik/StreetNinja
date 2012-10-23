@@ -46,6 +46,7 @@
   <ItemGroup>
      <Compile Include="Assets\Assets\Enemy\Enemy.cs" />
      <Compile Include="Assets\Assets\MiniGames\GunMiniGame\GunMiniGameScipt.cs" />
+     <Compile Include="Assets\Assets\MiniGames\SwordMiniGame\SwordMiniGameScript.cs" />
      <Compile Include="Assets\Assets\Player\Abilities.cs" />
      <Compile Include="Assets\Assets\Player\Player.cs" />
      <Compile Include="Assets\BattleGui\BattleGui.cs" />

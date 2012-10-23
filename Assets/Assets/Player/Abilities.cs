@@ -75,27 +75,32 @@ public class Abilities : MonoBehaviour{
 	public class SwordAbilities{
 		/*DMG: STR*4
 			AP: -10
-			Multiplier: 1.0*/
+			Multiplier: 1.0
+			XP to Glyph: 1*/
 		public Ability BloodBlade = new Ability();
 		
 		/*DMG: STR*4.6
 			AP: -20
-			Multiplier: 1.3*/
+			Multiplier: 1.3
+			XP to Glyph: 1*/
 		public Ability DeathStrike = new Ability();
 		
 		/*DMG: STR*4.6
 			AP: -40
-			Multiplier: 1.8*/
+			Multiplier: 1.8
+			XP to Glyph: 1*/
 		public Ability ShadowFlameSlash = new Ability();
 		
 		/*DMG: STR*5.0
 			AP: -40
-			Multiplier: 1.6*/
+			Multiplier: 1.6
+			XP to Glyph: 2*/
 		public Ability CrimsonCut = new Ability();
 		
 		/*DMG: STR*5
 			AP: -80
-			Multiplier: 3.0*/
+			Multiplier: 3.0
+			XP to Glyph: 3*/
 		public Ability ShadowFury = new Ability();
 	}
 	

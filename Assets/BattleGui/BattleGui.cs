@@ -258,65 +258,6 @@ public class BattleGui : MonoBehaviour {
 		
 		switch(player.playerBattleStatus){
 			
-		/*case Player.BattleStatus.GunDial:
-			if(screenLabel != null)
-				screenLabel.text = "";
-			
-			#region Hide Everything
-			
-			//Shown Damage
-			if(battleInfo.playerApGenLabel != null)
-				battleInfo.playerApGenLabel.text =  "";
-			if(battleInfo.playerHpDamageLabel != null)
-				battleInfo.playerHpDamageLabel.text = "";
-			if(battleInfo.playerHpHealLabel != null)
-				battleInfo.playerHpHealLabel.text = "";
-			if(battleInfo.enemyHpPlusLabel != null)
-				battleInfo.enemyHpPlusLabel.text = "";
-			if(battleInfo.enemyHpDamageLabel != null)
-				battleInfo.enemyHpDamageLabel.text = "";
-			
-			//Description Box
-			if(battleInfo.battleInfoPanel != null){
-				battleInfo.battleInfoPanel.enabled = false;	
-			}
-			if(battleInfo.gunAbilitiesPanel != null){
-				battleInfo.gunAbilitiesPanel.enabled = false;	
-			}
-			if(battleInfo.swordAbilitiesPanel != null)
-				battleInfo.swordAbilitiesPanel.enabled = false;
-			if(battleInfo.stanceAbilitiesPanel != null)
-				battleInfo.stanceAbilitiesPanel.enabled = false;
-			
-			if(battleInfo.battleInfoGunIconPanel != null)
-				battleInfo.battleInfoGunIconPanel.enabled = false;
-			if(battleInfo.battleInfoSwordIconPanel != null)
-				battleInfo.battleInfoSwordIconPanel.enabled = false;
-			if(battleInfo.battleInfoStanceIconPanel != null)
-				battleInfo.battleInfoStanceIconPanel.enabled = false;
-			
-			//OverTime Stuff
-			if(battleInfo.playerBuffsPanel != null)
-				battleInfo.playerBuffsPanel.enabled = false;
-			if(battleInfo.playerDeBuffsPanel != null)
-				battleInfo.playerDeBuffsPanel.enabled = false;
-			if(battleInfo.enemyBuffsPanel != null)
-				battleInfo.enemyBuffsPanel.enabled = false;
-			if(battleInfo.enemyDeBuffsPanel != null)
-				battleInfo.enemyDeBuffsPanel.enabled = false;
-			
-			if(GuiBottom.playerBuffDeBuffDescription != null)
-				GuiBottom.playerBuffDeBuffDescription.text = "";
-			if(GuiBottom.enemyBuffDeBuffDescription != null)
-				GuiBottom.enemyBuffDeBuffDescription.text = "";
-			
-			if(battleInfo.turnTotalDamageLabel != null)
-				battleInfo.turnTotalDamageLabel.text = "";
-			
-			#endregion
-			break;*/
-			
-		
 		case Player.BattleStatus.NotFighting:
 			if(screenLabel != null)
 				screenLabel.text = "Next fight About to Commence";
@@ -1998,7 +1939,36 @@ public class BattleGui : MonoBehaviour {
 		//Turn Phase 4 ~ Execute Sword Abilities
 		#region Execute Sword Abilities
 		else if(player.TurnPhases == 4){
-			if(battleInfo.battleInfoAbility1Box != null)
+				
+			//Update Shown Dam
+			string tempEnemyDamLabel = "";
+				
+				if(player.gunAbilityChosen == 1){
+					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.BloodBlade.lastDamage + "HP";
+				}
+				else if(player.gunAbilityChosen == 2){
+					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.DeathStrike.lastDamage + "HP";
+				}
+				else if(player.gunAbilityChosen == 3){
+					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage + "HP";
+				}
+				else if(player.gunAbilityChosen == 4){
+					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage + "HP";
+				}
+				else if(player.gunAbilityChosen == 5){
+					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage + "HP";
+				}
+
+				
+				if(battleInfo.enemyHpDamageLabel != null){
+						battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
+						battleInfo.enemyHpDamageLabel.enabled = true;
+					}
+				
+				
+				
+			//Old Corde
+			/*if(battleInfo.battleInfoAbility1Box != null)
 					battleInfo.battleInfoAbility1Box.fillAmount = 1;
 				if(battleInfo.battleInfoAbility2Box != null)
 					battleInfo.battleInfoAbility2Box.fillAmount = 0;
@@ -2062,7 +2032,29 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.enemyHpDamageLabel.enabled = true;
 				}
 				
+			}*/
+				
+			#region Hide Everything
+			//Description Box
+			if(battleInfo.battleInfoPanel != null){
+				battleInfo.battleInfoPanel.enabled = false;	
 			}
+			if(battleInfo.gunAbilitiesPanel != null){
+				battleInfo.gunAbilitiesPanel.enabled = false;	
+			}
+			if(battleInfo.swordAbilitiesPanel != null)
+				battleInfo.swordAbilitiesPanel.enabled = false;
+			if(battleInfo.stanceAbilitiesPanel != null)
+				battleInfo.stanceAbilitiesPanel.enabled = false;
+			
+			if(battleInfo.battleInfoGunIconPanel != null)
+				battleInfo.battleInfoGunIconPanel.enabled = false;
+			if(battleInfo.battleInfoSwordIconPanel != null)
+				battleInfo.battleInfoSwordIconPanel.enabled = false;
+			if(battleInfo.battleInfoStanceIconPanel != null)
+				battleInfo.battleInfoStanceIconPanel.enabled = false;
+			
+			#endregion
 		}
 		#endregion
 		
@@ -2157,103 +2149,7 @@ public class BattleGui : MonoBehaviour {
 			
 			#endregion
 			
-				#region Old Code
-				/*//Hide Panels
-				if(battleInfo.battleInfoAbility1Box != null)
-					battleInfo.battleInfoAbility1Box.fillAmount = 1;
-				if(battleInfo.battleInfoAbility2Box != null)
-					battleInfo.battleInfoAbility2Box.fillAmount = 0;
-				if(battleInfo.battleInfoAbility3Box != null)
-					battleInfo.battleInfoAbility3Box.fillAmount = 0;
-				if(battleInfo.battleInfoAbility4Box != null)
-					battleInfo.battleInfoAbility4Box.fillAmount = 0;
-				if(battleInfo.battleInfoAbility5Box != null)
-					battleInfo.battleInfoAbility5Box.fillAmount = 0;
-
-			
-			
-			string tempEnemyDamLabel = "";
-			
-			string tempPlayerApBoost = "";
-			
-			
-			if(player.gunAbilityChosen == -1)
-				headingText = "Battle Update: No Gun Ability Chosen";
-			
-			else{
-				if(player.gunAbilityChosen == 1)
-					headingText = "Battle Update: Executing Scarlet Shot";
-				else if(player.gunAbilityChosen == 2)
-					headingText = "Battle Update: Executing Dark Bullet";
-				else if(player.gunAbilityChosen == 3)
-					headingText = "Battle Update: Executing Plague Blast";
-				else if(player.gunAbilityChosen == 4)
-					headingText = "Battle Update: Executing Blitz Barrage";
-				else if(player.gunAbilityChosen == 5)
-					headingText = "Battle Update: Executing Shadowflame Shot";
 				
-				if(player.gunAbilityChosen == 1){
-					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.ScarletShot.lastRangedDam + "HP";
-					
-					if(player.playerAbilities.stances.StanceOfDeath == true)
-						tempPlayerApBoost = "+" + (int)(-1 * (player.playerAbilities.stances.StanceOfDApGenBoost
-							* player.playerAbilities.gunAbilities.ScarletShot.cost)) + "AP";
-					else
-						tempPlayerApBoost = "+" + (-1 * player.playerAbilities.gunAbilities.ScarletShot.cost) + "AP";
-				}
-
-				else if(player.gunAbilityChosen == 2){
-					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.DarkBullet.lastRangedDam + "HP";
-					
-					if(player.playerAbilities.stances.StanceOfDeath == true)
-						tempPlayerApBoost = "+" + (int)(-1 * (player.playerAbilities.stances.StanceOfDApGenBoost
-							* player.playerAbilities.gunAbilities.DarkBullet.cost)) + "AP";
-					else
-						tempPlayerApBoost = "+" + (-1 * player.playerAbilities.gunAbilities.DarkBullet.cost) + "AP";
-				}
-				else if(player.gunAbilityChosen == 3){
-					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.PlagueBlast.lastRangedDam + "HP";
-					
-					if(player.playerAbilities.stances.StanceOfDeath == true)
-						tempPlayerApBoost = "+" + (int)(-1 * (player.playerAbilities.stances.StanceOfDApGenBoost
-							* player.playerAbilities.gunAbilities.PlagueBlast.cost)) + "AP";
-					else
-						tempPlayerApBoost = "+" + (-1 * player.playerAbilities.gunAbilities.PlagueBlast.cost) + "AP";
-				}
-				else if(player.gunAbilityChosen== 4){
-					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.BlitzBarrage.lastRangedDam + "HP";
-					
-					if(player.playerAbilities.stances.StanceOfDeath == true)
-						tempPlayerApBoost = "+" + (int)(-1 * (player.playerAbilities.stances.StanceOfDApGenBoost
-							* player.playerAbilities.gunAbilities.BlitzBarrage.cost)) + "AP";
-					else
-						tempPlayerApBoost = "+" + (-1 * player.playerAbilities.gunAbilities.BlitzBarrage.cost) + "AP";
-				}
-				else if(player.gunAbilityChosen == 5){
-					tempEnemyDamLabel = "-" + player.playerAbilities.gunAbilities.ShadowflameShot.lastRangedDam + "HP";
-					
-					if(player.playerAbilities.stances.StanceOfDeath == true)
-						tempPlayerApBoost = "+" + (int)(-1 * (player.playerAbilities.stances.StanceOfDApGenBoost
-							* player.playerAbilities.gunAbilities.ShadowflameShot.cost)) + "AP";
-					else
-						tempPlayerApBoost = "+" + (-1 * player.playerAbilities.gunAbilities.ShadowflameShot.cost) + "AP";
-					
-				}
-				*/
-				#endregion
-				
-				/*if(battleInfo.enemyHpDamageLabel != null){
-					battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
-					battleInfo.enemyHpDamageLabel.enabled = true;
-				}
-				
-				if(battleInfo.playerApGenLabel != null){
-					battleInfo.playerApGenLabel.text = tempPlayerApBoost;
-					battleInfo.playerApGenLabel.enabled = true;
-				}*/
-				
-				
-			//}
 			
 		}
 		#endregion
