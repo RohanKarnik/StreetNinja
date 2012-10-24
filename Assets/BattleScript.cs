@@ -91,9 +91,6 @@ public class BattleScript : MonoBehaviour {
 					if(player.swordAbilityChosen > 0){
 						player.TurnPhases = 4;
 					
-						//Execute Sword Abilities
-						//ExecuteSwordAbilities(player.swordAbilityChosen);
-					
 						//Wait
 						player.gameTimer = Time.time + 3;
 					
@@ -102,8 +99,6 @@ public class BattleScript : MonoBehaviour {
 					else if(player.gunAbilityChosen > 0){
 						player.TurnPhases = 5;
 						
-						//Execute Gun Abilities
-						//ExecuteGunAbilities(player.gunAbilityChosen);
 						
 						//Wait
 						player.gameTimer = Time.time + 3;
@@ -204,9 +199,7 @@ public class BattleScript : MonoBehaviour {
 			//Execute Gun Ability
 			else if(player.TurnPhases == 5){
 				
-				if(player.clickCounter >= player.clickMax){
-					
-					//player.aP = 0;
+				if(player.clickCounter == player.clickMax){
 					
 					player.clickCounter = 0;
 					
@@ -497,7 +490,7 @@ public class BattleScript : MonoBehaviour {
 		
 		player.numOfAttacks = 0;
 		
-		player.isDialSet = false;
+		player.isGunSet = false;
 		player.isSwordSet = false;
 		
 		#region BattleAbilities

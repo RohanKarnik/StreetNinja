@@ -131,7 +131,7 @@ public class Player : MonoBehaviour {
 	
 		public int numOfAttacks;
 	
-		public bool isDialSet;
+		public bool isGunSet;
 		public bool isSwordSet;
 	
 		public float gameTimer;
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour {
 		
 		numOfAttacks = 0;
 		
-		isDialSet = false;
+		isGunSet = false;
 		isSwordSet = false;
 		
 		fillLevelArray(playerLevelArray, playerLevels);

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SwordMiniGameScript : MonoBehaviour {
 	
-	public UIFilledSprite swordDial;
+	//public UIFilledSprite swordDial;
 	
 	public UIFilledSprite swordDialMask;
 	
@@ -91,7 +91,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 			
 			currentAttack = (Attack) player.lastSwordHit;
 			
-			swordDial.fillAmount = 1;
+			//swordDial.fillAmount = 1;
 			swordDialMask.color = Color.red;
 			arrow.fillAmount = 1;
 			
@@ -106,8 +106,8 @@ public class SwordMiniGameScript : MonoBehaviour {
 			}
 			
 			//Move Arrow
-			arrow.transform.RotateAround(swordDial.transform.position,
-				Vector3.back, ArrowSpeed * Time.deltaTime);
+			//arrow.transform.RotateAround(swordDial.transform.position,
+				//Vector3.back, ArrowSpeed * Time.deltaTime);
 		
 		
 		
@@ -136,7 +136,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 		else{
 			//Hide Everything
 		
-				swordDial.fillAmount = 0;
+				//swordDial.fillAmount = 0;
 				swordDialMask.color = Color.clear;
 				clickScreenButton.isEnabled = false;
 				
