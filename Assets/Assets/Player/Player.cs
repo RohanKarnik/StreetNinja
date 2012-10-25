@@ -182,7 +182,7 @@ public class Player : MonoBehaviour {
 
 		hPMax = playerLevelArray[level].playerLevelArray.hP;
 		
-		aP = 0;
+		aP = 10;
 		
 		xP = 0;
 		xPNextLevel = playerLevelArray[level+1].playerLevelArray.xPNeeded;

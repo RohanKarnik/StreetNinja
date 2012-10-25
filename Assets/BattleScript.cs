@@ -158,7 +158,7 @@ public class BattleScript : MonoBehaviour {
 					
 					player.clickCounter = 0;
 					
-					player.gameTimer = Time.time + 3;
+					//player.gameTimer = Time.time + 3;
 					
 					
 					//Advance turn
@@ -176,7 +176,7 @@ public class BattleScript : MonoBehaviour {
 				if(player.lastSwordHit == Player.LastSwordHit.Hit){
 				
 					//Execute Sword Abilities
-					ExecuteSwordAbilities(player.swordAbilityChosen);
+					//ExecuteSwordAbilities(player.swordAbilityChosen);
 					
 					
 					player.lastSwordHit = Player.LastSwordHit.HasHit;
@@ -186,9 +186,9 @@ public class BattleScript : MonoBehaviour {
 				else if(player.lastSwordHit == Player.LastSwordHit.Miss){
 				
 					//EndGun Dial
-					player.clickCounter = player.clickMax;
+					//player.clickCounter = player.clickMax;
 					
-					player.lastSwordHit = Player.LastSwordHit.NoHit;	
+					//player.lastSwordHit = Player.LastSwordHit.NoHit;	
 				}
 				
 				

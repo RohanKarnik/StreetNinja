@@ -122,7 +122,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 		else
 			return Attack.Miss;
 		
-		return Attack.Miss;
+		return Attack.NoHit;
 		
 	}
 	
@@ -138,11 +138,13 @@ public class SwordMiniGameScript : MonoBehaviour {
 			clickCounter++;
 			player.clickCounter++;
 			
-			if(currentAttack == Attack.Hit)
+			if(currentAttack == Attack.Hit){
 				arrow.transform.localPosition = initialPosition;
+				triesCounter++;
+			}
+			
+			player.lastSwordHit = (Player.LastSwordHit) currentAttack;
 		}
-		
-		player.lastSwordHit = (Player.LastSwordHit) currentAttack;
 		
 	}
 	
@@ -154,7 +156,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 		triesCounter = 0;
 		
 		initialPosition = arrow.transform.localPosition;
-		stopPosition = initialPosition;
+		//stopPosition = initialPosition;
 		
 		//Populate Mask
 		hitMask.initialScale = new Vector3((swordBarMask.transform.localScale.x),
