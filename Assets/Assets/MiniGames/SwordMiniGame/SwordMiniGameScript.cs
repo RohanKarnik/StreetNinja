@@ -151,7 +151,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		ArrowSpeed = 25;
+		ArrowSpeed = 35;
 		
 		triesCounter = 0;
 		
