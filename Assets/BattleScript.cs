@@ -155,7 +155,6 @@ public class BattleScript : MonoBehaviour {
 						
 					}
 					
-					player.isSwordSet = false;
 					
 					player.clickCounter = 0;
 					

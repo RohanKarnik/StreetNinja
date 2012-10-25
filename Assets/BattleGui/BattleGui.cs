@@ -1554,7 +1554,6 @@ public class BattleGui : MonoBehaviour {
 		if(player.TurnPhases == 0){
 			
 			//Hide Ability Boxes
-			//NGUITools.SetActive(GameObject.Find("AbilitiesPanel") as GameObject, false)
 			if(battleInfo.battleInfoAbility1Box != null)
 				battleInfo.battleInfoAbility1Box.fillAmount = 0;
 			if(battleInfo.battleInfoAbility2Box != null)

@@ -9,6 +9,18 @@ public class GunMiniGameScipt : MonoBehaviour {
 	public UIFilledSprite gunBar;
 	
 	//Icons for bar
+	[System.Serializable]
+	public class GunBarIcons{
+	
+		public UIFilledSprite gunIcon1;
+		public UIFilledSprite gunIcon2;
+		public UIFilledSprite gunIcon3;
+		public UIFilledSprite gunIcon4;
+		public UIFilledSprite gunIcon5;
+		
+	}
+	
+	public GunBarIcons gunBarIcons = new GunBarIcons();
 	
 	public UIFilledSprite gunBarMaskCrit1;
 	public UIFilledSprite gunBarMaskCrit2;
@@ -34,7 +46,7 @@ public class GunMiniGameScipt : MonoBehaviour {
 	
 	public UIFilledSprite arrow;
 	
-	public int ArrowSpeed = 5;
+	public int ArrowSpeed;
 	
 	public int StartingBar = 1;
 	
@@ -51,6 +63,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 		
 		public Vector3 initialPosition;
 		//public Vector3 currentPosition;
+		
+		public float scaleMultiplier;
 		
 		public float rangeMin;
 		public float rangeMax;
@@ -106,22 +120,23 @@ public class GunMiniGameScipt : MonoBehaviour {
 		#region Scarlet Shot
 		gunAbilityBars.scarletShot[0].numOfTaps = 1;
 		//1
-		gunAbilityBars.scarletShot[0].normalMask.initialScale = new Vector3((gunBarMaskNormal1.transform.localScale.x * 1),
+		gunAbilityBars.scarletShot[0].normalMask.initialScale = new Vector3((gunBarMaskNormal1.transform.localScale.x * 3),
 			gunBarMaskNormal1.transform.localScale.y,
 			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.scarletShot[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.scarletShot[0].normalMask.rangeMin = gunAbilityBars.scarletShot[0].normalMask.initialPosition.x;
+		gunAbilityBars.scarletShot[0].normalMask.rangeMin = gunAbilityBars.scarletShot[0].normalMask.initialPosition.x + 125;
 		gunAbilityBars.scarletShot[0].normalMask.rangeMax = gunAbilityBars.scarletShot[0].normalMask.rangeMin +
 			gunAbilityBars.scarletShot[0].normalMask.initialScale.x;
 		gunAbilityBars.scarletShot[0].normalMask.isClicked = false;
 		
 		gunAbilityBars.scarletShot[0].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.scarletShot[0].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.scarletShot[0].critMask.rangeMin = gunAbilityBars.scarletShot[0].normalMask.rangeMax;
+		gunAbilityBars.scarletShot[0].critMask.rangeMin = gunAbilityBars.scarletShot[0].normalMask.rangeMax -
+			gunAbilityBars.scarletShot[0].critMask.initialScale.x;
 		gunAbilityBars.scarletShot[0].critMask.rangeMax = gunAbilityBars.scarletShot[0].critMask.rangeMin +
 			gunAbilityBars.scarletShot[0].critMask.initialScale.x;
-		gunAbilityBars.scarletShot[0].critMask.isClicked = false;
-			
+		gunAbilityBars.scarletShot[0].critMask.isClicked = false;	
+		
 		/*gunAbilityBars.scarletShot[0].normalMask.initialScale = new Vector3((gunBarMaskNormal1.transform.localScale.x * 3),
 			gunBarMaskNormal1.transform.localScale.y,
 			gunBarMaskNormal1.transform.localScale.z);
@@ -136,34 +151,39 @@ public class GunMiniGameScipt : MonoBehaviour {
 		gunAbilityBars.darkBullet[0].numOfTaps = 2;
 		gunAbilityBars.darkBullet[1].numOfTaps = 2;
 			//1
+		gunAbilityBars.darkBullet[0].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 2.5),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
+		gunAbilityBars.darkBullet[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
+		gunAbilityBars.darkBullet[0].normalMask.rangeMin = gunAbilityBars.darkBullet[0].normalMask.initialPosition.x + 30;
+		gunAbilityBars.darkBullet[0].normalMask.rangeMax = gunAbilityBars.darkBullet[0].normalMask.rangeMin +
+			gunAbilityBars.darkBullet[0].normalMask.initialScale.x;
+		gunAbilityBars.darkBullet[0].normalMask.isClicked = false;
+		
 		gunAbilityBars.darkBullet[0].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.darkBullet[0].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.darkBullet[0].critMask.rangeMin = gunAbilityBars.darkBullet[0].critMask.initialScale.x + 100;
+		gunAbilityBars.darkBullet[0].critMask.rangeMin = gunAbilityBars.darkBullet[0].normalMask.rangeMin;
 		gunAbilityBars.darkBullet[0].critMask.rangeMax = gunAbilityBars.darkBullet[0].critMask.rangeMin +
 			gunAbilityBars.darkBullet[0].critMask.initialScale.x;
 		gunAbilityBars.darkBullet[0].critMask.isClicked = false;
 		
-		gunAbilityBars.darkBullet[0].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
-		gunAbilityBars.darkBullet[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.darkBullet[0].normalMask.rangeMin = gunAbilityBars.darkBullet[0].normalMask.initialScale.x + 100;
-		gunAbilityBars.darkBullet[0].normalMask.rangeMax = gunAbilityBars.darkBullet[0].normalMask.rangeMin +
-			gunAbilityBars.darkBullet[0].normalMask.initialScale.x;
-		gunAbilityBars.darkBullet[0].normalMask.isClicked = false;
 			//2
-		gunAbilityBars.darkBullet[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.darkBullet[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.darkBullet[1].critMask.rangeMin = gunAbilityBars.darkBullet[1].critMask.initialScale.x + 150;
-		gunAbilityBars.darkBullet[1].critMask.rangeMax = gunAbilityBars.darkBullet[1].critMask.rangeMin +
-			gunAbilityBars.darkBullet[1].critMask.initialScale.x;
-		gunAbilityBars.darkBullet[1].critMask.isClicked = false;
-		
-		
-		gunAbilityBars.darkBullet[1].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.darkBullet[1].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 2.5),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.darkBullet[1].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.darkBullet[1].normalMask.rangeMin = gunAbilityBars.darkBullet[1].normalMask.initialScale.x + 150;
+		gunAbilityBars.darkBullet[1].normalMask.rangeMin = gunAbilityBars.darkBullet[1].normalMask.initialPosition.x + 250;
 		gunAbilityBars.darkBullet[1].normalMask.rangeMax = gunAbilityBars.darkBullet[1].normalMask.rangeMin +
 			gunAbilityBars.darkBullet[1].normalMask.initialScale.x;
 		gunAbilityBars.darkBullet[1].normalMask.isClicked = false;
+		
+		gunAbilityBars.darkBullet[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.darkBullet[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.darkBullet[1].critMask.rangeMin = gunAbilityBars.darkBullet[1].normalMask.rangeMax -
+			gunAbilityBars.darkBullet[1].critMask.initialScale.x;
+		gunAbilityBars.darkBullet[1].critMask.rangeMax = gunAbilityBars.darkBullet[1].critMask.rangeMin +
+			gunAbilityBars.darkBullet[1].critMask.initialScale.x;
+		gunAbilityBars.darkBullet[1].critMask.isClicked = false;
 		#endregion
 		
 		#region PlagueBlast
@@ -173,61 +193,77 @@ public class GunMiniGameScipt : MonoBehaviour {
 		gunAbilityBars.plagueBlast[3].numOfTaps = 4;
 
 			//1
-		gunAbilityBars.plagueBlast[0].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.plagueBlast[0].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.plagueBlast[0].critMask.rangeMin = gunAbilityBars.plagueBlast[0].critMask.initialScale.x + 100;
-		gunAbilityBars.plagueBlast[0].critMask.rangeMax = gunAbilityBars.plagueBlast[0].critMask.rangeMin +
-			gunAbilityBars.plagueBlast[0].critMask.initialScale.x;
-		gunAbilityBars.plagueBlast[0].critMask.isClicked = false;
-		
-		gunAbilityBars.plagueBlast[0].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.plagueBlast[0].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.plagueBlast[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.plagueBlast[0].normalMask.rangeMin = gunAbilityBars.plagueBlast[0].normalMask.initialScale.x + 100;
+		gunAbilityBars.plagueBlast[0].normalMask.rangeMin = gunAbilityBars.plagueBlast[0].normalMask.initialPosition.x + 80;
 		gunAbilityBars.plagueBlast[0].normalMask.rangeMax = gunAbilityBars.plagueBlast[0].normalMask.rangeMin +
 			gunAbilityBars.plagueBlast[0].normalMask.initialScale.x;
 		gunAbilityBars.plagueBlast[0].normalMask.isClicked = false;
-			//2
-		gunAbilityBars.plagueBlast[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.plagueBlast[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.plagueBlast[1].critMask.rangeMin = gunAbilityBars.plagueBlast[1].critMask.initialScale.x + 150;
-		gunAbilityBars.plagueBlast[1].critMask.rangeMax = gunAbilityBars.plagueBlast[1].critMask.rangeMin +
-			gunAbilityBars.plagueBlast[1].critMask.initialScale.x;
-		gunAbilityBars.plagueBlast[1].critMask.isClicked = false;
 		
-		gunAbilityBars.plagueBlast[1].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.plagueBlast[0].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.plagueBlast[0].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.plagueBlast[0].critMask.rangeMin = gunAbilityBars.plagueBlast[0].normalMask.rangeMin +
+			(gunAbilityBars.plagueBlast[0].normalMask.initialScale.x/2) -
+			(gunAbilityBars.plagueBlast[0].critMask.initialScale.x/2);
+		gunAbilityBars.plagueBlast[0].critMask.rangeMax = gunAbilityBars.plagueBlast[0].critMask.rangeMin +
+			gunAbilityBars.plagueBlast[0].critMask.initialScale.x;
+		gunAbilityBars.plagueBlast[0].critMask.isClicked = false;
+			//2
+		gunAbilityBars.plagueBlast[1].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.plagueBlast[1].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.plagueBlast[1].normalMask.rangeMin = gunAbilityBars.plagueBlast[1].normalMask.initialScale.x + 150;
+		gunAbilityBars.plagueBlast[1].normalMask.rangeMin = gunAbilityBars.plagueBlast[1].normalMask.initialPosition.x + 170;
 		gunAbilityBars.plagueBlast[1].normalMask.rangeMax = gunAbilityBars.plagueBlast[1].normalMask.rangeMin +
 			gunAbilityBars.plagueBlast[1].normalMask.initialScale.x;
 		gunAbilityBars.plagueBlast[1].normalMask.isClicked = false;
-			//3
-		gunAbilityBars.plagueBlast[2].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.plagueBlast[2].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.plagueBlast[2].critMask.rangeMin = gunAbilityBars.plagueBlast[2].critMask.initialScale.x + 200;
-		gunAbilityBars.plagueBlast[2].critMask.rangeMax = gunAbilityBars.plagueBlast[2].critMask.rangeMin +
-			gunAbilityBars.plagueBlast[2].critMask.initialScale.x;
-		gunAbilityBars.plagueBlast[2].critMask.isClicked = false;
 		
-		gunAbilityBars.plagueBlast[2].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.plagueBlast[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.plagueBlast[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.plagueBlast[1].critMask.rangeMin = gunAbilityBars.plagueBlast[1].normalMask.rangeMin +
+			(gunAbilityBars.plagueBlast[1].normalMask.initialScale.x/2) -
+			(gunAbilityBars.plagueBlast[1].critMask.initialScale.x/2);
+		gunAbilityBars.plagueBlast[1].critMask.rangeMax = gunAbilityBars.plagueBlast[1].critMask.rangeMin +
+			gunAbilityBars.plagueBlast[1].critMask.initialScale.x;
+		gunAbilityBars.plagueBlast[1].critMask.isClicked = false;
+			//3
+		gunAbilityBars.plagueBlast[2].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.plagueBlast[2].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.plagueBlast[2].normalMask.rangeMin = gunAbilityBars.plagueBlast[2].normalMask.initialScale.x + 200;
+		gunAbilityBars.plagueBlast[2].normalMask.rangeMin = gunAbilityBars.plagueBlast[2].normalMask.initialPosition.x + 260;
 		gunAbilityBars.plagueBlast[2].normalMask.rangeMax = gunAbilityBars.plagueBlast[2].normalMask.rangeMin +
 			gunAbilityBars.plagueBlast[2].normalMask.initialScale.x;
 		gunAbilityBars.plagueBlast[2].normalMask.isClicked = false;
-			//4
-		gunAbilityBars.plagueBlast[3].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.plagueBlast[3].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.plagueBlast[3].critMask.rangeMin = gunAbilityBars.plagueBlast[3].critMask.initialScale.x + 250;
-		gunAbilityBars.plagueBlast[3].critMask.rangeMax = gunAbilityBars.plagueBlast[3].critMask.rangeMin +
-			gunAbilityBars.plagueBlast[3].critMask.initialScale.x;
-		gunAbilityBars.plagueBlast[3].critMask.isClicked = false;
 		
-		gunAbilityBars.plagueBlast[3].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.plagueBlast[2].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.plagueBlast[2].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.plagueBlast[2].critMask.rangeMin = gunAbilityBars.plagueBlast[2].normalMask.rangeMin +
+			(gunAbilityBars.plagueBlast[2].normalMask.initialScale.x/2) -
+			(gunAbilityBars.plagueBlast[2].critMask.initialScale.x/2);
+		gunAbilityBars.plagueBlast[2].critMask.rangeMax = gunAbilityBars.plagueBlast[2].critMask.rangeMin +
+			gunAbilityBars.plagueBlast[2].critMask.initialScale.x;
+		gunAbilityBars.plagueBlast[2].critMask.isClicked = false;
+			//4
+		gunAbilityBars.plagueBlast[3].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.plagueBlast[3].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.plagueBlast[3].normalMask.rangeMin = gunAbilityBars.plagueBlast[3].normalMask.initialScale.x + 250;
+		gunAbilityBars.plagueBlast[3].normalMask.rangeMin = gunAbilityBars.plagueBlast[3].normalMask.initialPosition.x + 350;
 		gunAbilityBars.plagueBlast[3].normalMask.rangeMax = gunAbilityBars.plagueBlast[3].normalMask.rangeMin +
 			gunAbilityBars.plagueBlast[3].normalMask.initialScale.x;
 		gunAbilityBars.plagueBlast[3].normalMask.isClicked = false;
+		
+		gunAbilityBars.plagueBlast[3].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.plagueBlast[3].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.plagueBlast[3].critMask.rangeMin = gunAbilityBars.plagueBlast[3].normalMask.rangeMin +
+			(gunAbilityBars.plagueBlast[3].normalMask.initialScale.x/2) -
+			(gunAbilityBars.plagueBlast[3].critMask.initialScale.x/2);
+		gunAbilityBars.plagueBlast[3].critMask.rangeMax = gunAbilityBars.plagueBlast[3].critMask.rangeMin +
+			gunAbilityBars.plagueBlast[3].critMask.initialScale.x;
+		gunAbilityBars.plagueBlast[3].critMask.isClicked = false;
 		#endregion
 		
 		#region BlitzBarrage
@@ -238,75 +274,91 @@ public class GunMiniGameScipt : MonoBehaviour {
 		gunAbilityBars.blitzBarrage[4].numOfTaps = 5;
 		
 		//1
+		gunAbilityBars.blitzBarrage[0].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.75),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
+		gunAbilityBars.blitzBarrage[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
+		gunAbilityBars.blitzBarrage[0].normalMask.rangeMin = gunAbilityBars.blitzBarrage[0].normalMask.initialPosition.x;
+		gunAbilityBars.blitzBarrage[0].normalMask.rangeMax = gunAbilityBars.blitzBarrage[0].normalMask.rangeMin + 
+			gunAbilityBars.blitzBarrage[0].normalMask.initialScale.x;
+		gunAbilityBars.blitzBarrage[0].normalMask.isClicked = false;
+		
 		gunAbilityBars.blitzBarrage[0].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.blitzBarrage[0].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[0].critMask.rangeMin = gunAbilityBars.blitzBarrage[0].critMask.initialScale.x + 100;
+		gunAbilityBars.blitzBarrage[0].critMask.rangeMin = gunAbilityBars.blitzBarrage[0].normalMask.rangeMax -
+			gunAbilityBars.blitzBarrage[0].critMask.initialScale.x;
 		gunAbilityBars.blitzBarrage[0].critMask.rangeMax = gunAbilityBars.blitzBarrage[0].critMask.rangeMin +
 			gunAbilityBars.blitzBarrage[0].critMask.initialScale.x;
 		gunAbilityBars.blitzBarrage[0].critMask.isClicked = false;
-		
-		gunAbilityBars.blitzBarrage[0].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
-		gunAbilityBars.blitzBarrage[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[0].normalMask.rangeMin = gunAbilityBars.blitzBarrage[0].normalMask.initialScale.x + 100;
-		gunAbilityBars.blitzBarrage[0].normalMask.rangeMax = gunAbilityBars.blitzBarrage[0].normalMask.rangeMin +
-			gunAbilityBars.blitzBarrage[0].normalMask.initialScale.x;
-		gunAbilityBars.blitzBarrage[0].normalMask.isClicked = false;
 		//2
-		gunAbilityBars.blitzBarrage[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.blitzBarrage[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[1].critMask.rangeMin = gunAbilityBars.blitzBarrage[1].critMask.initialScale.x + 150;
-		gunAbilityBars.blitzBarrage[1].critMask.rangeMax = gunAbilityBars.blitzBarrage[1].critMask.rangeMin +
-			gunAbilityBars.blitzBarrage[1].critMask.initialScale.x;
-		gunAbilityBars.blitzBarrage[1].critMask.isClicked = false;
-		
-		gunAbilityBars.blitzBarrage[1].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.blitzBarrage[1].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.75),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.blitzBarrage[1].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[1].normalMask.rangeMin = gunAbilityBars.blitzBarrage[1].normalMask.initialScale.x + 150;
+		gunAbilityBars.blitzBarrage[1].normalMask.rangeMin = gunAbilityBars.blitzBarrage[1].normalMask.initialPosition.x + 80;
 		gunAbilityBars.blitzBarrage[1].normalMask.rangeMax = gunAbilityBars.blitzBarrage[1].normalMask.rangeMin +
 			gunAbilityBars.blitzBarrage[1].normalMask.initialScale.x;
 		gunAbilityBars.blitzBarrage[1].normalMask.isClicked = false;
-		//3
-		gunAbilityBars.blitzBarrage[2].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.blitzBarrage[2].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[2].critMask.rangeMin = gunAbilityBars.blitzBarrage[2].critMask.initialScale.x + 200;
-		gunAbilityBars.blitzBarrage[2].critMask.rangeMax = gunAbilityBars.blitzBarrage[2].critMask.rangeMin +
-			gunAbilityBars.blitzBarrage[2].critMask.initialScale.x;
-		gunAbilityBars.blitzBarrage[2].critMask.isClicked = false;
 		
-		gunAbilityBars.blitzBarrage[2].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.blitzBarrage[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.blitzBarrage[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.blitzBarrage[1].critMask.rangeMin = gunAbilityBars.blitzBarrage[1].normalMask.rangeMin +
+			(gunAbilityBars.blitzBarrage[1].normalMask.initialScale.x/2) -
+			(gunAbilityBars.blitzBarrage[1].critMask.initialScale.x/2);
+		gunAbilityBars.blitzBarrage[1].critMask.rangeMax = gunAbilityBars.blitzBarrage[1].critMask.rangeMin +
+			gunAbilityBars.blitzBarrage[1].critMask.initialScale.x;
+		gunAbilityBars.blitzBarrage[1].critMask.isClicked = false;
+		//3
+		gunAbilityBars.blitzBarrage[2].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.75),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.blitzBarrage[2].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[2].normalMask.rangeMin = gunAbilityBars.blitzBarrage[2].normalMask.initialScale.x + 200;
+		gunAbilityBars.blitzBarrage[2].normalMask.rangeMin = gunAbilityBars.blitzBarrage[2].normalMask.initialPosition.x + 160;
 		gunAbilityBars.blitzBarrage[2].normalMask.rangeMax = gunAbilityBars.blitzBarrage[2].normalMask.rangeMin +
 			gunAbilityBars.blitzBarrage[2].normalMask.initialScale.x;
 		gunAbilityBars.blitzBarrage[2].normalMask.isClicked = false;
-		//4
-		gunAbilityBars.blitzBarrage[3].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.blitzBarrage[3].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[3].critMask.rangeMin = gunAbilityBars.blitzBarrage[3].critMask.initialScale.x + 250;
-		gunAbilityBars.blitzBarrage[3].critMask.rangeMax = gunAbilityBars.blitzBarrage[3].critMask.rangeMin +
-			gunAbilityBars.blitzBarrage[3].critMask.initialScale.x;
-		gunAbilityBars.blitzBarrage[3].critMask.isClicked = false;
 		
-		gunAbilityBars.blitzBarrage[3].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.blitzBarrage[2].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.blitzBarrage[2].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.blitzBarrage[2].critMask.rangeMin = gunAbilityBars.blitzBarrage[2].normalMask.rangeMin;;
+		gunAbilityBars.blitzBarrage[2].critMask.rangeMax = gunAbilityBars.blitzBarrage[2].critMask.rangeMin +
+			gunAbilityBars.blitzBarrage[2].critMask.initialScale.x;
+		gunAbilityBars.blitzBarrage[2].critMask.isClicked = false;
+		//4
+		gunAbilityBars.blitzBarrage[3].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.75),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.blitzBarrage[3].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[3].normalMask.rangeMin = gunAbilityBars.blitzBarrage[3].normalMask.initialScale.x + 250;
+		gunAbilityBars.blitzBarrage[3].normalMask.rangeMin = gunAbilityBars.blitzBarrage[3].normalMask.initialPosition.x + 240;
 		gunAbilityBars.blitzBarrage[3].normalMask.rangeMax = gunAbilityBars.blitzBarrage[3].normalMask.rangeMin +
 			gunAbilityBars.blitzBarrage[3].normalMask.initialScale.x;
 		gunAbilityBars.blitzBarrage[3].normalMask.isClicked = false;
-		//5
-		gunAbilityBars.blitzBarrage[4].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.blitzBarrage[4].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[4].critMask.rangeMin = gunAbilityBars.blitzBarrage[4].critMask.initialScale.x + 300;
-		gunAbilityBars.blitzBarrage[4].critMask.rangeMax = gunAbilityBars.blitzBarrage[4].critMask.rangeMin +
-			gunAbilityBars.blitzBarrage[4].critMask.initialScale.x;
-		gunAbilityBars.blitzBarrage[4].critMask.isClicked = false;
 		
-		gunAbilityBars.blitzBarrage[4].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.blitzBarrage[3].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.blitzBarrage[3].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.blitzBarrage[3].critMask.rangeMin = gunAbilityBars.blitzBarrage[3].normalMask.rangeMin +
+			(gunAbilityBars.blitzBarrage[3].normalMask.initialScale.x/2) -
+			(gunAbilityBars.blitzBarrage[3].critMask.initialScale.x/2);
+		gunAbilityBars.blitzBarrage[3].critMask.rangeMax = gunAbilityBars.blitzBarrage[3].critMask.rangeMin +
+			gunAbilityBars.blitzBarrage[3].critMask.initialScale.x;
+		gunAbilityBars.blitzBarrage[3].critMask.isClicked = false;
+		//5
+		gunAbilityBars.blitzBarrage[4].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.75),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.blitzBarrage[4].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.blitzBarrage[4].normalMask.rangeMin = gunAbilityBars.blitzBarrage[4].normalMask.initialScale.x + 300;
+		gunAbilityBars.blitzBarrage[4].normalMask.rangeMin = gunAbilityBars.blitzBarrage[4].normalMask.initialPosition.x + 320;
 		gunAbilityBars.blitzBarrage[4].normalMask.rangeMax = gunAbilityBars.blitzBarrage[4].normalMask.rangeMin +
 			gunAbilityBars.blitzBarrage[4].normalMask.initialScale.x;
 		gunAbilityBars.blitzBarrage[4].normalMask.isClicked = false;
+		
+		gunAbilityBars.blitzBarrage[4].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.blitzBarrage[4].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.blitzBarrage[4].critMask.rangeMin = gunAbilityBars.blitzBarrage[4].normalMask.rangeMax -
+			gunAbilityBars.blitzBarrage[4].critMask.initialScale.x;
+		gunAbilityBars.blitzBarrage[4].critMask.rangeMax = gunAbilityBars.blitzBarrage[4].critMask.rangeMin +
+			gunAbilityBars.blitzBarrage[4].critMask.initialScale.x;
+		gunAbilityBars.blitzBarrage[4].critMask.isClicked = false;
 		#endregion
 		
 		#region ShadowFlame Shot
@@ -318,89 +370,106 @@ public class GunMiniGameScipt : MonoBehaviour {
 		gunAbilityBars.shadowFlameShot[5].numOfTaps = 6;
 		
 		//1
+		gunAbilityBars.shadowFlameShot[0].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
+		gunAbilityBars.shadowFlameShot[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
+		gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[0].normalMask.initialPosition.x + 25;
+		gunAbilityBars.shadowFlameShot[0].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin + 
+			gunAbilityBars.shadowFlameShot[0].normalMask.initialScale.x;
+		gunAbilityBars.shadowFlameShot[0].normalMask.isClicked = false;
+		
 		gunAbilityBars.shadowFlameShot[0].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.shadowFlameShot[0].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[0].critMask.rangeMin = gunAbilityBars.shadowFlameShot[0].critMask.initialScale.x + 100;
+		gunAbilityBars.shadowFlameShot[0].critMask.rangeMin = gunAbilityBars.shadowFlameShot[0].normalMask.rangeMax -
+			gunAbilityBars.shadowFlameShot[0].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[0].critMask.rangeMax = gunAbilityBars.shadowFlameShot[0].critMask.rangeMin +
 			gunAbilityBars.shadowFlameShot[0].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[0].critMask.isClicked = false;
-		
-		gunAbilityBars.shadowFlameShot[0].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
-		gunAbilityBars.shadowFlameShot[0].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[0].normalMask.initialScale.x + 100;
-		gunAbilityBars.shadowFlameShot[0].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin +
-			gunAbilityBars.shadowFlameShot[0].normalMask.initialScale.x;
-		gunAbilityBars.shadowFlameShot[0].normalMask.isClicked = false;
 		//2
-		gunAbilityBars.shadowFlameShot[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.shadowFlameShot[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[1].critMask.rangeMin = gunAbilityBars.shadowFlameShot[1].critMask.initialScale.x + 150;
-		gunAbilityBars.shadowFlameShot[1].critMask.rangeMax = gunAbilityBars.shadowFlameShot[1].critMask.rangeMin +
-			gunAbilityBars.shadowFlameShot[1].critMask.initialScale.x;
-		gunAbilityBars.shadowFlameShot[1].critMask.isClicked = false;
-		
-		gunAbilityBars.shadowFlameShot[1].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.shadowFlameShot[1].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.shadowFlameShot[1].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[1].normalMask.initialScale.x + 150;
-		gunAbilityBars.shadowFlameShot[1].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin +
+		gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[1].normalMask.initialPosition.x + 95;
+		gunAbilityBars.shadowFlameShot[1].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin + 
 			gunAbilityBars.shadowFlameShot[1].normalMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[1].normalMask.isClicked = false;
+		
+		gunAbilityBars.shadowFlameShot[1].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.shadowFlameShot[1].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.shadowFlameShot[1].critMask.rangeMin = gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin;
+		gunAbilityBars.shadowFlameShot[1].critMask.rangeMax = gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin +
+			gunAbilityBars.shadowFlameShot[1].critMask.initialScale.x;
+		gunAbilityBars.shadowFlameShot[1].critMask.isClicked = false;
 		//3
+		gunAbilityBars.shadowFlameShot[2].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x * 1.25),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
+		gunAbilityBars.shadowFlameShot[2].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
+		gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[2].normalMask.initialPosition.x + 160;
+		gunAbilityBars.shadowFlameShot[2].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin + 
+			gunAbilityBars.shadowFlameShot[2].normalMask.initialScale.x;
+		gunAbilityBars.shadowFlameShot[2].normalMask.isClicked = false;
+		
 		gunAbilityBars.shadowFlameShot[2].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.shadowFlameShot[2].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[2].critMask.rangeMin = gunAbilityBars.shadowFlameShot[2].critMask.initialScale.x + 200;
+		gunAbilityBars.shadowFlameShot[2].critMask.rangeMin = gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin +
+			(gunAbilityBars.shadowFlameShot[2].normalMask.initialScale.x/2) -
+			(gunAbilityBars.shadowFlameShot[2].critMask.initialScale.x/2);
 		gunAbilityBars.shadowFlameShot[2].critMask.rangeMax = gunAbilityBars.shadowFlameShot[2].critMask.rangeMin +
 			gunAbilityBars.shadowFlameShot[2].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[2].critMask.isClicked = false;
-		
-		gunAbilityBars.shadowFlameShot[2].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
-		gunAbilityBars.shadowFlameShot[2].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[2].normalMask.initialScale.x + 200;
-		gunAbilityBars.shadowFlameShot[2].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin +
-			gunAbilityBars.shadowFlameShot[2].normalMask.initialScale.x;
-		gunAbilityBars.shadowFlameShot[2].normalMask.isClicked = false;
 		//4
-		gunAbilityBars.shadowFlameShot[3].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
-		gunAbilityBars.shadowFlameShot[3].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[3].critMask.rangeMin = gunAbilityBars.shadowFlameShot[3].critMask.initialScale.x + 250;
-		gunAbilityBars.shadowFlameShot[3].critMask.rangeMax = gunAbilityBars.shadowFlameShot[3].critMask.rangeMin +
-			gunAbilityBars.shadowFlameShot[3].critMask.initialScale.x;
-		gunAbilityBars.shadowFlameShot[3].critMask.isClicked = false;
-		
-		gunAbilityBars.shadowFlameShot[3].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
+		gunAbilityBars.shadowFlameShot[3].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
 		gunAbilityBars.shadowFlameShot[3].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[3].normalMask.initialScale.x + 250;
-		gunAbilityBars.shadowFlameShot[3].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin +
+		gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[3].normalMask.initialPosition.x + 230;
+		gunAbilityBars.shadowFlameShot[3].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin + 
 			gunAbilityBars.shadowFlameShot[3].normalMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[3].normalMask.isClicked = false;
+		
+		gunAbilityBars.shadowFlameShot[3].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
+		gunAbilityBars.shadowFlameShot[3].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
+		gunAbilityBars.shadowFlameShot[3].critMask.rangeMin = gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin;
+		gunAbilityBars.shadowFlameShot[3].critMask.rangeMax = gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin +
+			gunAbilityBars.shadowFlameShot[3].critMask.initialScale.x;
+		gunAbilityBars.shadowFlameShot[3].critMask.isClicked = false;
 		//5
+		gunAbilityBars.shadowFlameShot[4].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
+		gunAbilityBars.shadowFlameShot[4].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
+		gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[4].normalMask.initialPosition.x + 295;
+		gunAbilityBars.shadowFlameShot[4].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin + 
+			gunAbilityBars.shadowFlameShot[4].normalMask.initialScale.x;
+		gunAbilityBars.shadowFlameShot[4].normalMask.isClicked = false;
+		
 		gunAbilityBars.shadowFlameShot[4].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.shadowFlameShot[4].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[4].critMask.rangeMin = gunAbilityBars.shadowFlameShot[4].critMask.initialScale.x + 300;
+		gunAbilityBars.shadowFlameShot[4].critMask.rangeMin = gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin + 
+			gunAbilityBars.shadowFlameShot[4].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[4].critMask.rangeMax = gunAbilityBars.shadowFlameShot[4].critMask.rangeMin +
 			gunAbilityBars.shadowFlameShot[4].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[4].critMask.isClicked = false;
-		
-		gunAbilityBars.shadowFlameShot[4].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
-		gunAbilityBars.shadowFlameShot[4].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[4].normalMask.initialScale.x + 300;
-		gunAbilityBars.shadowFlameShot[4].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin +
-			gunAbilityBars.shadowFlameShot[4].normalMask.initialScale.x;
-		gunAbilityBars.shadowFlameShot[4].normalMask.isClicked = false;
 		//6
+		gunAbilityBars.shadowFlameShot[5].normalMask.initialScale = new Vector3((float)(gunBarMaskNormal1.transform.localScale.x),
+			gunBarMaskNormal1.transform.localScale.y,
+			gunBarMaskNormal1.transform.localScale.z);
+		gunAbilityBars.shadowFlameShot[5].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
+		gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[5].normalMask.initialPosition.x + 360;
+		gunAbilityBars.shadowFlameShot[5].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin + 
+			gunAbilityBars.shadowFlameShot[5].normalMask.initialScale.x;
+		gunAbilityBars.shadowFlameShot[5].normalMask.isClicked = false;
+		
 		gunAbilityBars.shadowFlameShot[5].critMask.initialScale = gunBarMaskCrit1.transform.localScale;
 		gunAbilityBars.shadowFlameShot[5].critMask.initialPosition = gunBarMaskCrit1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[5].critMask.rangeMin = gunAbilityBars.shadowFlameShot[5].critMask.initialScale.x + 350;
+		gunAbilityBars.shadowFlameShot[5].critMask.rangeMin = gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin +
+			gunAbilityBars.shadowFlameShot[5].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[5].critMask.rangeMax = gunAbilityBars.shadowFlameShot[5].critMask.rangeMin +
 			gunAbilityBars.shadowFlameShot[5].critMask.initialScale.x;
 		gunAbilityBars.shadowFlameShot[5].critMask.isClicked = false;
-		
-		gunAbilityBars.shadowFlameShot[5].normalMask.initialScale = gunBarMaskNormal1.transform.localScale;
-		gunAbilityBars.shadowFlameShot[5].normalMask.initialPosition = gunBarMaskNormal1.transform.localPosition;
-		gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin = gunAbilityBars.shadowFlameShot[5].normalMask.initialScale.x + 350;
-		gunAbilityBars.shadowFlameShot[5].normalMask.rangeMax = gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin +
-			gunAbilityBars.shadowFlameShot[5].normalMask.initialScale.x;
-		gunAbilityBars.shadowFlameShot[5].normalMask.isClicked = false;
 		
 		#endregion
 		
@@ -481,6 +550,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			gunBarMaskNormal4.fillAmount = 0;
 			gunBarMaskNormal5.fillAmount = 0;
 			gunBarMaskNormal6.fillAmount = 0;
+			
+			gunBarIcons.gunIcon1.fillAmount = 1;
+			gunBarIcons.gunIcon2.fillAmount = 0;
+			gunBarIcons.gunIcon3.fillAmount = 0;
+			gunBarIcons.gunIcon4.fillAmount = 0;
+			gunBarIcons.gunIcon5.fillAmount = 0;
 			break;
 		//Set to Dark Bullet
 		case 1:
@@ -488,27 +563,25 @@ public class GunMiniGameScipt : MonoBehaviour {
 			player.clickMax = gunAbilityBars.darkBullet[0].numOfTaps;
 			
 			//Crit 1
-			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[0].critMask.initialPosition.x +
-				gunAbilityBars.darkBullet[0].critMask.rangeMin),
+			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[0].critMask.rangeMin),
 				gunAbilityBars.darkBullet[0].critMask.initialPosition.y,
 				gunAbilityBars.darkBullet[0].critMask.initialPosition.z);
 			//Crit 2
-			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[1].critMask.initialPosition.x +
-				gunAbilityBars.darkBullet[1].critMask.rangeMin),
+			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[1].critMask.rangeMin),
 				gunAbilityBars.darkBullet[1].critMask.initialPosition.y,
 				gunAbilityBars.darkBullet[1].critMask.initialPosition.z);
 			
 			
 			//Norm1
-			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[0].normalMask.initialPosition.x +
-				gunAbilityBars.darkBullet[0].normalMask.rangeMin),
+			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[0].normalMask.rangeMin),
 				gunAbilityBars.darkBullet[0].normalMask.initialPosition.y,
 				gunAbilityBars.darkBullet[0].normalMask.initialPosition.z);
+			gunBarMaskNormal1.transform.localScale = gunAbilityBars.darkBullet[0].normalMask.initialScale;
 			//Norm2
-			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[1].normalMask.initialPosition.x +
-				gunAbilityBars.darkBullet[1].normalMask.rangeMin),
+			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.darkBullet[1].normalMask.rangeMin),
 				gunAbilityBars.darkBullet[1].normalMask.initialPosition.y,
 				gunAbilityBars.darkBullet[1].normalMask.initialPosition.z);
+			gunBarMaskNormal2.transform.localScale = gunAbilityBars.darkBullet[1].normalMask.initialScale;
 			
 			//Hide Other Bars
 			gunBarMaskCrit1.fillAmount = 1;
@@ -524,6 +597,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			gunBarMaskNormal4.fillAmount = 0;
 			gunBarMaskNormal5.fillAmount = 0;
 			gunBarMaskNormal6.fillAmount = 0;
+			
+			gunBarIcons.gunIcon1.fillAmount = 0;
+			gunBarIcons.gunIcon2.fillAmount = 1;
+			gunBarIcons.gunIcon3.fillAmount = 0;
+			gunBarIcons.gunIcon4.fillAmount = 0;
+			gunBarIcons.gunIcon5.fillAmount = 0;
 			break;
 
 		//Set to PlagueBlast
@@ -532,46 +611,42 @@ public class GunMiniGameScipt : MonoBehaviour {
 			player.clickMax = gunAbilityBars.plagueBlast[0].numOfTaps;
 			
 			//Crit 1
-			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[0].critMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[0].critMask.rangeMin),
+			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[0].critMask.rangeMin),
 				gunAbilityBars.plagueBlast[0].critMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[0].critMask.initialPosition.z);
 			//Crit 2
-			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[1].critMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[1].critMask.rangeMin),
+			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[1].critMask.rangeMin),
 				gunAbilityBars.plagueBlast[1].critMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[1].critMask.initialPosition.z);
 			//Crit 3
-			gunBarMaskCrit3.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[2].critMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[2].critMask.rangeMin),
+			gunBarMaskCrit3.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[2].critMask.rangeMin),
 				gunAbilityBars.plagueBlast[2].critMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[2].critMask.initialPosition.z);
 			//Crit 4
-			gunBarMaskCrit4.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[3].critMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[3].critMask.rangeMin),
+			gunBarMaskCrit4.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[3].critMask.rangeMin),
 				gunAbilityBars.plagueBlast[3].critMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[3].critMask.initialPosition.z);
 			
 			//Norm1
-			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[0].normalMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[0].normalMask.rangeMin),
+			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[0].normalMask.rangeMin),
 				gunAbilityBars.plagueBlast[0].normalMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[0].normalMask.initialPosition.z);
+			gunBarMaskNormal1.transform.localScale = gunAbilityBars.plagueBlast[0].normalMask.initialScale;
 			//Norm2
-			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[1].normalMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[1].normalMask.rangeMin),
+			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[1].normalMask.rangeMin),
 				gunAbilityBars.plagueBlast[1].normalMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[1].normalMask.initialPosition.z);
+			gunBarMaskNormal2.transform.localScale = gunAbilityBars.plagueBlast[1].normalMask.initialScale;
 			//Norm3
-			gunBarMaskNormal3.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[2].normalMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[2].normalMask.rangeMin),
+			gunBarMaskNormal3.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[2].normalMask.rangeMin),
 				gunAbilityBars.plagueBlast[2].normalMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[2].normalMask.initialPosition.z);
+			gunBarMaskNormal3.transform.localScale = gunAbilityBars.plagueBlast[2].normalMask.initialScale;
 			//Norm 4
-			gunBarMaskNormal4.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[3].normalMask.initialPosition.x +
-				gunAbilityBars.plagueBlast[3].normalMask.rangeMin),
+			gunBarMaskNormal4.transform.localPosition = new Vector3( (gunAbilityBars.plagueBlast[3].normalMask.rangeMin),
 				gunAbilityBars.plagueBlast[3].normalMask.initialPosition.y,
 				gunAbilityBars.plagueBlast[3].normalMask.initialPosition.z);
+			gunBarMaskNormal4.transform.localScale = gunAbilityBars.plagueBlast[3].normalMask.initialScale;
 			
 			
 			//Hide other Bars
@@ -589,6 +664,11 @@ public class GunMiniGameScipt : MonoBehaviour {
 			gunBarMaskNormal5.fillAmount = 0;
 			gunBarMaskNormal6.fillAmount = 0;
 		
+			gunBarIcons.gunIcon1.fillAmount = 0;
+			gunBarIcons.gunIcon2.fillAmount = 0;
+			gunBarIcons.gunIcon3.fillAmount = 1;
+			gunBarIcons.gunIcon4.fillAmount = 0;
+			gunBarIcons.gunIcon5.fillAmount = 0;
 			break;
 		
 		//Set to BlitzBarrage
@@ -597,56 +677,51 @@ public class GunMiniGameScipt : MonoBehaviour {
 			player.clickMax = gunAbilityBars.blitzBarrage[0].numOfTaps;
 			
 			//Crit 1
-			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[0].critMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[0].critMask.rangeMin),
+			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[0].critMask.rangeMin),
 				gunAbilityBars.blitzBarrage[0].critMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[0].critMask.initialPosition.z);
 			//Crit 2
-			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[1].critMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[1].critMask.rangeMin),
+			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[1].critMask.rangeMin),
 				gunAbilityBars.blitzBarrage[1].critMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[1].critMask.initialPosition.z);
 			//Crit 3
-			gunBarMaskCrit3.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[2].critMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[2].critMask.rangeMin),
+			gunBarMaskCrit3.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[2].critMask.rangeMin),
 				gunAbilityBars.blitzBarrage[2].critMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[2].critMask.initialPosition.z);
 			//Crit 4
-			gunBarMaskCrit4.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[3].critMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[3].critMask.rangeMin),
+			gunBarMaskCrit4.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[3].critMask.rangeMin),
 				gunAbilityBars.blitzBarrage[3].critMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[3].critMask.initialPosition.z);
 			//Crit 5
-			gunBarMaskCrit5.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[4].critMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[4].critMask.rangeMin),
+			gunBarMaskCrit5.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[4].critMask.rangeMin),
 				gunAbilityBars.blitzBarrage[4].critMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[4].critMask.initialPosition.z);
 			
 			//Norm1
-			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[0].normalMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[0].normalMask.rangeMin),
+			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[0].normalMask.rangeMin),
 				gunAbilityBars.blitzBarrage[0].normalMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[0].normalMask.initialPosition.z);
+			gunBarMaskNormal1.transform.localScale = gunAbilityBars.blitzBarrage[0].normalMask.initialScale;
 			//Norm2
-			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[1].normalMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[1].normalMask.rangeMin),
+			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[1].normalMask.rangeMin),
 				gunAbilityBars.blitzBarrage[1].normalMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[1].normalMask.initialPosition.z);
+			gunBarMaskNormal2.transform.localScale = gunAbilityBars.blitzBarrage[1].normalMask.initialScale;
 			//Norm3
-			gunBarMaskNormal3.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[2].normalMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[2].normalMask.rangeMin),
+			gunBarMaskNormal3.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[2].normalMask.rangeMin),
 				gunAbilityBars.blitzBarrage[2].normalMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[2].normalMask.initialPosition.z);
+			gunBarMaskNormal3.transform.localScale = gunAbilityBars.blitzBarrage[2].normalMask.initialScale;
 			//Norm 4
-			gunBarMaskNormal4.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[3].normalMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[3].normalMask.rangeMin),
+			gunBarMaskNormal4.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[3].normalMask.rangeMin),
 				gunAbilityBars.blitzBarrage[3].normalMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[3].normalMask.initialPosition.z);
+			gunBarMaskNormal4.transform.localScale = gunAbilityBars.blitzBarrage[3].normalMask.initialScale;
 			//Norm 5
-			gunBarMaskNormal5.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[4].normalMask.initialPosition.x +
-				gunAbilityBars.blitzBarrage[4].normalMask.rangeMin),
+			gunBarMaskNormal5.transform.localPosition = new Vector3( (gunAbilityBars.blitzBarrage[4].normalMask.rangeMin),
 				gunAbilityBars.blitzBarrage[4].normalMask.initialPosition.y,
 				gunAbilityBars.blitzBarrage[4].normalMask.initialPosition.z);
+			gunBarMaskNormal5.transform.localScale = gunAbilityBars.blitzBarrage[4].normalMask.initialScale;
 			
 			
 			//Hide other Bars
@@ -664,6 +739,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			gunBarMaskNormal5.fillAmount = 1;
 			gunBarMaskNormal6.fillAmount = 0;
 			
+			gunBarIcons.gunIcon1.fillAmount = 0;
+			gunBarIcons.gunIcon2.fillAmount = 0;
+			gunBarIcons.gunIcon3.fillAmount = 0;
+			gunBarIcons.gunIcon4.fillAmount = 1;
+			gunBarIcons.gunIcon5.fillAmount = 0;
+			
 			break;
 		
 		//Set to ShadowShot
@@ -672,66 +753,60 @@ public class GunMiniGameScipt : MonoBehaviour {
 			player.clickMax = gunAbilityBars.shadowFlameShot[0].numOfTaps;
 			
 			//Crit 1
-			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[0].critMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[0].critMask.rangeMin),
+			gunBarMaskCrit1.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[0].critMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[0].critMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[0].critMask.initialPosition.z);
 			//Crit 2
-			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[1].critMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[1].critMask.rangeMin),
+			gunBarMaskCrit2.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[1].critMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[1].critMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[1].critMask.initialPosition.z);
 			//Crit 3
-			gunBarMaskCrit3.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[2].critMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[2].critMask.rangeMin),
+			gunBarMaskCrit3.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[2].critMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[2].critMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[2].critMask.initialPosition.z);
 			//Crit 4
-			gunBarMaskCrit4.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[3].critMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[3].critMask.rangeMin),
+			gunBarMaskCrit4.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[3].critMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[3].critMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[3].critMask.initialPosition.z);
 			//Crit 5
-			gunBarMaskCrit5.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[4].critMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[4].critMask.rangeMin),
+			gunBarMaskCrit5.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[4].critMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[4].critMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[4].critMask.initialPosition.z);
 			//Crit 6
-			gunBarMaskCrit6.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[5].critMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[5].critMask.rangeMin),
+			gunBarMaskCrit6.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[5].critMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[5].critMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[5].critMask.initialPosition.z);
 			
 			//Norm1
-			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[0].normalMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin),
+			gunBarMaskNormal1.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[0].normalMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[0].normalMask.initialPosition.z);
+			gunBarMaskNormal1.transform.localScale = gunAbilityBars.shadowFlameShot[0].normalMask.initialScale;
 			//Norm2
-			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[1].normalMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin),
+			gunBarMaskNormal2.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[1].normalMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[1].normalMask.initialPosition.z);
+			gunBarMaskNormal2.transform.localScale = gunAbilityBars.shadowFlameShot[1].normalMask.initialScale;
 			//Norm3
-			gunBarMaskNormal3.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[2].normalMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin),
+			gunBarMaskNormal3.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[2].normalMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[2].normalMask.initialPosition.z);
+			gunBarMaskNormal3.transform.localScale = gunAbilityBars.shadowFlameShot[2].normalMask.initialScale;
 			//Norm 4
-			gunBarMaskNormal4.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[3].normalMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin),
+			gunBarMaskNormal4.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[3].normalMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[3].normalMask.initialPosition.z);
+			gunBarMaskNormal4.transform.localScale = gunAbilityBars.shadowFlameShot[3].normalMask.initialScale;
 			//Norm 5
-			gunBarMaskNormal5.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[4].normalMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin),
+			gunBarMaskNormal5.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[4].normalMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[4].normalMask.initialPosition.z);
+			gunBarMaskNormal5.transform.localScale = gunAbilityBars.shadowFlameShot[4].normalMask.initialScale;
 			//Norm 6
-			gunBarMaskNormal6.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[5].normalMask.initialPosition.x +
-				gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin),
+			gunBarMaskNormal6.transform.localPosition = new Vector3( (gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin),
 				gunAbilityBars.shadowFlameShot[5].normalMask.initialPosition.y,
 				gunAbilityBars.shadowFlameShot[5].normalMask.initialPosition.z);
+			gunBarMaskNormal6.transform.localScale = gunAbilityBars.shadowFlameShot[5].normalMask.initialScale;
 			
 			//Unhide other bars
 			gunBarMaskCrit1.fillAmount = 1;
@@ -747,6 +822,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			gunBarMaskNormal4.fillAmount = 1;
 			gunBarMaskNormal5.fillAmount = 1;
 			gunBarMaskNormal6.fillAmount = 1;
+			
+			gunBarIcons.gunIcon1.fillAmount = 0;
+			gunBarIcons.gunIcon2.fillAmount = 0;
+			gunBarIcons.gunIcon3.fillAmount = 0;
+			gunBarIcons.gunIcon4.fillAmount = 0;
+			gunBarIcons.gunIcon5.fillAmount = 1;
 			break;
 		}
 		#endregion
@@ -755,14 +836,14 @@ public class GunMiniGameScipt : MonoBehaviour {
 	
 	public Attack didLand(Attack currentAttack){
 		//float stoppedAngle = findAngle(arrowInitialPosition, stopPosition, referenceRight);
-		float stoppedAngle = 0;
+		float stoppedArrowSpot = stopPosition.x;
 		
 		switch(player.gunAbilityChosen){
 		//Scarlet Shot
 		case 1:
 			//Check Crit
-			if(stoppedAngle < gunAbilityBars.scarletShot[0].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.scarletShot[0].critMask.rangeMin){
+			if(stoppedArrowSpot < gunAbilityBars.scarletShot[0].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.scarletShot[0].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel1 != null){
@@ -780,8 +861,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Check Normal hit
-			else if(stoppedAngle < gunAbilityBars.scarletShot[0].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.scarletShot[0].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.scarletShot[0].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.scarletShot[0].normalMask.rangeMin){
 				
 				if(gunAbilityBars.scarletShot[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -799,8 +880,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 		//Dark Bullet
 		case 2:
 			//Check Crit hit
-			if(stoppedAngle < gunAbilityBars.darkBullet[0].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.darkBullet[0].critMask.rangeMin){
+			if(stoppedArrowSpot < gunAbilityBars.darkBullet[0].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.darkBullet[0].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel1 != null){
@@ -815,8 +896,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.darkBullet[1].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.darkBullet[1].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.darkBullet[1].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.darkBullet[1].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel2 != null){
@@ -834,8 +915,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Check Normal hit
-			else if(stoppedAngle < gunAbilityBars.darkBullet[0].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.darkBullet[0].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.darkBullet[0].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.darkBullet[0].normalMask.rangeMin){
 				
 				if(gunAbilityBars.darkBullet[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -844,8 +925,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.darkBullet[1].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.darkBullet[1].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.darkBullet[1].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.darkBullet[1].normalMask.rangeMin){
 				
 				if(gunAbilityBars.darkBullet[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -863,8 +944,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 		//PlagueBlast
 		case 3:
 			//Check Crit Hit
-			if(stoppedAngle < gunAbilityBars.plagueBlast[0].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[0].critMask.rangeMin){
+			if(stoppedArrowSpot < gunAbilityBars.plagueBlast[0].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[0].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel1 != null){
@@ -879,8 +960,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[1].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[1].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[1].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[1].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel2 != null){
@@ -895,8 +976,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[2].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[2].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[2].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[2].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel3 != null){
@@ -911,8 +992,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[3].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[3].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[3].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[3].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel4 != null){
@@ -929,8 +1010,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Check Normal Hit
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[0].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[0].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[0].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[0].normalMask.rangeMin){
 				
 				if(gunAbilityBars.plagueBlast[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -939,8 +1020,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[1].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[1].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[1].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[1].normalMask.rangeMin){
 				
 				if(gunAbilityBars.plagueBlast[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -949,8 +1030,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[2].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[2].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[2].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[2].normalMask.rangeMin){
 				
 				if(gunAbilityBars.plagueBlast[2].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -959,8 +1040,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.plagueBlast[3].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.plagueBlast[3].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[3].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.plagueBlast[3].normalMask.rangeMin){
 				
 				if(gunAbilityBars.plagueBlast[3].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -979,8 +1060,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 		//BlitzBarrage
 		case 4:
 			//Check Crit Hit
-			if(stoppedAngle < gunAbilityBars.blitzBarrage[0].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[0].critMask.rangeMin){
+			if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[0].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[0].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel1 != null){
@@ -995,8 +1076,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[1].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[1].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[1].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[1].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel2 != null){
@@ -1011,8 +1092,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[2].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[2].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[2].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[2].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel3 != null){
@@ -1027,8 +1108,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[3].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[3].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[3].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[3].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel4 != null){
@@ -1043,8 +1124,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[4].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[4].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[4].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[4].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel5 != null){
@@ -1061,8 +1142,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Check Normal Hit
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[0].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[0].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[0].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[0].normalMask.rangeMin){
 				
 				
 				if(gunAbilityBars.blitzBarrage[0].normalMask.isClicked == true)
@@ -1072,8 +1153,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[1].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[1].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[1].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[1].normalMask.rangeMin){
 				
 				if(gunAbilityBars.blitzBarrage[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1082,8 +1163,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[2].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[2].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[2].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[2].normalMask.rangeMin){
 				
 				if(gunAbilityBars.blitzBarrage[2].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1092,8 +1173,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[3].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[3].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[3].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[3].normalMask.rangeMin){
 				
 				if(gunAbilityBars.blitzBarrage[3].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1102,8 +1183,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.blitzBarrage[4].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.blitzBarrage[4].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[4].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.blitzBarrage[4].normalMask.rangeMin){
 				
 				if(gunAbilityBars.blitzBarrage[4].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1121,8 +1202,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 		//ShadowFlameShot
 		case 5:
 			//Check Crit Hit
-			if(stoppedAngle < gunAbilityBars.shadowFlameShot[0].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[0].critMask.rangeMin){
+			if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[0].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[0].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel1 != null){
@@ -1137,8 +1218,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[1].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[1].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[1].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[1].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel2 != null){
@@ -1153,8 +1234,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[2].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[2].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[2].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[2].critMask.rangeMin){
 				
 				
 				//Move CritLabel
@@ -1170,8 +1251,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[3].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[3].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[3].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[3].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel4 != null){
@@ -1186,8 +1267,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[4].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[4].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[4].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[4].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel5 != null){
@@ -1202,8 +1283,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Crit;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[5].critMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[5].critMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[5].critMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[5].critMask.rangeMin){
 				
 				//Move CritLabel
 				if(critLabel6 != null){
@@ -1220,8 +1301,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Check Normal Hit
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[0].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[0].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin){
 				
 				
 				if(gunAbilityBars.shadowFlameShot[0].normalMask.isClicked == true)
@@ -1231,8 +1312,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[1].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[1].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin){
 				
 				if(gunAbilityBars.shadowFlameShot[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1241,8 +1322,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[2].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[2].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin){
 				
 				if(gunAbilityBars.shadowFlameShot[2].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1251,8 +1332,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[3].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[3].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin){
 				
 				if(gunAbilityBars.shadowFlameShot[3].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1261,8 +1342,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[4].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[4].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin){
 				
 				if(gunAbilityBars.shadowFlameShot[4].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1271,8 +1352,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 					return Attack.Normal;
 				}
 			}
-			else if(stoppedAngle < gunAbilityBars.shadowFlameShot[5].normalMask.rangeMax &&
-				stoppedAngle > gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin){
+			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[5].normalMask.rangeMax &&
+				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin){
 				
 				if(gunAbilityBars.shadowFlameShot[5].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1304,14 +1385,14 @@ public class GunMiniGameScipt : MonoBehaviour {
 		
 			stopPosition = arrow.transform.localPosition;
 		
-			/*currentAttack = didLand(currentAttack);
+			currentAttack = didLand(currentAttack);
 		
 			if(currentAttack != Attack.BeenClicked){
 				clickCounter++;
 				player.clickCounter++;
 			}
-		
-			player.lastGunHit = (Player.LastGunHit) currentAttack;*/
+	
+			player.lastGunHit = (Player.LastGunHit) currentAttack;
 		}
 	}
 	
@@ -1363,6 +1444,13 @@ public class GunMiniGameScipt : MonoBehaviour {
 			arrow.color = Color.clear;
 			arrow.transform.localPosition = arrowInitialPosition;
 			arrow.transform.localRotation = new Quaternion(0,0,0,0);
+			
+			//Hide Bar Icons
+			gunBarIcons.gunIcon1.fillAmount = 0;
+			gunBarIcons.gunIcon2.fillAmount = 0;
+			gunBarIcons.gunIcon3.fillAmount = 0;
+			gunBarIcons.gunIcon4.fillAmount = 0;
+			gunBarIcons.gunIcon5.fillAmount = 0;
 			
 			//Hide Other Bars
 			gunBarMaskCrit1.fillAmount = 0;

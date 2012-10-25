@@ -4,15 +4,31 @@ using System.Collections;
 public class SwordMiniGameScript : MonoBehaviour {
 	
 	//public UIFilledSprite swordDial;
-	
-	public UIFilledSprite swordDialMask;
+	public UIFilledSprite swordBar;
+	public UIFilledSprite swordBarMask;
 	
 	public UIFilledSprite arrow;
 	
 	public UIButton clickScreenButton;
 	
+	//Icons for bar
+	[System.Serializable]
+	public class SwordBarIcons{
+	
+		public UIFilledSprite swordIcon1;
+		public UIFilledSprite swordIcon2;
+		public UIFilledSprite swordIcon3;
+		public UIFilledSprite swordIcon4;
+		public UIFilledSprite swordIcon5;
+		
+	}
+	
+	public SwordBarIcons swordBarIcons = new SwordBarIcons();
+	
+	
 	public Player player;
 	
+	public int triesCounter;
 	
 	public int ArrowSpeed = 25;
 	
@@ -23,20 +39,80 @@ public class SwordMiniGameScript : MonoBehaviour {
 	
 	public Vector3 initialPosition;
 	public Vector3 currentPosition;
-	public Vector3 referenceRight;
 	
 	public Vector3 stopPosition;
-	public float distanceFromCenter;
-	public float attackDistanceFromCenter;
+	
+	public float distanceFromStart;
+
 	
 	public enum Attack{NoHit, Hit, Miss, HasHit}
 	public Attack currentAttack;
 	
-	public Attack didLand(Attack currentAttack){
-		float stoppedAngle = findAngle(initialPosition, stopPosition, referenceRight);
+	[System.Serializable]
+	public class SwordMask{
+		public Vector3 initialScale;
 		
-		if(stoppedAngle <= 10 ||
-			stoppedAngle >= 350){
+		public float scaleMultiplier;
+		
+		public float rangeMin;
+		public float rangeMax;
+		
+		public bool isClicked;
+	}
+	
+	public SwordMask hitMask;
+	
+	public void setBar(int swordAbilityChosen){
+		
+		arrow.color = Color.white;
+		arrow.transform.localPosition = initialPosition;
+		
+		
+		switch(swordAbilityChosen){
+		case 0:
+			swordBarIcons.swordIcon1.fillAmount = 1;
+			swordBarIcons.swordIcon2.fillAmount = 0;
+			swordBarIcons.swordIcon3.fillAmount = 0;
+			swordBarIcons.swordIcon4.fillAmount = 0;
+			swordBarIcons.swordIcon5.fillAmount = 0;
+			break;
+		case 1:
+			swordBarIcons.swordIcon1.fillAmount = 0;
+			swordBarIcons.swordIcon2.fillAmount = 1;
+			swordBarIcons.swordIcon3.fillAmount = 0;
+			swordBarIcons.swordIcon4.fillAmount = 0;
+			swordBarIcons.swordIcon5.fillAmount = 0;
+			break;
+		case 2:
+			swordBarIcons.swordIcon1.fillAmount = 0;
+			swordBarIcons.swordIcon2.fillAmount = 0;
+			swordBarIcons.swordIcon3.fillAmount = 1;
+			swordBarIcons.swordIcon4.fillAmount = 0;
+			swordBarIcons.swordIcon5.fillAmount = 0;
+			break;
+		case 3:
+			swordBarIcons.swordIcon1.fillAmount = 0;
+			swordBarIcons.swordIcon2.fillAmount = 0;
+			swordBarIcons.swordIcon3.fillAmount = 0;
+			swordBarIcons.swordIcon4.fillAmount = 1;
+			swordBarIcons.swordIcon5.fillAmount = 0;
+			break;
+		case 4:
+			swordBarIcons.swordIcon1.fillAmount = 0;
+			swordBarIcons.swordIcon2.fillAmount = 0;
+			swordBarIcons.swordIcon3.fillAmount = 0;
+			swordBarIcons.swordIcon4.fillAmount = 0;
+			swordBarIcons.swordIcon5.fillAmount = 1;
+			break;
+			
+		}
+	}
+	
+	public Attack didLand(Attack currentAttack){
+		float stoppedSpot = stopPosition.x;
+		
+		if(stoppedSpot < hitMask.rangeMax &&
+			stoppedSpot > hitMask.rangeMin){
 			
 			if(player.lastSwordHit == Player.LastSwordHit.NoHit)
 				return Attack.Hit;
@@ -61,25 +137,34 @@ public class SwordMiniGameScript : MonoBehaviour {
 
 			clickCounter++;
 			player.clickCounter++;
-		
-			player.lastSwordHit = (Player.LastSwordHit) currentAttack;
+			
+			if(currentAttack == Attack.Hit)
+				arrow.transform.localPosition = initialPosition;
 		}
+		
+		player.lastSwordHit = (Player.LastSwordHit) currentAttack;
+		
 	}
 	
 	// Use this for initialization
 	void Start () {
 		
-		ArrowSpeed = 35;
+		ArrowSpeed = 25;
 		
+		triesCounter = 0;
 		
 		initialPosition = arrow.transform.localPosition;
 		stopPosition = initialPosition;
-		referenceRight = Vector3.Cross(Vector3.up, initialPosition);
-		
 		
 		//Populate Mask
-		swordDialMask.fillAmount = .0555f;
-		swordDialMask.transform.eulerAngles = new Vector3(0,0,(-1 * ((360 * swordDialMask.fillAmount)/2)));
+		hitMask.initialScale = new Vector3((swordBarMask.transform.localScale.x),
+			swordBarMask.transform.localScale.y,
+			swordBarMask.transform.localScale.z);
+		hitMask.rangeMin = swordBarMask.transform.localPosition.x;
+		hitMask.rangeMax = hitMask.rangeMin + hitMask.initialScale.x;
+		hitMask.isClicked = false;
+		
+		//swordBarMask.transform.localScale = hitMask.initialScale;
 		
 	}
 	
@@ -87,13 +172,15 @@ public class SwordMiniGameScript : MonoBehaviour {
 	void Update () {
 		
 		if(player.TurnPhases == 4){
-			player.clickMax = 5;
 			
-			currentAttack = (Attack) player.lastSwordHit;
+			//currentAttack = (Attack) player.lastSwordHit;
+			if(triesCounter >= 5)
+				player.clickCounter = player.clickMax;
 			
-			//swordDial.fillAmount = 1;
-			swordDialMask.color = Color.red;
+			swordBarMask.fillAmount = 1;
+			swordBar.fillAmount = 1;
 			arrow.fillAmount = 1;
+			
 			
 			if(clickScreenButton != null)
 				clickScreenButton.isEnabled = true;
@@ -101,80 +188,55 @@ public class SwordMiniGameScript : MonoBehaviour {
 			if(player.isSwordSet == false){
 				startTimer = Time.time + 1;
 				
-				//setDial((player.gunAbilityChosen - 1));
+				setBar((player.gunAbilityChosen - 1));
 				player.isSwordSet = true;	
 			}
 			
 			//Move Arrow
-			//arrow.transform.RotateAround(swordDial.transform.position,
-				//Vector3.back, ArrowSpeed * Time.deltaTime);
+			arrow.transform.localPosition = new Vector3((arrow.transform.localPosition.x + (ArrowSpeed * Time.deltaTime)),
+				initialPosition.y,initialPosition.y);
 		
-		
-		
-			currentPosition = arrow.transform.localPosition;
-		
-		
-			distanceFromCenter = findAngle(initialPosition, currentPosition, referenceRight);
-			attackDistanceFromCenter = findAngle(initialPosition, stopPosition, referenceRight);
 			
-			//Stop Minigame if Arrow makes OneRotation and player does not click
-			/*if(startTimer != 0){
+			currentPosition = arrow.transform.localPosition;
+			distanceFromStart = currentPosition.x - initialPosition.x;
+			
+			
+			//Stop Minigame if Arrow makes the distance once
+			if(startTimer != 0){
 				if(Time.time >= startTimer){
-					if(distanceFromCenter <= 345 &&
-						distanceFromCenter > 340){
+					if(distanceFromStart >= 390){
 						
-						if(player.lastSwordHit != Player.LastSwordHit.HasHit)
-							player.clickCounter = player.clickMax;
+						//player.clickCounter = player.clickMax;
+						arrow.transform.localPosition = initialPosition;
+						
+						triesCounter++;
 					}
-					else
-						player.lastSwordHit = Player.LastSwordHit.NoHit;
 				}
-			}*/
+			}
 			
 		}
 		
 		else{
 			//Hide Everything
-		
-				//swordDial.fillAmount = 0;
-				swordDialMask.color = Color.clear;
-				clickScreenButton.isEnabled = false;
+			swordBarIcons.swordIcon1.fillAmount = 0;
+			swordBarIcons.swordIcon2.fillAmount = 0;
+			swordBarIcons.swordIcon3.fillAmount = 0;
+			swordBarIcons.swordIcon4.fillAmount = 0;
+			swordBarIcons.swordIcon5.fillAmount = 0;
+			
+			swordBar.fillAmount = 0;
+			swordBarMask.fillAmount = 0;
+			clickScreenButton.isEnabled = false;
 				
 			
-				arrow.fillAmount = 0;
+			arrow.fillAmount = 0;
 			
-				arrow.transform.localPosition = initialPosition;
-				arrow.transform.localRotation = new Quaternion(0,0,0,0);
+			arrow.transform.localPosition = initialPosition;
+			arrow.transform.localRotation = new Quaternion(0,0,0,0);
+			
+			triesCounter = 0;
 			
 		}
 	
-	}
-	
-	
-	float findAngle(Vector3 initial, Vector3 current, Vector3 middle){
-		
-		float tempAngle = Vector3.Angle(initial, current);
-		
-		 if(AngleDir(initial, current, middle) == -1) {
-
-        	return 360 - tempAngle;
-
-		}
-		else
-			return tempAngle;
-		
-	}
-	//From Forums
-	float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up) {
-		Vector3 perp = Vector3.Cross(fwd, targetDir);
-		float dir = Vector3.Dot(perp, up);
-		
-		if (dir > 0f) {
-			return 1f;
-		} else if (dir < 0f) {
-			return -1f;
-		} else {
-			return 0f;
-		}
 	}
 }
