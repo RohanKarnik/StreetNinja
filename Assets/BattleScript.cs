@@ -131,23 +131,33 @@ public class BattleScript : MonoBehaviour {
 			//Execute Sword Ability Phase
 			else if(player.TurnPhases == 4){
 				
-				if(player.clickCounter >= player.clickMax){
+				if(player.clickCounter > player.clickMax){
 					
 					switch(player.swordAbilityChosen){
 					case 1:
 						player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
+						
+						//enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.damage * player.clickCounter;
 						break;
 					case 2:
 						player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
+						
+						//enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.damage * player.clickCounter;
 						break;
 					case 3:
 						player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
+						
+						//enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.damage * player.clickCounter;
 						break;
 					case 4:
 						player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
+						
+						//enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.damage * player.clickCounter;
 						break;
 					case 5:
 						player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
+						
+						//enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.damage * player.clickCounter;
 						break;
 					default:
 						player.aP = 0;

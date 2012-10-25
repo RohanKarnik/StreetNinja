@@ -134,13 +134,13 @@ public class SwordMiniGameScript : MonoBehaviour {
 			currentAttack = didLand(currentAttack);
 		
 			startTimer = Time.time + 1;
-
-			clickCounter++;
-			player.clickCounter++;
 			
 			if(currentAttack == Attack.Hit){
 				arrow.transform.localPosition = initialPosition;
 				triesCounter++;
+				
+				clickCounter++;
+				player.clickCounter++;
 			}
 			
 			player.lastSwordHit = (Player.LastSwordHit) currentAttack;
@@ -166,7 +166,6 @@ public class SwordMiniGameScript : MonoBehaviour {
 		hitMask.rangeMax = hitMask.rangeMin + hitMask.initialScale.x;
 		hitMask.isClicked = false;
 		
-		//swordBarMask.transform.localScale = hitMask.initialScale;
 		
 	}
 	
@@ -175,9 +174,8 @@ public class SwordMiniGameScript : MonoBehaviour {
 		
 		if(player.TurnPhases == 4){
 			
-			//currentAttack = (Attack) player.lastSwordHit;
-			if(triesCounter >= 5)
-				player.clickCounter = player.clickMax;
+			//if(triesCounter >= 5)
+				//player.clickCounter = player.clickMax;
 			
 			swordBarMask.fillAmount = 1;
 			swordBar.fillAmount = 1;
@@ -190,7 +188,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 			if(player.isSwordSet == false){
 				startTimer = Time.time + 1;
 				
-				setBar((player.gunAbilityChosen - 1));
+				setBar((player.swordAbilityChosen - 1));
 				player.isSwordSet = true;	
 			}
 			
@@ -208,10 +206,10 @@ public class SwordMiniGameScript : MonoBehaviour {
 				if(Time.time >= startTimer){
 					if(distanceFromStart >= 390){
 						
+						triesCounter++;
+						
 						//player.clickCounter = player.clickMax;
 						arrow.transform.localPosition = initialPosition;
-						
-						triesCounter++;
 					}
 				}
 			}
@@ -219,6 +217,9 @@ public class SwordMiniGameScript : MonoBehaviour {
 		}
 		
 		else{
+			clickCounter = 0;
+			triesCounter = 0;
+			
 			//Hide Everything
 			swordBarIcons.swordIcon1.fillAmount = 0;
 			swordBarIcons.swordIcon2.fillAmount = 0;
@@ -235,8 +236,6 @@ public class SwordMiniGameScript : MonoBehaviour {
 			
 			arrow.transform.localPosition = initialPosition;
 			arrow.transform.localRotation = new Quaternion(0,0,0,0);
-			
-			triesCounter = 0;
 			
 		}
 	
