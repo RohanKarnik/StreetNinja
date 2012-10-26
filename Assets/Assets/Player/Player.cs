@@ -129,6 +129,8 @@ public class Player : MonoBehaviour {
 		public int clickCounter;
 		public int clickMax;
 	
+		public int triesCounter;
+	
 		public int numOfAttacks;
 	
 		public bool isGunSet;
@@ -146,6 +148,8 @@ public class Player : MonoBehaviour {
 		lastSwordHit = LastSwordHit.NoHit;
 		
 		clickCounter = 0;
+		
+		triesCounter = 0;
 		
 		numOfAttacks = 0;
 		

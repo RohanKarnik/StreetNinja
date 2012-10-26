@@ -132,10 +132,14 @@ public class SwordMiniGameScript : MonoBehaviour {
 			
 			if(currentAttack == Attack.Hit){
 				arrow.transform.localPosition = initialPosition;
+				
 				triesCounter++;
+				player.triesCounter++;
 				
 				clickCounter++;
 				player.clickCounter++;
+				
+				ArrowSpeed += 100;
 			}
 			
 			player.lastSwordHit = (Player.LastSwordHit) currentAttack;
@@ -232,7 +236,8 @@ public class SwordMiniGameScript : MonoBehaviour {
 			swordBar.fillAmount = 0;
 			swordBarMask.fillAmount = 0;
 			clickScreenButton.isEnabled = false;
-				
+			
+			ArrowSpeed = 400;
 			
 			arrow.fillAmount = 0;
 			

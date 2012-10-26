@@ -133,7 +133,7 @@ public class BattleScript : MonoBehaviour {
 				
 				if(player.clickCounter == player.clickMax){
 					
-					switch(player.swordAbilityChosen){
+					/*switch(player.swordAbilityChosen){
 					case 1:
 						player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
 						
@@ -163,7 +163,8 @@ public class BattleScript : MonoBehaviour {
 						player.aP = 0;
 						break;
 						
-					}
+					}*/
+					ExecuteSwordAbilities(player.swordAbilityChosen);
 					
 					
 					player.clickCounter = 0;
@@ -184,8 +185,7 @@ public class BattleScript : MonoBehaviour {
 				if(player.lastSwordHit == Player.LastSwordHit.Hit){
 				
 					//Execute Sword Abilities
-					ExecuteSwordAbilities(player.swordAbilityChosen);
-					
+					//ExecuteSwordAbilities(player.swordAbilityChosen);
 					
 					player.lastSwordHit = Player.LastSwordHit.NoHit;
 				}
@@ -495,6 +495,8 @@ public class BattleScript : MonoBehaviour {
 		
 		player.clickCounter = 0;
 		
+		player.triesCounter = 0;
+		
 		player.numOfAttacks = 0;
 		
 		player.isGunSet = false;
@@ -688,14 +690,12 @@ public class BattleScript : MonoBehaviour {
 	public void ExecuteSwordAbilities(int chosenAbility){
 		player.numOfAttacks++;
 		
-		
-		//float tempMultiplier;
-		
+		float tempMultiplier = 1;
 		
 		
 		//Bloodblade
 		if(player.swordAbilityChosen == 1){
-			//player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
+			player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.BloodBlade.damage;
@@ -707,14 +707,37 @@ public class BattleScript : MonoBehaviour {
 			else if(player.playerAbilities.stances.StanceOfShadowsVengence == true)
 				tempTotalDamage = (int)(tempTotalDamage * player.playerAbilities.stances.StanceOfSVOffensiveDecrease);
 			
+			switch(player.triesCounter){
+			case 1:
+				tempMultiplier = 1.00f;
+			break;
+			case 2:
+				tempMultiplier = 1.25f;
+			break;
+			case 3:
+				tempMultiplier = 1.50f;
+				break;
+			case 4:
+				tempMultiplier = 1.75f;
+				break;
+			case 5:
+				tempMultiplier = 2.0f;
+				break;
+			default:
+				tempMultiplier = 1.0f;
+				break;
+			}
+			//Debug.Log(tempMultiplier);
+			
+			tempTotalDamage = (int)(tempTotalDamage * tempMultiplier);
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.sworddAbilities.BloodBlade.lastDamage += (int)tempTotalDamage;
-			//enemy.hP -= tempTotalDamage;
+			player.playerAbilities.sworddAbilities.BloodBlade.lastDamage = (int)tempTotalDamage;
+			enemy.hP -= tempTotalDamage;
 		}
 		//DeathStrike
 		else if(player.swordAbilityChosen == 2){
-			//player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
+			player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.DeathStrike.damage;
@@ -726,14 +749,38 @@ public class BattleScript : MonoBehaviour {
 			else if(player.playerAbilities.stances.StanceOfShadowsVengence == true)
 				tempTotalDamage = (int)(tempTotalDamage * player.playerAbilities.stances.StanceOfSVOffensiveDecrease);
 			
+			switch(player.triesCounter){
+			case 1:
+				tempMultiplier = 1.00f;
+			break;
+			case 2:
+				tempMultiplier = 1.25f;
+			break;
+			case 3:
+				tempMultiplier = 1.50f;
+				break;
+			case 4:
+				tempMultiplier = 1.75f;
+				break;
+			case 5:
+				tempMultiplier = 2.0f;
+				break;
+			default:
+				tempMultiplier = 1.0f;
+				break;
+			}
+			//Debug.Log(tempMultiplier);
+			
+			tempTotalDamage = (int)(tempTotalDamage * tempMultiplier);
+			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.sworddAbilities.DeathStrike.lastDamage += (int)tempTotalDamage;
-			//enemy.hP -= tempTotalDamage;
+			player.playerAbilities.sworddAbilities.DeathStrike.lastDamage = (int)tempTotalDamage;
+			enemy.hP -= tempTotalDamage;
 		}
 		//ShadowFury
 		else if(player.swordAbilityChosen == 3){
-			//player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
+			player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.ShadowFury.damage;
@@ -745,14 +792,38 @@ public class BattleScript : MonoBehaviour {
 			else if(player.playerAbilities.stances.StanceOfShadowsVengence == true)
 				tempTotalDamage = (int)(tempTotalDamage * player.playerAbilities.stances.StanceOfSVOffensiveDecrease);
 			
+			switch(player.triesCounter){
+			case 1:
+				tempMultiplier = 1.00f;
+			break;
+			case 2:
+				tempMultiplier = 1.25f;
+			break;
+			case 3:
+				tempMultiplier = 1.50f;
+				break;
+			case 4:
+				tempMultiplier = 1.75f;
+				break;
+			case 5:
+				tempMultiplier = 2.0f;
+				break;
+			default:
+				tempMultiplier = 1.0f;
+				break;
+			}
+			//Debug.Log(tempMultiplier);
+			
+			tempTotalDamage = (int)(tempTotalDamage * tempMultiplier);
+			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.sworddAbilities.ShadowFury.lastDamage += (int)tempTotalDamage;
-			//enemy.hP -= tempTotalDamage;
+			player.playerAbilities.sworddAbilities.ShadowFury.lastDamage = (int)tempTotalDamage;
+			enemy.hP -= tempTotalDamage;
 		}
 		//CrimsonCut
 		else if(player.swordAbilityChosen == 4){
-			//player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
+			player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.CrimsonCut.damage;
@@ -764,14 +835,38 @@ public class BattleScript : MonoBehaviour {
 			else if(player.playerAbilities.stances.StanceOfShadowsVengence == true)
 				tempTotalDamage = (int)(tempTotalDamage * player.playerAbilities.stances.StanceOfSVOffensiveDecrease);
 			
+			switch(player.triesCounter){
+			case 1:
+				tempMultiplier = 1.00f;
+			break;
+			case 2:
+				tempMultiplier = 1.25f;
+			break;
+			case 3:
+				tempMultiplier = 1.50f;
+				break;
+			case 4:
+				tempMultiplier = 1.75f;
+				break;
+			case 5:
+				tempMultiplier = 2.0f;
+				break;
+			default:
+				tempMultiplier = 1.0f;
+				break;
+			}
+			//Debug.Log(tempMultiplier);
+			
+			tempTotalDamage = (int)(tempTotalDamage * tempMultiplier);
+			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage += (int)tempTotalDamage;
-			//enemy.hP -= tempTotalDamage;
+			player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage = (int)tempTotalDamage;
+			enemy.hP -= tempTotalDamage;
 		}
 		//ShadowFlameSlash
 		else if(player.swordAbilityChosen == 5){
-			//player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
+			player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
 			
 			//Accrue Damage
 			tempTotalDamage = player.playerAbilities.sworddAbilities.ShadowFlameSlash.damage;
@@ -783,10 +878,34 @@ public class BattleScript : MonoBehaviour {
 			else if(player.playerAbilities.stances.StanceOfShadowsVengence == true)
 				tempTotalDamage = (int)(tempTotalDamage * player.playerAbilities.stances.StanceOfSVOffensiveDecrease);
 			
+			switch(player.triesCounter){
+			case 1:
+				tempMultiplier = 1.00f;
+			break;
+			case 2:
+				tempMultiplier = 1.25f;
+			break;
+			case 3:
+				tempMultiplier = 1.50f;
+				break;
+			case 4:
+				tempMultiplier = 1.75f;
+				break;
+			case 5:
+				tempMultiplier = 2.0f;
+				break;
+			default:
+				tempMultiplier = 1.0f;
+				break;
+			}
+			//Debug.Log(tempMultiplier);
+			
+			tempTotalDamage = (int)(tempTotalDamage * tempMultiplier);
+			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage += (int)tempTotalDamage;
-			//enemy.hP -= tempTotalDamage;;
+			player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage = (int)tempTotalDamage;
+			enemy.hP -= tempTotalDamage;;
 		}
 	}
 	
