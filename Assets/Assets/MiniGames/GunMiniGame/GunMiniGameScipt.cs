@@ -478,7 +478,7 @@ public class GunMiniGameScipt : MonoBehaviour {
 	
 	void Start(){
 
-		ArrowSpeed = 5;
+		//ArrowSpeed = 150;
 		
 		StartingBar = 0;
 		

@@ -122,7 +122,7 @@ public class Player : MonoBehaviour {
 		public enum LastGunHit{NoHit, Normal, Crit, Miss, BeenClicked}
 		public LastGunHit lastGunHit;
 	
-		public enum LastSwordHit{NoHit, Hit, Miss, HasHit};
+		public enum LastSwordHit{NoHit, Hit, Miss};
 		public LastSwordHit lastSwordHit;	
 	
 	
@@ -182,7 +182,7 @@ public class Player : MonoBehaviour {
 
 		hPMax = playerLevelArray[level].playerLevelArray.hP;
 		
-		aP = 10;
+		aP = 0;
 		
 		xP = 0;
 		xPNextLevel = playerLevelArray[level+1].playerLevelArray.xPNeeded;

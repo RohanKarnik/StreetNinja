@@ -30,7 +30,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 	
 	public int triesCounter;
 	
-	public int ArrowSpeed = 25;
+	public int ArrowSpeed;
 	
 	public float startTimer = 0;
 	
@@ -45,7 +45,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 	public float distanceFromStart;
 
 	
-	public enum Attack{NoHit, Hit, Miss, HasHit}
+	public enum Attack{NoHit, Hit, Miss}
 	public Attack currentAttack;
 	
 	[System.Serializable]
@@ -66,7 +66,6 @@ public class SwordMiniGameScript : MonoBehaviour {
 		
 		arrow.color = Color.white;
 		arrow.transform.localPosition = initialPosition;
-		
 		
 		switch(swordAbilityChosen){
 		case 0:
@@ -114,15 +113,11 @@ public class SwordMiniGameScript : MonoBehaviour {
 		if(stoppedSpot < hitMask.rangeMax &&
 			stoppedSpot > hitMask.rangeMin){
 			
-			if(player.lastSwordHit == Player.LastSwordHit.NoHit)
-				return Attack.Hit;
-			else if(player.lastSwordHit == Player.LastSwordHit.HasHit)
+			//if(player.lastSwordHit == Player.LastSwordHit.NoHit)
 				return Attack.Hit;
 		}
 		else
 			return Attack.Miss;
-		
-		return Attack.NoHit;
 		
 	}
 	
@@ -151,7 +146,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		ArrowSpeed = 35;
+		//ArrowSpeed = 35;
 		
 		triesCounter = 0;
 		
@@ -173,9 +168,13 @@ public class SwordMiniGameScript : MonoBehaviour {
 	void Update () {
 		
 		if(player.TurnPhases == 4){
+			player.clickMax = 5;
 			
-			//if(triesCounter >= 5)
-				//player.clickCounter = player.clickMax;
+			currentAttack = (Attack)player.lastSwordHit;
+			
+			
+			if(triesCounter >= 5)
+				player.clickCounter = player.clickMax;
 			
 			swordBarMask.fillAmount = 1;
 			swordBar.fillAmount = 1;
@@ -186,7 +185,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 				clickScreenButton.isEnabled = true;
 			
 			if(player.isSwordSet == false){
-				startTimer = Time.time + 1;
+				//startTimer = Time.time + 1;
 				
 				setBar((player.swordAbilityChosen - 1));
 				player.isSwordSet = true;	
@@ -202,17 +201,20 @@ public class SwordMiniGameScript : MonoBehaviour {
 			
 			
 			//Stop Minigame if Arrow makes the distance once
-			if(startTimer != 0){
-				if(Time.time >= startTimer){
+			//if(startTimer != 0){
+				//if(Time.time >= startTimer){
 					if(distanceFromStart >= 390){
+						
+						if(player.lastSwordHit == Player.LastSwordHit.NoHit)
+							player.clickCounter = player.clickMax;
 						
 						triesCounter++;
 						
 						//player.clickCounter = player.clickMax;
 						arrow.transform.localPosition = initialPosition;
 					}
-				}
-			}
+				//}
+			//}
 			
 		}
 		

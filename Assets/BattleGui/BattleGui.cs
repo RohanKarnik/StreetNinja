@@ -1942,19 +1942,19 @@ public class BattleGui : MonoBehaviour {
 			//Update Shown Dam
 			string tempEnemyDamLabel = "";
 				
-				if(player.gunAbilityChosen == 1){
+				if(player.swordAbilityChosen == 1){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.BloodBlade.lastDamage + "HP";
 				}
-				else if(player.gunAbilityChosen == 2){
+				else if(player.swordAbilityChosen == 2){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.DeathStrike.lastDamage + "HP";
 				}
-				else if(player.gunAbilityChosen == 3){
+				else if(player.swordAbilityChosen == 3){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage + "HP";
 				}
-				else if(player.gunAbilityChosen == 4){
+				else if(player.swordAbilityChosen == 4){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage + "HP";
 				}
-				else if(player.gunAbilityChosen == 5){
+				else if(player.swordAbilityChosen == 5){
 					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage + "HP";
 				}
 
@@ -1964,74 +1964,6 @@ public class BattleGui : MonoBehaviour {
 						battleInfo.enemyHpDamageLabel.enabled = true;
 					}
 				
-				
-				
-			//Old Corde
-			/*if(battleInfo.battleInfoAbility1Box != null)
-					battleInfo.battleInfoAbility1Box.fillAmount = 1;
-				if(battleInfo.battleInfoAbility2Box != null)
-					battleInfo.battleInfoAbility2Box.fillAmount = 0;
-				if(battleInfo.battleInfoAbility3Box != null)
-					battleInfo.battleInfoAbility3Box.fillAmount = 0;
-				if(battleInfo.battleInfoAbility4Box != null)
-					battleInfo.battleInfoAbility4Box.fillAmount = 0;
-				if(battleInfo.battleInfoAbility5Box != null)
-					battleInfo.battleInfoAbility5Box.fillAmount = 0;
-			
-			
-			string tempPlayerApCostLabel = "";
-			
-			string tempEnemyDamLabel = "";
-			
-			if(player.swordAbilityChosen == -1)
-				headingText = "Battle Update: No Sword Ability Chosen";
-				
-			//DamageShown
-			else{
-				if(player.swordAbilityChosen == 1)
-					headingText = "Battle Update: Executing Blood Blade";
-				else if(player.swordAbilityChosen == 2)
-					headingText = "Battle Update: Executing Death Strike";
-				else if(player.swordAbilityChosen == 3)
-					headingText = "Battle Update: Executing Shadowflame Slash";
-				else if(player.swordAbilityChosen == 4)
-					headingText = "Battle Update: Executing Crimson Cut";
-				else if(player.swordAbilityChosen == 5)
-					headingText = "Battle Update: Executing Shadowfury";
-					
-			
-				if(player.swordAbilityChosen == 1){
-					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.BloodBlade.damage + "HP";
-					
-				}
-				else if(player.swordAbilityChosen == 2){
-					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.DeathStrike.damage + "HP";
-					
-				}
-				else if(player.swordAbilityChosen == 3){
-					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFlameSlash.damage + "HP";
-					
-				}
-				else if(player.swordAbilityChosen == 4){
-					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.CrimsonCut.damage + "HP";
-					
-				}
-				else if(player.swordAbilityChosen == 5){
-					tempEnemyDamLabel = "-" + player.playerAbilities.sworddAbilities.ShadowFury.damage + "HP";
-				}
-				
-				
-				if(battleInfo.playerApGenLabel != null){
-					battleInfo.playerApGenLabel.text = tempPlayerApCostLabel;
-					battleInfo.playerApGenLabel.enabled = true;	
-				}
-				
-				if(battleInfo.enemyHpDamageLabel != null){
-					battleInfo.enemyHpDamageLabel.text = tempEnemyDamLabel;
-					battleInfo.enemyHpDamageLabel.enabled = true;
-				}
-				
-			}*/
 				
 			#region Hide Everything
 			//Description Box
