@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 	
-		public UIImageButton enemyIcon;
+		//public UIImageButton enemyIcon;
+	
+		public tk2dSprite Enemysprite;
 	
 		public Player player;
 	
@@ -15,11 +17,12 @@ public class Enemy : MonoBehaviour {
 				player.stanceChanged == true){
 				
 				
-					isClicked = true;
+				isClicked = true;
 				
 			}
 		}
 	}
+	
 
 		public float hP;
 	
@@ -114,6 +117,7 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+	
 	
 	}
 }
