@@ -133,37 +133,6 @@ public class BattleScript : MonoBehaviour {
 				
 				if(player.clickCounter == player.clickMax){
 					
-					/*switch(player.swordAbilityChosen){
-					case 1:
-						player.aP += player.playerAbilities.sworddAbilities.BloodBlade.cost;
-						
-						enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.lastDamage;
-						break;
-					case 2:
-						player.aP += player.playerAbilities.sworddAbilities.DeathStrike.cost;
-						
-						enemy.hP -= player.playerAbilities.sworddAbilities.DeathStrike.lastDamage;
-						break;
-					case 3:
-						player.aP += player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost;
-						
-						enemy.hP -= player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage;
-						break;
-					case 4:
-						player.aP += player.playerAbilities.sworddAbilities.CrimsonCut.cost;
-						
-						enemy.hP -= player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage;
-						break;
-					case 5:
-						player.aP += player.playerAbilities.sworddAbilities.ShadowFury.cost;
-						
-						enemy.hP -= player.playerAbilities.sworddAbilities.ShadowFury.lastDamage;
-						break;
-					default:
-						player.aP = 0;
-						break;
-						
-					}*/
 					ExecuteSwordAbilities(player.swordAbilityChosen);
 					
 					
@@ -192,6 +161,7 @@ public class BattleScript : MonoBehaviour {
 
 				
 				else if(player.lastSwordHit == Player.LastSwordHit.Miss){
+					
 				
 					//EndGun Dial
 					player.clickCounter = player.clickMax;

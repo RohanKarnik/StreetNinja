@@ -106,7 +106,7 @@ public class BattleGui : MonoBehaviour {
 		public UILabel playerApGenLabel;
 	
 		public UILabel turnTotalDamageLabel;
-		public Vector3 turnsOriginalScale = new Vector3(34,84,1);
+		public Vector3 turnsOriginalScale;
 	
 		public UILabel enemyHpDamageLabel;
 		public UILabel enemyHpPlusLabel;
@@ -246,7 +246,11 @@ public class BattleGui : MonoBehaviour {
 	
 	public BOTTOM GuiBottom;
 	
+	void Start(){
 	
+		battleInfo.turnsOriginalScale = battleInfo.turnTotalDamageLabel.transform.localScale;
+		
+	}
 	
 	
 	
@@ -412,8 +416,14 @@ public class BattleGui : MonoBehaviour {
 		#region Middle
 		//Turn Damage
 		if(battleInfo.turnTotalDamageLabel != null){
-			if(player.TurnPhases >= 1 && player.TurnPhases < 8)
-				battleInfo.turnTotalDamageLabel.text = "TurnDam: -" + player.turnDamage;
+			if(player.TurnPhases >= 1 && player.TurnPhases < 8){
+				if(player.turnDamage > 0){
+					battleInfo.turnTotalDamageLabel.text = "" + player.turnDamage;
+					}
+				else if(player.lastGunHit == Player.LastGunHit.Miss || 
+						player.lastSwordHit == Player.LastSwordHit.Miss)
+						battleInfo.turnTotalDamageLabel.text = "MISS";
+				}
 			else
 				battleInfo.turnTotalDamageLabel.text = "";
 				

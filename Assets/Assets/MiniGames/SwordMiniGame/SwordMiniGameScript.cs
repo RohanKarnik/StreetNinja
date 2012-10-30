@@ -121,7 +121,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 		
 	}
 	
-	void OnClick(){
+	public void OnClick(){
 		
 		if(player.TurnPhases == 4){
 			stopPosition = arrow.transform.localPosition;
@@ -146,6 +146,8 @@ public class SwordMiniGameScript : MonoBehaviour {
 		}
 		
 	}
+	
+	
 	
 	// Use this for initialization
 	void Start () {

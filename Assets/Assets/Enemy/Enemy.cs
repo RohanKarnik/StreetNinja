@@ -5,20 +5,35 @@ public class Enemy : MonoBehaviour {
 	
 		//public UIImageButton enemyIcon;
 	
-		public tk2dSprite Enemysprite;
+	public tk2dSprite Enemysprite;
 	
-		public Player player;
+	public Player player;
 	
-		void OnClick(){
-			if(player.TurnPhases >= 0){
+	public GunMiniGameScipt myGunMiniGame;
+	public SwordMiniGameScript mySwordMiniGame;
+	
+	
+	void OnClick(){
+			//If clicked during Sword Minigame
+		if(player.TurnPhases == 4){
+			SwordMiniGameScript other = mySwordMiniGame.clickScreenButton.GetComponent<SwordMiniGameScript>();
+			other.OnClick();
+		}
+			//If clicked during Gun Minigame
+		if(player.TurnPhases == 5){
+			GunMiniGameScipt other = mySwordMiniGame.clickScreenButton.GetComponent<GunMiniGameScipt>();
+			other.OnClick();
+		}
+		
+			//Ifclicked during ability select
+			if(player.TurnPhases >= 0 &&
+		player.TurnPhases < 4){
 			
 				if(player.gunAbilityChosen > 0 ||
 				player.swordAbilityChosen > 0 ||
 				player.stanceChanged == true){
-				
-				
-				isClicked = true;
-				
+					isClicked = true;
+			
 			}
 		}
 	}
