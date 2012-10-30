@@ -42,6 +42,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 	public UIFilledSprite critLabel4;
 	public UIFilledSprite critLabel5;
 	public UIFilledSprite critLabel6;
+	
+	public UIFilledSprite normalLabel1;
+	public UIFilledSprite normalLabel2;
+	public UIFilledSprite normalLabel3;
+	public UIFilledSprite normalLabel4;
+	public UIFilledSprite normalLabel5;
+	public UIFilledSprite normalLabel6;
+	
+	public UIFilledSprite missLabel;
 
 	
 	public UIFilledSprite arrow;
@@ -113,6 +122,8 @@ public class GunMiniGameScipt : MonoBehaviour {
 	public Attack currentAttack = Attack.NoHit;
 	
 	public float startTimer = 0;
+	
+	public float arrowColorTimer = 0;
 	
 	public void populateMasks(){
 		
@@ -502,6 +513,22 @@ public class GunMiniGameScipt : MonoBehaviour {
 		if(critLabel6 != null)
 			critLabel6.fillAmount = 0;
 		
+		if(normalLabel1 != null)
+			normalLabel1.fillAmount = 0;
+		if(normalLabel2 != null)
+			normalLabel2.fillAmount = 0;
+		if(normalLabel3 != null)
+			normalLabel3.fillAmount = 0;
+		if(normalLabel4 != null)
+			normalLabel4.fillAmount = 0;
+		if(normalLabel5 != null)
+			normalLabel5.fillAmount = 0;
+		if(normalLabel6 != null)
+			normalLabel6.fillAmount = 0;
+		
+		if(missLabel != null)
+			missLabel.fillAmount = 0;
+		
 	}
 	
 	public void setBar(int gunAbilityChosen){
@@ -864,6 +891,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.scarletShot[0].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.scarletShot[0].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel1 != null){
+					normalLabel1.transform.localPosition = stopPosition;
+					normalLabel1.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.scarletShot[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -873,8 +906,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Miss
-			else
+			else{
+				//Move NormalLabel
+				if(missLabel != null){
+					missLabel.transform.localPosition = stopPosition;
+					missLabel.fillAmount = 1;
+				}
+				
 				return Attack.Miss;
+			}
 
 			
 		//Dark Bullet
@@ -918,6 +958,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.darkBullet[0].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.darkBullet[0].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel1 != null){
+					normalLabel1.transform.localPosition = stopPosition;
+					normalLabel1.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.darkBullet[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -928,6 +974,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.darkBullet[1].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.darkBullet[1].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel2 != null){
+					normalLabel2.transform.localPosition = stopPosition;
+					normalLabel2.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.darkBullet[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -937,8 +989,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Miss
-			else
+			else{
+				//Move NormalLabel
+				if(missLabel != null){
+					missLabel.transform.localPosition = stopPosition;
+					missLabel.fillAmount = 1;
+				}
+				
 				return Attack.Miss;
+			}
 
 		
 		//PlagueBlast
@@ -1013,6 +1072,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[0].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.plagueBlast[0].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel1 != null){
+					normalLabel1.transform.localPosition = stopPosition;
+					normalLabel1.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.plagueBlast[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1022,6 +1087,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[1].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.plagueBlast[1].normalMask.rangeMin){
+				
+				//Move NormalLabel
+				if(normalLabel2 != null){
+					normalLabel2.transform.localPosition = stopPosition;
+					normalLabel2.fillAmount = 1;
+				}
 				
 				if(gunAbilityBars.plagueBlast[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1033,6 +1104,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[2].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.plagueBlast[2].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel3 != null){
+					normalLabel3.transform.localPosition = stopPosition;
+					normalLabel3.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.plagueBlast[2].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1043,6 +1120,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.plagueBlast[3].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.plagueBlast[3].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel4 != null){
+					normalLabel4.transform.localPosition = stopPosition;
+					normalLabel4.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.plagueBlast[3].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1052,9 +1135,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Miss
-			else
+			else{
+				//Move NormalLabel
+				if(missLabel != null){
+					missLabel.transform.localPosition = stopPosition;
+					missLabel.fillAmount = 1;
+				}
+				
 				return Attack.Miss;
-			
+			}
 
 			
 		//BlitzBarrage
@@ -1145,6 +1234,11 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[0].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.blitzBarrage[0].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel1 != null){
+					normalLabel1.transform.localPosition = stopPosition;
+					normalLabel1.fillAmount = 1;
+				}
 				
 				if(gunAbilityBars.blitzBarrage[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1156,6 +1250,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[1].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.blitzBarrage[1].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel2 != null){
+					normalLabel2.transform.localPosition = stopPosition;
+					normalLabel2.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.blitzBarrage[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1165,6 +1265,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[2].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.blitzBarrage[2].normalMask.rangeMin){
+				
+				//Move NormalLabel
+				if(normalLabel3 != null){
+					normalLabel3.transform.localPosition = stopPosition;
+					normalLabel3.fillAmount = 1;
+				}
 				
 				if(gunAbilityBars.blitzBarrage[2].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1176,6 +1282,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[3].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.blitzBarrage[3].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel4 != null){
+					normalLabel4.transform.localPosition = stopPosition;
+					normalLabel4.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.blitzBarrage[3].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1186,6 +1298,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.blitzBarrage[4].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.blitzBarrage[4].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel5 != null){
+					normalLabel5.transform.localPosition = stopPosition;
+					normalLabel5.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.blitzBarrage[4].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1195,8 +1313,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Miss
-			else
+			else{
+				//Move NormalLabel
+				if(missLabel != null){
+					missLabel.transform.localPosition = stopPosition;
+					missLabel.fillAmount = 1;
+				}
+				
 				return Attack.Miss;
+			}
 
 			
 		//ShadowFlameShot
@@ -1304,6 +1429,11 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[0].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[0].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel1 != null){
+					normalLabel1.transform.localPosition = stopPosition;
+					normalLabel1.fillAmount = 1;
+				}
 				
 				if(gunAbilityBars.shadowFlameShot[0].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1315,6 +1445,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[1].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[1].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel2 != null){
+					normalLabel2.transform.localPosition = stopPosition;
+					normalLabel2.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.shadowFlameShot[1].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1324,6 +1460,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[2].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[2].normalMask.rangeMin){
+				
+				//Move NormalLabel
+				if(normalLabel3 != null){
+					normalLabel3.transform.localPosition = stopPosition;
+					normalLabel3.fillAmount = 1;
+				}
 				
 				if(gunAbilityBars.shadowFlameShot[2].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1335,6 +1477,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[3].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[3].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel4 != null){
+					normalLabel4.transform.localPosition = stopPosition;
+					normalLabel4.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.shadowFlameShot[3].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1344,6 +1492,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[4].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[4].normalMask.rangeMin){
+				
+				//Move NormalLabel
+				if(normalLabel5 != null){
+					normalLabel5.transform.localPosition = stopPosition;
+					normalLabel5.fillAmount = 1;
+				}
 				
 				if(gunAbilityBars.shadowFlameShot[4].normalMask.isClicked == true)
 					return Attack.BeenClicked;
@@ -1355,6 +1509,12 @@ public class GunMiniGameScipt : MonoBehaviour {
 			else if(stoppedArrowSpot < gunAbilityBars.shadowFlameShot[5].normalMask.rangeMax &&
 				stoppedArrowSpot > gunAbilityBars.shadowFlameShot[5].normalMask.rangeMin){
 				
+				//Move NormalLabel
+				if(normalLabel6 != null){
+					normalLabel6.transform.localPosition = stopPosition;
+					normalLabel6.fillAmount = 1;
+				}
+				
 				if(gunAbilityBars.shadowFlameShot[5].normalMask.isClicked == true)
 					return Attack.BeenClicked;
 				else{
@@ -1364,8 +1524,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Miss
-			else
+			else{
+				//Move NormalLabel
+				if(missLabel != null){
+					missLabel.transform.localPosition = stopPosition;
+					missLabel.fillAmount = 1;
+				}
+				
 				return Attack.Miss;
+			}
 
 			
 			
@@ -1382,7 +1549,11 @@ public class GunMiniGameScipt : MonoBehaviour {
 	void OnClick(){
 		
 		if(player.TurnPhases == 5){
+			
+			//Reset time for arrowColorChange
+			arrowColorTimer =(float)(Time.time + .25);
 		
+			
 			stopPosition = arrow.transform.localPosition;
 		
 			currentAttack = didLand(currentAttack);
@@ -1414,10 +1585,24 @@ public class GunMiniGameScipt : MonoBehaviour {
 			}
 			
 			//Move Arrow
-			//arrow.transform.RotateAround(gunBarButton.transform.position,
-				//Vector3.back, ArrowSpeed * Time.deltaTime);
 			arrow.transform.localPosition = new Vector3((arrow.transform.localPosition.x + (ArrowSpeed * Time.deltaTime)),
 				arrowInitialPosition.y,arrowInitialPosition.y);
+			
+			//Adjust Arrow Color if need be
+			if(Time.time <= arrowColorTimer){
+				
+				switch(currentAttack){
+				
+				case (Attack.Normal):
+					arrow.color = Color.green;
+					break;
+				case (Attack.Crit):
+					arrow.color = Color.red;
+					break;				
+				}
+			}
+			else
+				arrow.color = Color.white;
 		
 		
 			arrowCurrentPosition = arrow.transform.localPosition;
@@ -1475,6 +1660,15 @@ public class GunMiniGameScipt : MonoBehaviour {
 			critLabel4.fillAmount = 0;
 			critLabel5.fillAmount = 0;
 			critLabel6.fillAmount = 0;
+			
+			normalLabel1.fillAmount = 0;
+			normalLabel2.fillAmount = 0;
+			normalLabel3.fillAmount = 0;
+			normalLabel4.fillAmount = 0;
+			normalLabel5.fillAmount = 0;
+			normalLabel6.fillAmount = 0;
+			
+			missLabel.fillAmount = 0;
 			
 			//Reset all Bar's isClicked
 			resetBarIsClicked();
