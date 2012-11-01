@@ -34,6 +34,7 @@ public class SwordMiniGameScript : MonoBehaviour {
 	
 	public float startTimer = 0;
 	
+	public float arrowColorTimer = 0;
 	
 	public float clickCounter = 0;
 	
@@ -124,6 +125,11 @@ public class SwordMiniGameScript : MonoBehaviour {
 	public void OnClick(){
 		
 		if(player.TurnPhases == 4){
+			
+			//Reset time for arrowColorChange
+			arrowColorTimer =(float)(Time.time + .20);
+			arrow.color = Color.red;
+			
 			stopPosition = arrow.transform.localPosition;
 		
 			currentAttack = didLand(currentAttack);
@@ -201,6 +207,12 @@ public class SwordMiniGameScript : MonoBehaviour {
 			arrow.transform.localPosition = new Vector3((arrow.transform.localPosition.x + (ArrowSpeed * Time.deltaTime)),
 				initialPosition.y,initialPosition.y);
 		
+			
+			//Adjust Arrow Color if need be
+			if(Time.time >= arrowColorTimer){
+					arrow.color = Color.white;			
+				}
+			
 			
 			currentPosition = arrow.transform.localPosition;
 			distanceFromStart = currentPosition.x - initialPosition.x;

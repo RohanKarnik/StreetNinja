@@ -29,7 +29,9 @@ public class BattleScript : MonoBehaviour {
 	
 	public float tempTotalDamage = 0;
 	
-
+	
+	public FiFoManager fifoManager;
+	
 	
 	// Update is called once per frame
 	void Update () {
@@ -135,10 +137,61 @@ public class BattleScript : MonoBehaviour {
 					
 					ExecuteSwordAbilities(player.swordAbilityChosen);
 					
+					ActionData tempActionData;
+					
+					switch(player.swordAbilityChosen){
+					
+					case 1:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Sword,
+							//player.playerAbilities.sworddAbilities.BloodBlade.lastDamage,0,0,true, player.swordAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.sworddAbilities.BloodBlade.lastDamage;
+						break;
+					case 2:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Sword,
+							//player.playerAbilities.sworddAbilities.DeathStrike.lastDamage,0,0,true, player.swordAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.sworddAbilities.DeathStrike.lastDamage;
+						break;
+					case 3:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Sword,
+							//player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage,0,0,true, player.swordAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage;
+						break;
+					case 4:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Sword,
+							//player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage,0,0,true, player.swordAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage;
+						break;
+					case 5:
+						
+						/*tempActionData = new ActionData(ActionData.ActionType.Sword,
+							player.playerAbilities.sworddAbilities.ShadowFury.lastDamage,0,0,true, player.swordAbilityChosen);
+						
+						fifoManager.PushToQueue(tempActionData);*/
+						
+						enemy.hP -= player.playerAbilities.sworddAbilities.ShadowFury.lastDamage;
+						break;
+					}
 					
 					player.clickCounter = 0;
 					
 					
+					//player.TurnPhases = 0;
 					//Advance turn
 					if(player.gunAbilityChosen > 0){
 						player.TurnPhases = 5;
@@ -178,10 +231,66 @@ public class BattleScript : MonoBehaviour {
 				
 				if(player.clickCounter == player.clickMax){
 					
+					ActionData tempActionData;
+					
+					/*
+					switch(player.gunAbilityChosen){
+					
+					case 1:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Gun,
+							//player.playerAbilities.gunAbilities.ScarletShot.lastDamage,0,0,true, player.gunAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.gunAbilities.ScarletShot.lastDamage;
+						break;
+					case 2:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Gun,
+							//player.playerAbilities.gunAbilities.DarkBullet.lastDamage,0,0,true, player.gunAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.gunAbilities.DarkBullet.lastDamage;
+						break;
+					case 3:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Gun,
+							//player.playerAbilities.gunAbilities.PlagueBlast.lastDamage,0,0,true, player.gunAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.gunAbilities.PlagueBlast.lastDamage;
+						break;
+					case 4:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Gun,
+							//player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage,0,0,true, player.gunAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage;
+						break;
+					case 5:
+						
+						//tempActionData = new ActionData(ActionData.ActionType.Gun,
+							//player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage,0,0,true, player.gunAbilityChosen);
+						
+						//fifoManager.PushToQueue(tempActionData);
+						
+						enemy.hP -= player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage;
+						break;
+					}
+					*/
+					
+					
 					player.clickCounter = 0;
 					
 					player.gameTimer = Time.time + 3;
 					
+					//player.TurnPhases = 0;
+					//Advance Turn
 					if(player.stanceChanged == true)
 						player.TurnPhases = 6;
 					else
@@ -216,14 +325,22 @@ public class BattleScript : MonoBehaviour {
 			//Execute Stance Change if need be
 			else if(player.TurnPhases == 6){
 				
+				ActionData tempActionData;
+				
 				if(Time.time >= player.gameTimer){
 					
 					if(player.stanceChosen != 0)
 						ChangeStance(player.stanceChosen);
 					
+					//tempActionData = new ActionData(ActionData.ActionType.Stance,0,0,0,true, player.stanceChosen);
+						
+					//fifoManager.PushToQueue(tempActionData);
+					
+					
 					//Wait
 					player.gameTimer = Time.time + 3;
 					
+					//player.TurnPhases = 0;
 					player.TurnPhases = 7;
 				}
 			}
@@ -525,7 +642,7 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.ScarletShot.lastDamage = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.ScarletShot.lastDamage += (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 			
 			player.aP += (int)player.playerAbilities.gunAbilities.ScarletShot.lastApBoost;
@@ -557,7 +674,7 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.DarkBullet.lastDamage = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.DarkBullet.lastDamage += (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 			
 			player.aP += (int)player.playerAbilities.gunAbilities.DarkBullet.lastApBoost;
@@ -587,7 +704,7 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.PlagueBlast.lastDamage = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.PlagueBlast.lastDamage += (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 			
 			player.aP += (int)player.playerAbilities.gunAbilities.PlagueBlast.lastApBoost;
@@ -617,7 +734,7 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.BlitzBarrage.lastDamage += (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 			
 			player.aP += (int)player.playerAbilities.gunAbilities.BlitzBarrage.lastApBoost;
@@ -647,7 +764,7 @@ public class BattleScript : MonoBehaviour {
 			
 			
 			player.turnDamage += tempTotalDamage;
-			player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage = (int)tempTotalDamage;
+			player.playerAbilities.gunAbilities.ShadowflameShot.lastDamage += (int)tempTotalDamage;
 			enemy.hP -= tempTotalDamage;
 			
 			player.aP += (int) player.playerAbilities.gunAbilities.ShadowflameShot.lastApBoost;
@@ -703,7 +820,7 @@ public class BattleScript : MonoBehaviour {
 			
 			player.turnDamage += tempTotalDamage;
 			player.playerAbilities.sworddAbilities.BloodBlade.lastDamage = (int)tempTotalDamage;
-			enemy.hP -= tempTotalDamage;
+			//enemy.hP -= tempTotalDamage;
 		}
 		//DeathStrike
 		else if(player.swordAbilityChosen == 2){
@@ -746,7 +863,7 @@ public class BattleScript : MonoBehaviour {
 			
 			player.turnDamage += tempTotalDamage;
 			player.playerAbilities.sworddAbilities.DeathStrike.lastDamage = (int)tempTotalDamage;
-			enemy.hP -= tempTotalDamage;
+			//enemy.hP -= tempTotalDamage;
 		}
 		//ShadowFury
 		else if(player.swordAbilityChosen == 3){
@@ -789,7 +906,7 @@ public class BattleScript : MonoBehaviour {
 			
 			player.turnDamage += tempTotalDamage;
 			player.playerAbilities.sworddAbilities.ShadowFury.lastDamage = (int)tempTotalDamage;
-			enemy.hP -= tempTotalDamage;
+			//enemy.hP -= tempTotalDamage;
 		}
 		//CrimsonCut
 		else if(player.swordAbilityChosen == 4){
@@ -832,7 +949,7 @@ public class BattleScript : MonoBehaviour {
 			
 			player.turnDamage += tempTotalDamage;
 			player.playerAbilities.sworddAbilities.CrimsonCut.lastDamage = (int)tempTotalDamage;
-			enemy.hP -= tempTotalDamage;
+			//enemy.hP -= tempTotalDamage;
 		}
 		//ShadowFlameSlash
 		else if(player.swordAbilityChosen == 5){
@@ -875,7 +992,7 @@ public class BattleScript : MonoBehaviour {
 			
 			player.turnDamage += tempTotalDamage;
 			player.playerAbilities.sworddAbilities.ShadowFlameSlash.lastDamage = (int)tempTotalDamage;
-			enemy.hP -= tempTotalDamage;;
+			//enemy.hP -= tempTotalDamage;;
 		}
 	}
 	

@@ -1605,7 +1605,7 @@ public class BattleGui : MonoBehaviour {
 				
 				
 				
-				abilityText = "Gun Ability ~ Scarlet Shot\n1 Tap\n" +
+				abilityText = "Scarlet Shot\n1 Tap\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.ScarletShot.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.ScarletShot.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.ScarletShot.multiplier);
@@ -1628,7 +1628,7 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				
-				abilityText = "Gun Ability ~ Dark Bullet\n2 Taps\n" +
+				abilityText = "Dark Bullet\n2 Taps\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.DarkBullet.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.DarkBullet.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.DarkBullet.multiplier);
@@ -1649,7 +1649,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Gun Ability ~ Plague Blast\n4 Tap\n" +
+				abilityText = "Plague Blast\n4 Taps\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.PlagueBlast.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.PlagueBlast.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.PlagueBlast.multiplier);
@@ -1669,7 +1669,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Gun Ability ~ Blitz Barrage\n5 Tap\n" +
+				abilityText = "Blitz Barrage\n5 Taps\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.BlitzBarrage.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.BlitzBarrage.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.BlitzBarrage.multiplier);
@@ -1689,7 +1689,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
-				abilityText = "Gun Ability ~ Shadowflame Shot\n6 Tap\n" +
+				abilityText = "Shadowflame Shot\n6 Taps\n" +
 					"DMG: " + player.playerAbilities.gunAbilities.ShadowflameShot.damage + "\n" +
 					"AP: +" + (-1*player.playerAbilities.gunAbilities.ShadowflameShot.cost) + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.gunAbilities.ShadowflameShot.multiplier);
@@ -1732,7 +1732,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Sword Ability ~ Blood Blade\n" +
+				abilityText = "Blood Blade\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.BloodBlade.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.BloodBlade.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.BloodBlade.multiplier);
@@ -1751,7 +1751,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Sword Ability ~ Death Strike\n" +
+				abilityText = "Death Strike\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.DeathStrike.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.DeathStrike.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.DeathStrike.multiplier);
@@ -1770,7 +1770,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Sword Ability ~ Shadowflame Slash\n" +
+				abilityText = "Shadowflame Slash\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.ShadowFlameSlash.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.ShadowFlameSlash.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.ShadowFlameSlash.multiplier);
@@ -1789,7 +1789,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Sword Ability ~ Crimson Cut\n" +
+				abilityText = "Crimson Cut\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.CrimsonCut.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.CrimsonCut.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.CrimsonCut.multiplier);
@@ -1808,7 +1808,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
-				abilityText = "Sword Ability ~ Shadowfury\n" +
+				abilityText = "Shadowfury\n" +
 					"DMG: " + player.playerAbilities.sworddAbilities.ShadowFury.damage + "\n" +
 					"AP: " + player.playerAbilities.sworddAbilities.ShadowFury.cost + "\n" +
 					"Multiplier: " + (100 * player.playerAbilities.sworddAbilities.ShadowFury.multiplier);
@@ -1853,7 +1853,7 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				
-				abilityText = "Stance ~ Shade of Bloodlust\n" +
+				abilityText = "Shade of Bloodlust\n" +
 					"Increases damage done by 25%\nAnd damage taken by 25% (Offensive)";
 				
 				
@@ -1871,7 +1871,7 @@ public class BattleGui : MonoBehaviour {
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
 				
-				abilityText = "Stance ~ Shade of Murder\n" +
+				abilityText = "Shade of Murder\n" +
 					"Health Gains increased by 25% (Health Regen)";
 				
 			}
@@ -1887,7 +1887,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Stance ~ Shade of Shadow Vengence\n" +
+				abilityText = "Shade of Shadow Vengence\n" +
 					"Reduces Damage done by 25%\nAnd Reduces damage taken by 25% (Defensive)";
 				
 			}
@@ -1903,7 +1903,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 0;
 				
-				abilityText = "Stance ~ Shade of Death\n" +
+				abilityText = "Shade of Death\n" +
 					"Increases AP generation by 25% (AP Regen)";
 				
 			}
@@ -1919,7 +1919,7 @@ public class BattleGui : MonoBehaviour {
 				if(battleInfo.battleInfoAbility5Box != null)
 					battleInfo.battleInfoAbility5Box.fillAmount = 1;
 				
-				abilityText = "Stance ~ Shade of Dark Protection\n" +
+				abilityText = "Shade of Dark Protection\n" +
 					"Reduces all DoT damage by 50%";
 				
 			}

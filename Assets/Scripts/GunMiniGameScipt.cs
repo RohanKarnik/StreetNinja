@@ -1551,7 +1551,7 @@ public class GunMiniGameScipt : MonoBehaviour {
 		if(player.TurnPhases == 5){
 			
 			//Reset time for arrowColorChange
-			arrowColorTimer =(float)(Time.time + .5);
+			arrowColorTimer =(float)(Time.time + .20);
 		
 			
 			stopPosition = arrow.transform.localPosition;

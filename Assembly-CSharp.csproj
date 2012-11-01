@@ -45,11 +45,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Assets\Enemy\Enemy.cs" />
-     <Compile Include="Assets\Assets\MiniGames\GunMiniGame\GunMiniGameScipt.cs" />
-     <Compile Include="Assets\Assets\MiniGames\SwordMiniGame\SwordMiniGameScript.cs" />
      <Compile Include="Assets\Assets\Player\Abilities.cs" />
      <Compile Include="Assets\Assets\Player\Player.cs" />
-     <Compile Include="Assets\BattleGui\BattleGui.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\A Abilities\A1.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\A Abilities\A2.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\A Abilities\A3.cs" />
@@ -84,7 +81,6 @@
      <Compile Include="Assets\BattleGui\ButtonScripts\C Abilities\C3.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\C Abilities\C4.cs" />
      <Compile Include="Assets\BattleGui\ButtonScripts\C Abilities\C5.cs" />
-     <Compile Include="Assets\BattleScript.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipItems.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\EquipRandomItem.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Game\UICursor.cs" />
@@ -199,6 +195,13 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITiledSprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\Scripts\ActionData.cs" />
+     <Compile Include="Assets\Scripts\BattleGui.cs" />
+     <Compile Include="Assets\Scripts\BattleScript.cs" />
+     <Compile Include="Assets\Scripts\FiFoManager.cs" />
+     <Compile Include="Assets\Scripts\GunMiniGameScipt.cs" />
+     <Compile Include="Assets\Scripts\QueItemScript.cs" />
+     <Compile Include="Assets\Scripts\SwordMiniGameScript.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCameraAnchor.cs" />
      <Compile Include="Assets\TK2DROOT\tk2d\Code\Fonts\tk2dFont.cs" />
