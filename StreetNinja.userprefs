@@ -1,10 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\FutureFightBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\QueueItemDisplayBehaviour.cs">
     <Files>
       <File FileName="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\ActionData.cs" Line="12" Column="13" />
-      <File FileName="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\FutureFightBehaviour.cs" Line="121" Column="3" />
-      <File FileName="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\QueueItemDisplayBehaviour.cs" Line="44" Column="7" />
+      <File FileName="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\FutureFightBehaviour.cs" Line="130" Column="3" />
+      <File FileName="..\..\..\..\Documents\FiFoTest\Assets\FutureFight\Scripts\QueueItemDisplayBehaviour.cs" Line="17" Column="26" />
+      <File FileName="Assets\Scripts\QueItemScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ActionData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FiFoManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BattleScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Assets\Player\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Assets\Enemy\Enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BattleGui.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GunMiniGameScipt.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
